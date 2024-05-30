@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analog Input Configuration</title>
+    <style>
+        body {
+            font-family: Helvetica, Arial, sans-serif;
+            background-color: white;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            font-size: 14px;
+        }
+        .container {
+            background-color: white;
+            padding: 15px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            max-width: 800px;
+            width: 100%;
+        }
+        h1 {
+            color: #333;
+            margin: 0 0 20px;
+            text-align: center;
+        }
+        .tabs {
+            display: flex;
+            margin-bottom: 20px;
+        }
+        .tabs button {
+            background-color: #f1f1f1;
+            border: 1px solid #ccc;
+            border-bottom: none;
+            cursor: pointer;
+            padding: 10px;
+            margin-right: 5px;
+            flex: 1;
+        }
+        .tabs button.active {
+            background-color: white;
+            border-bottom: 1px solid white;
+        }
+        .tab-content {
+            display: none;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            background-color: white;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        label {
+            display: block;
+            margin: 6px 0 2px;
+        }
+        input, select, button {
+            width: 100%;
+            padding: 6px;
+            margin-bottom: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            font-size: 14px;
+        }
+        button {
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            cursor: pointer;
+            padding: 10px;
+            margin-top: 10px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        pre {
+            background-color: #f8f8f8;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            white-space: pre-wrap;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Configure Analog Inputs</h1>
+        <div class="tabs">
+            <!-- JavaScript will populate this with tabs -->
+        </div>
+        <div id="tabContentContainer">
+            <!-- JavaScript will populate this with tab contents -->
+        </div>
+        <button onclick="generateConfigStrings()">Generate Configuration Strings</button>
+        <h2>Configuration Strings:</h2>
+        <pre id="configStringsOutput"></pre>
+    </div>
+
+    <script>
+        const numAnalogInputs = 5; // Set the number of analog inputs
+        let currentTab = 1;
+
+        document.addEventListener('DOMContentLoaded', () => {
+            createTabs();
+            showTab(1);
+        });
+
+        function createTabs() {
+            const tabsContainer = document.querySelector('.tabs');
+            const tabContentContainer = document.getElementById('tabContentContainer');
+
+            for (let i = 1; i <= numAnalogInputs; i++) {
+                const tabButton = document.createElement('button');
+                tabButton.textContent = `Analog Input ${i}`;
+                tabButton.className = i === 1 ? 'active' : '';
+                tabButton.onclick = () => showTab(i);
+                tabsContainer.appendChild(tabButton);
+
+                const tabContent = document.createElement('div');
+                tabContent.className = i === 1 ? 'tab-content active' : 'tab-content';
+                tabContent.id = `tab${i}`;
+                tabContent.innerHTML = `
+                    <h2>Analog Input ${i}</h2>
+                    <div>
+                        <label for="name_${i}">ADC Input Name (max 31 chars)</label>
+                        <input type="text" id="name_${i}" maxlength="31">
+                    </div>
+                    <div>
+                        <label for="input_type_${i}">Input Type</label>
+                        <select id="input_type_${i}">
+                            <option value="0">0=none</option>
+                            <option value="1">1=0-20mA</option>
+                            <option value="2">2=4-20mA</option>
+                            <option value="3">3=0-5v</option>
+                            <option value="4">4=1-5v</option>
+                            <option value="5">5=+/-600ACV</option>
+                            <option value="6">6=+/-5AAC</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="damping_factor_${i}">Damping Factor (0.0-1.0)</label>
+                        <input type="number" step="0.01" id="damping_factor_${i}">
+                    </div>
+                    <div>
+                        <label for="zero_scale_engr_${i}">Engineering Units Zero Scale</label>
+                        <input type="number" step="0.01" id="zero_scale_engr_${i}">
+                    </div>
+                    <div>
+                        <label for="full_scale_engr_${i}">Engineering Units Full Scale</label>
+                        <input type="number" step="0.01" id="full_scale_engr_${i}">
+                    </div>
+                    <div>
+                        <label for="disp_precision_${i}">Display Precision (0-8)</label>
+                        <input type="number" id="disp_precision_${i}">
+                    </div>
+                `;
+                tabContentContainer.appendChild(tabContent);
+            }
+        }
+
+        function showTab(tabIndex) {
+            const tabs = document.querySelectorAll('.tabs button');
+            const tabContents = document.querySelectorAll('.tab-content');
+
+            tabs.forEach((tab, index) => {
+                if (index + 1 === tabIndex) {
+                    tab.classList.add('active');
+                } else {
+                    tab.classList.remove('active');
+                }
+            });
+
+            tabContents.forEach((content, index) => {
+                if (index + 1 === tabIndex) {
+                    content.classList.add('active');
+                } else {
+                    content.classList.remove('active');
+                }
+            });
+
+            currentTab = tabIndex;
+        }
+
+        function generateConfigStrings() {
+            let configStrings = [];
+            for (let i = 1; i <= numAnalogInputs; i++) {
+                const name = document.getElementById(`name_${i}`).value;
+                const inputType = parseInt(document.getElementById(`input_type_${i}`).value);
+                const dampingFactor = parseFloat(document.getElementById(`damping_factor_${i}`).value);
+                const zeroScaleEngr = parseFloat(document.getElementById(`zero_scale_engr_${i}`).value);
+                const fullScaleEngr = parseFloat(document.getElementById(`full_scale_engr_${i}`).value);
+                const dispPrecision = parseInt(document.getElementById(`disp_precision_${i}`).value);
+
+                const rawOffset = 10.0;
+                const zeroCount = 461.0;
+                const fullCount = 2313.0;
+                const zeroRawUnits = 4.0;
+                const fullRawUnits = 20.0;
+
+                const value98First = 100 + i;
+
+                // First configuration string
+                const configString1 = `11,${i},1,${name},2,${inputType},3,${dampingFactor},4,${zeroScaleEngr},5,${fullScaleEngr},6,${dispPrecision},11,${rawOffset},12,${zeroCount},13,${fullCount},14,${zeroRawUnits},15,${fullRawUnits},98,${value98First}`;
+                configStrings.push(configString1);
+            }
+            document.getElementById('configStringsOutput').innerText = configStrings.join('\n');
+        }
+    </script>
+</body>
+</html>
