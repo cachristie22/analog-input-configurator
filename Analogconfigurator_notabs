@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analog Input Configuration</title>
+    <style>
+        body {
+            font-family: Helvetica, Arial, sans-serif;
+            background-color: white;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            font-size: 14px;
+        }
+        .container {
+            background-color: white;
+            padding: 15px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            max-width: 800px;
+            width: 100%;
+        }
+        h1, h2 {
+            color: #333;
+            margin: 0 0 10px;
+        }
+        label {
+            display: block;
+            margin: 6px 0 2px;
+        }
+        input, select, button {
+            width: 100%;
+            padding: 6px;
+            margin-bottom: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            font-size: 14px;
+        }
+        button {
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            cursor: pointer;
+            padding: 10px;
+            margin-top: 10px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        pre {
+            background-color: #f8f8f8;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            white-space: pre-wrap;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Configure Analog Input</h1>
+        <form id="analogForm">
+            <div id="inputsContainer">
+                <!-- JavaScript will populate this with input forms -->
+            </div>
+            <button type="button" onclick="addInput()">Add Analog Input</button>
+            <button type="button" onclick="generateConfigStrings()">Generate Configuration Strings</button>
+        </form>
+        <h2>Configuration Strings:</h2>
+        <pre id="configStringsOutput"></pre>
+    </div>
+
+    <script>
+        let analogInputCount = 0;
+
+        function addInput() {
+            if (analogInputCount >= 5) {
+                alert("You can only add up to 5 analog inputs.");
+                return;
+            }
+            analogInputCount++;
+
+            const container = document.getElementById('inputsContainer');
+            const div = document.createElement('div');
+            div.id = `analogInput_${analogInputCount}`;
+            div.innerHTML = `
+                <h2>Analog Input ${analogInputCount}</h2>
+                <div>
+                    <label for="name_${analogInputCount}">ADC Input Name (max 31 chars)</label>
+                    <input type="text" id="name_${analogInputCount}" maxlength="31">
+                </div>
+                <div>
+                    <label for="input_type_${analogInputCount}">Input Type</label>
+                    <select id="input_type_${analogInputCount}">
+                        <option value="0">0=none</option>
+                        <option value="1">1=0-20mA</option>
+                        <option value="2">2=4-20mA</option>
+                        <option value="3">3=0-5v</option>
+                        <option value="4">4=1-5v</option>
+                        <option value="5">5=+/-600ACV</option>
+                        <option value="6">6=+/-5AAC</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="damping_factor_${analogInputCount}">Damping Factor (0.0-1.0)</label>
+                    <input type="number" step="0.01" id="damping_factor_${analogInputCount}">
+                </div>
+                <div>
+                    <label for="zero_scale_engr_${analogInputCount}">Engineering Units Zero Scale</label>
+                    <input type="number" step="0.01" id="zero_scale_engr_${analogInputCount}">
+                </div>
+                <div>
+                    <label for="full_scale_engr_${analogInputCount}">Engineering Units Full Scale</label>
+                    <input type="number" step="0.01" id="full_scale_engr_${analogInputCount}">
+                </div>
+                <div>
+                    <label for="disp_precision_${analogInputCount}">Display Precision (0-8)</label>
+                    <input type="number" id="disp_precision_${analogInputCount}">
+                </div>
+                <div>
+                    <label for="enable_${analogInputCount}">Enable (yes/no)</label>
+                    <select id="enable_${analogInputCount}">
+                        <option value="1">Yes</option>
+                        <option value="0">No</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="delta_${analogInputCount}">Delta</label>
+                    <input type="number" step="0.01" id="delta_${analogInputCount}">
+                </div>
+                <div>
+                    <label for="debounce_${analogInputCount}">Debounce (0-3600 seconds)</label>
+                    <input type="number" id="debounce_${analogInputCount}" min="0" max="3600">
+                </div>
+                <div>
+                    <label for="units_${analogInputCount}">Units (max 7 chars)</label>
+                    <input type="text" id="units_${analogInputCount}" maxlength="7">
+                </div>
+            `;
+            container.appendChild(div);
+        }
+
+        function generateConfigStrings() {
+            let configStrings = [];
+            for (let i = 1; i <= analogInputCount; i++) {
+                const name = document.getElementById(`name_${i}`).value;
+                const inputType = parseInt(document.getElementById(`input_type_${i}`).value);
+                const dampingFactor = parseFloat(document.getElementById(`damping_factor_${i}`).value);
+                const zeroScaleEngr = parseFloat(document.getElementById(`zero_scale_engr_${i}`).value);
+                const fullScaleEngr = parseFloat(document.getElementById(`full_scale_engr_${i}`).value);
+                const dispPrecision = parseInt(document.getElementById(`disp_precision_${i}`).value);
+
+                const enable = parseInt(document.getElementById(`enable_${i}`).value);
+                const delta = parseFloat(document.getElementById(`delta_${i}`).value);
+                const debounce = parseInt(document.getElementById(`debounce_${i}`).value);
+                const units = document.getElementById(`units_${i}`).value;
+
+                const rawOffset = 10.0;
+                const zeroCount = 461.0;
+                const fullCount = 2313.0;
+                const zeroRawUnits = 4.0;
+                const fullRawUnits = 20.0;
+
+                const value98First = 100 + i;
+                const value98Second = 1050 + i;
+
+                // First configuration string
+                const configString1 = `11,${i},1,${name},2,${inputType},3,${dampingFactor},4,${zeroScaleEngr},5,${fullScaleEngr},6,${dispPrecision},11,${rawOffset},12,${zeroCount},13,${fullCount},14,${zeroRawUnits},15,${fullRawUnits},98,${value98First}`;
+                configStrings.push(configString1);
+
+                // Second configuration string
+                const configString2 = `9,${50 + i},1,${name},2,${enable},3,2,4,1,5,${100 + i},6,4,9,0,7,${delta},8,${debounce},20,${dispPrecision},21,${units},98,${value98Second}`;
+                configStrings.push(configString2);
+            }
+            document.getElementById('configStringsOutput').innerText = configStrings.join('\n');
+        }
+    </script>
+</body>
+</html>
