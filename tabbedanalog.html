@@ -35,7 +35,8 @@
             margin-bottom: 20px;
         }
         .tabs button {
-            background-color: #f1f1f1;
+            background-color: #333;
+            color: white;
             border: 1px solid #ccc;
             border-bottom: none;
             cursor: pointer;
@@ -44,7 +45,8 @@
             flex: 1;
         }
         .tabs button.active {
-            background-color: white;
+            background-color: #007BFF;
+            color: white;
             border-bottom: 1px solid white;
         }
         .tab-content {
@@ -104,8 +106,7 @@
         <h2>Configuration Strings:</h2>
         <pre id="configStringsOutput"></pre>
     </div>
-
-    <script>
+        <script>
         const numAnalogInputs = 5; // Set the number of analog inputs
         let currentTab = 1;
 
@@ -130,6 +131,11 @@
                 tabContent.id = `tab${i}`;
                 tabContent.innerHTML = `
                     <h2>Analog Input ${i}</h2>
+                    <div>
+                        <label for="not_used_${i}">
+                            <input type="checkbox" id="not_used_${i}" checked> Not Used
+                        </label>
+                    </div>
                     <div>
                         <label for="name_${i}">ADC Input Name (max 31 chars)</label>
                         <input type="text" id="name_${i}" maxlength="31">
@@ -162,6 +168,25 @@
                         <label for="disp_precision_${i}">Display Precision (0-8)</label>
                         <input type="number" id="disp_precision_${i}">
                     </div>
+                    <div>
+                        <label for="enable_${i}">Enable (yes/no)</label>
+                        <select id="enable_${i}">
+                            <option value="1">Yes</option>
+                            <option value="0">No</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="delta_${i}">Delta</label>
+                        <input type="number" step="0.01" id="delta_${i}">
+                    </div>
+                    <div>
+                        <label for="debounce_${i}">Debounce (0-3600 seconds)</label>
+                        <input type="number" id="debounce_${i}" min="0" max="3600">
+                    </div>
+                    <div>
+                        <label for="units_${i}">Units (max 7 chars)</label>
+                        <input type="text" id="units_${i}" maxlength="7">
+                    </div>
                 `;
                 tabContentContainer.appendChild(tabContent);
             }
@@ -189,23 +214,28 @@
 
             currentTab = tabIndex;
         }
-
-        function generateConfigStrings() {
+                    function generateConfigStrings() {
             let configStrings = [];
             for (let i = 1; i <= numAnalogInputs; i++) {
+                const notUsed = document.getElementById(`not_used_${i}`).checked;
+                if (notUsed) continue; // Skip generating configuration strings for this input
+
                 const name = document.getElementById(`name_${i}`).value;
                 const inputType = parseInt(document.getElementById(`input_type_${i}`).value);
                 const dampingFactor = parseFloat(document.getElementById(`damping_factor_${i}`).value);
                 const zeroScaleEngr = parseFloat(document.getElementById(`zero_scale_engr_${i}`).value);
                 const fullScaleEngr = parseFloat(document.getElementById(`full_scale_engr_${i}`).value);
                 const dispPrecision = parseInt(document.getElementById(`disp_precision_${i}`).value);
+                const enable = parseInt(document.getElementById(`enable_${i}`).value);
+                const delta = parseFloat(document.getElementById(`delta_${i}`).value);
+                const debounce = parseInt(document.getElementById(`debounce_${i}`).value);
+                const units = document.getElementById(`units_${i}`).value;
 
                 const rawOffset = 10.0;
                 const zeroCount = 461.0;
                 const fullCount = 2313.0;
                 const zeroRawUnits = 4.0;
                 const fullRawUnits = 20.0;
-
                 const value98First = 100 + i;
                 const value98Second = 1050 + i;
 
