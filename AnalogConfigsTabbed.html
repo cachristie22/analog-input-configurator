@@ -240,11 +240,11 @@
                 const value98Second = 1050 + i;
 
                 // First configuration string
-                const configString1 = `11,${i},1,${name},2,${inputType},3,${dampingFactor},4,${zeroScaleEngr},5,${fullScaleEngr},6,${dispPrecision},11,${rawOffset},12,${zeroCount},13,${fullCount},14,${zeroRawUnits},15,${fullRawUnits},98,${value98First}`;
+                const configString1 = `258,11,${i},1,${name},2,${inputType},3,${dampingFactor},4,${zeroScaleEngr},5,${fullScaleEngr},6,${dispPrecision},11,${rawOffset},12,${zeroCount},13,${fullCount},14,${zeroRawUnits},15,${fullRawUnits},98,${value98First}`;
                 configStrings.push(configString1);
 
                 // Second configuration string
-                const configString2 = `9,${50 + i},1,${name},2,${enable},3,2,4,1,5,${100 + i},6,4,9,0,7,${delta},8,${debounce},20,${dispPrecision},21,${units},98,${value98Second}`;
+                const configString2 = `258,9,${50 + i},1,${name},2,${enable},3,2,4,1,5,${100 + i},6,4,9,0,7,${delta},8,${debounce},20,${dispPrecision},21,${units},98,${value98Second}`;
                 configStrings.push(configString2);
             }
             document.getElementById('configStringsOutput').innerText = configStrings.join('\n');
