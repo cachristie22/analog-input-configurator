@@ -105,8 +105,8 @@
         <button onclick="generateConfigStrings()">Generate Configuration Strings</button>
         <h2>Configuration Strings:</h2>
         <pre id="configStringsOutput"></pre>
-    </div>
-        <script>
+    </div>    
+    <script>
         const numDigitalInputs = 10; // Set the number of digital inputs
         let currentTab = 1;
 
@@ -193,7 +193,7 @@
 
             currentTab = tabIndex;
         }
-        function generateConfigStrings() {
+                function generateConfigStrings() {
             let configStrings = [];
             for (let i = 1; i <= numDigitalInputs; i++) {
                 const notUsed = document.getElementById(`not_used_${i}`).checked;
@@ -211,22 +211,22 @@
                 const value98 = 1020 + i;
 
                 // First configuration string
-                const configString1 = `258,9,${value9},1,${channelName},2,1,3,1,4,1,5,${value5},6,2,7,0.5,8,${debounce},9,0,30,0,31,${label0State},32,${label1State},98,${value98}`;
+                const configString1 = `9,${value9},1,${channelName},2,1,3,1,4,1,5,${value5},6,2,7,0.5,8,${debounce},9,0,30,0,31,${label0State},32,${label1State},98,${value98}`;
                 configStrings.push(configString1);
 
                 // Second configuration string (if input is a pump)
                 if (isPump === 1) {
-                    const pumpConfigString = `258,33,${i},1,${channelName},2,1,3,${value5},4,${pumpRunState}`;
+                    const pumpConfigString = `33,${i},1,${channelName},2,1,3,${value5},4,${pumpRunState}`;
                     configStrings.push(pumpConfigString);
 
                     const dailyStartsValue5 = 3100 + i;
-                    const dailyStartsValue98 = 1030 + 2 * i - 1;
-                    const dailyStartsConfigString = `258,9,31,1,${channelName} Daily Starts,2,1,3,1,5,${dailyStartsValue5},6,0,7,.5,8,0,9,0,20,1,21,Starts,98,${dailyStartsValue98}`;
+                    const dailyStartsValue98 = 1030 + 2 * (i - 1) + 1;
+                    const dailyStartsConfigString = `258,9,${30 + 2 * (i - 1) + 1},1,${channelName} Daily Starts,2,1,3,1,5,${dailyStartsValue5},6,0,7,.5,8,0,9,0,20,1,21,Starts,98,${dailyStartsValue98}`;
                     configStrings.push(dailyStartsConfigString);
 
                     const dailyRuntimeValue5 = 3200 + i;
-                    const dailyRuntimeValue98 = 1030 + 2 * i;
-                    const dailyRuntimeConfigString = `258,9,32,1,${channelName} Daily Runtime,2,1,3,2,4,1,5,${dailyRuntimeValue5},6,0,7,60.0,8,0,9,0,20,1,21,sec,98,${dailyRuntimeValue98}`;
+                    const dailyRuntimeValue98 = 1030 + 2 * (i - 1) + 2;
+                    const dailyRuntimeConfigString = `9,${30 + 2 * (i - 1) + 2},1,${channelName} Daily Runtime,2,1,3,2,4,1,5,${dailyRuntimeValue5},6,0,7,60.0,8,0,9,0,20,1,21,sec,98,${dailyRuntimeValue98}`;
                     configStrings.push(dailyRuntimeConfigString);
                 }
             }
