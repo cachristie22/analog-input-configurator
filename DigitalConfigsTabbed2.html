@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Input Configuration</title>
+    <style>
+        body {
+            font-family: Helvetica, Arial, sans-serif;
+            background-color: white;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            font-size: 14px;
+        }
+        .container {
+            background-color: white;
+            padding: 15px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            max-width: 800px;
+            width: 100%;
+        }
+        h1 {
+            color: #333;
+            margin: 0 0 20px;
+            text-align: center;
+        }
+        .tabs {
+            display: flex;
+            margin-bottom: 20px;
+        }
+        .tabs button {
+            background-color: #333;
+            color: white;
+            border: 1px solid #ccc;
+            border-bottom: none;
+            cursor: pointer;
+            padding: 10px;
+            margin-right: 5px;
+            flex: 1;
+        }
+        .tabs button.active {
+            background-color: #007BFF;
+            color: white;
+            border-bottom: 1px solid white;
+        }
+        .tab-content {
+            display: none;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            background-color: white;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        label {
+            display: block;
+            margin: 6px 0 2px;
+        }
+        input, select, button {
+            width: 100%;
+            padding: 6px;
+            margin-bottom: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            font-size: 14px;
+        }
+        button {
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            cursor: pointer;
+            padding: 10px;
+            margin-top: 10px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        pre {
+            background-color: #f8f8f8;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            white-space: pre-wrap;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Configure Digital Inputs</h1>
+        <div class="tabs">
+            <!-- JavaScript will populate this with tabs -->
+        </div>
+        <div id="tabContentContainer">
+            <!-- JavaScript will populate this with tab contents -->
+        </div>
+        <button onclick="generateConfigStrings()">Generate Configuration Strings</button>
+        <h2>Configuration Strings:</h2>
+        <pre id="configStringsOutput"></pre>
+    </div>
+        <script>
+        const numDigitalInputs = 10; // Set the number of digital inputs
+        let currentTab = 1;
+
+        document.addEventListener('DOMContentLoaded', () => {
+            createTabs();
+            showTab(1);
+        });
+
+        function createTabs() {
+            const tabsContainer = document.querySelector('.tabs');
+            const tabContentContainer = document.getElementById('tabContentContainer');
+
+            for (let i = 1; i <= numDigitalInputs; i++) {
+                const tabButton = document.createElement('button');
+                tabButton.textContent = `Digital Input ${i}`;
+                tabButton.className = i === 1 ? 'active' : '';
+                tabButton.onclick = () => showTab(i);
+                tabsContainer.appendChild(tabButton);
+
+                const tabContent = document.createElement('div');
+                tabContent.className = i === 1 ? 'tab-content active' : 'tab-content';
+                tabContent.id = `tab${i}`;
+                tabContent.innerHTML = `
+                    <h2>Digital Input ${i}</h2>
+                    <div>
+                        <label for="not_used_${i}">
+                            <input type="checkbox" id="not_used_${i}" checked> Not Used
+                        </label>
+                    </div>
+                    <div>
+                        <label for="channel_name_${i}">Channel Name</label>
+                        <input type="text" id="channel_name_${i}" maxlength="31">
+                    </div>
+                    <div>
+                        <label for="debounce_${i}">Debounce (0-3600 seconds)</label>
+                        <input type="number" id="debounce_${i}" min="0" max="3600">
+                    </div>
+                    <div>
+                        <label for="label_0_state_${i}">Label for Digital '0' State</label>
+                        <input type="text" id="label_0_state_${i}" maxlength="31">
+                    </div>
+                    <div>
+                        <label for="label_1_state_${i}">Label for Digital '1' State</label>
+                        <input type="text" id="label_1_state_${i}" maxlength="31">
+                    </div>
+                    <div>
+                        <label for="is_pump_${i}">Is this input a pump? (yes/no)</label>
+                        <select id="is_pump_${i}">
+                            <option value="1">Yes</option>
+                            <option value="0">No</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="pump_run_state_${i}">Pump Run Digital Input State (1 or 0)</label>
+                        <select id="pump_run_state_${i}">
+                            <option value="1">1</option>
+                            <option value="0">0</option>
+                        </select>
+                    </div>
+                `;
+                tabContentContainer.appendChild(tabContent);
+            }
+        }
+
+        function showTab(tabIndex) {
+            const tabs = document.querySelectorAll('.tabs button');
+            const tabContents = document.querySelectorAll('.tab-content');
+
+            tabs.forEach((tab, index) => {
+                if (index + 1 === tabIndex) {
+                    tab.classList.add('active');
+                } else {
+                    tab.classList.remove('active');
+                }
+            });
+
+            tabContents.forEach((content, index) => {
+                if (index + 1 === tabIndex) {
+                    content.classList.add('active');
+                } else {
+                    content.classList.remove('active');
+                }
+            });
+
+            currentTab = tabIndex;
+        }
+        function generateConfigStrings() {
+            let configStrings = [];
+            for (let i = 1; i <= numDigitalInputs; i++) {
+                const notUsed = document.getElementById(`not_used_${i}`).checked;
+                if (notUsed) continue; // Skip generating configuration strings for this input
+
+                const channelName = document.getElementById(`channel_name_${i}`).value;
+                const debounce = parseFloat(document.getElementById(`debounce_${i}`).value);
+                const label0State = document.getElementById(`label_0_state_${i}`).value;
+                const label1State = document.getElementById(`label_1_state_${i}`).value;
+                const isPump = parseInt(document.getElementById(`is_pump_${i}`).value);
+                const pumpRunState = document.getElementById(`pump_run_state_${i}`).value;
+
+                const value5 = 200 + i;
+                const value9 = 20 + i;
+                const value98 = 1020 + i;
+
+                // First configuration string
+                const configString1 = `9,${value9},1,${channelName},2,1,3,1,4,1,5,${value5},6,2,7,0.5,8,${debounce},9,0,30,0,31,${label0State},32,${label1State},98,${value98}`;
+                configStrings.push(configString1);
+
+                // Second configuration string (if input is a pump)
+                if (isPump === 1) {
+                    const pumpConfigString = `33,${i},1,${channelName},2,1,3,${value5},4,${pumpRunState}`;
+                    configStrings.push(pumpConfigString);
+
+                    const dailyStartsValue5 = 3100 + i;
+                    const dailyStartsValue98 = 1030 + 2 * i - 1;
+                    const dailyStartsConfigString = `258,9,31,1,${channelName} Daily Starts,2,1,3,1,5,${dailyStartsValue5},6,0,7,.5,8,0,9,0,20,1,21,Starts,98,${dailyStartsValue98}`;
+                    configStrings.push(dailyStartsConfigString);
+
+                    const dailyRuntimeValue5 = 3200 + i;
+                    const dailyRuntimeValue98 = 1030 + 2 * i;
+                    const dailyRuntimeConfigString = `9,32,1,${channelName} Daily Runtime,2,1,3,2,4,1,5,${dailyRuntimeValue5},6,0,7,60.0,8,0,9,0,20,1,21,sec,98,${dailyRuntimeValue98}`;
+                    configStrings.push(dailyRuntimeConfigString);
+                }
+            }
+            document.getElementById('configStringsOutput').innerText = configStrings.join('\n');
+        }
+    </script>
+</body>
+</html>
