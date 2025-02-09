@@ -231,11 +231,13 @@
             for (let i = 1; i <= numModbusRegisters; i++) {
                 const name = document.getElementById(`name_${i}`).value;
                 const enable = document.getElementById(`enable_${i}`).value;
+                const linktype = document.getElementById(`link_type_${i}`).value;
                 const slaveid = document.getElementById(`slave_id_${i}`).value;
                 const functionCode = document.getElementById(`function_code_${i}`).value;
                 const registerAddress = document.getElementById(`register_address_${i}`).value;
+                const registerType = document.getElementById(`register_type_${i}`).value;
                 const byte_order_ = document.getElementById(`byte_order_${i}`).value;
-                const configString = `258,18,${i},1,${name},2,${enable},4,${slaveid},${functionCode},7,${registerAddress},8,${byte_order_},15,FFFFFFFF,98,${600 + i}`;
+                const configString = `258,18,${i},1,${name},2,${enable},3,${linktype},4,${slaveid},6,${functionCode},7,${registerAddress},8,${registerType},13,${byte_order_},15,FFFFFFFF,98,${600 + i}`;
                 configStrings.push(configString);
             }
 
