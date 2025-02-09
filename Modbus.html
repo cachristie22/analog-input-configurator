@@ -236,8 +236,13 @@
                 const functionCode = document.getElementById(`function_code_${i}`).value;
                 const registerAddress = document.getElementById(`register_address_${i}`).value;
                 const registerType = document.getElementById(`register_type_${i}`).value;
+                const bitWeight = document.getElementById(`bitweight_${i}`).value;
+                const offset = document.getElementById(`offset_${i}`).value;
                 const byte_order_ = document.getElementById(`byte_order_${i}`).value;
-                const configString = `258,18,${i},1,${name},2,${enable},3,${linktype},4,${slaveid},6,${functionCode},7,${registerAddress},8,${registerType},13,${byte_order_},15,FFFFFFFF,98,${600 + i}`;
+                const signedRegister = document.getElementById(`signed_register_${i}`).value;
+                const precision = document.getElementById(`precision_${i}`).value;
+                const bitNumber = document.getElementById(`bit_number_${i}`).value;
+                const configString = `258,18,${i},1,${name},2,${enable},3,${linktype},4,${slaveid},6,${functionCode},7,${registerAddress},8,${registerType},9,${bitWeight},10,${offset},11,${signedRegister},12,${precision},13,${byte_order_},14,${bitNumber},15,FFFFFFFF,98,${600 + i}`;
                 configStrings.push(configString);
             }
 
