@@ -227,7 +227,7 @@
                 const functionCode = document.getElementById(`function_code_${i}`).value;
                 const registerAddress = document.getElementById(`register_address_${i}`).value;
                 const byte_order_ = document.getElementById(`byte_order_${i}`).value;
-                const configString = `258,18,${i},1,${name},2,${enable},4,${slaveid},${functionCode},7,${registerAddress},8,${byte_order_},15,FFFFFFFF,98,60`;
+                const configString = `258,18,${i},1,${name},2,${enable},4,${slaveid},${functionCode},7,${registerAddress},8,${byte_order_},15,FFFFFFFF,98,${600 + i}`;
                 configStrings.push(configString);
             }
 
