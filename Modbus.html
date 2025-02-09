@@ -125,7 +125,7 @@
                 tabContent.className = i === 1 ? 'tab-content active' : 'tab-content';
                 tabContent.id = `tab${i}`;
                 tabContent.innerHTML = `
-                    <h2>Modbus Register ${i}</h2>
+                    <h2>Modbus Register ${i}, Data Register ${600 + i} </h2>
                     <label>1. Name (max 31 chars)</label>
                     <input type="text" id="name_${i}" maxlength="31">
 
@@ -170,10 +170,10 @@
                         <option value="6">float32</option>
                     </select>
 
-                    <label>9. BitWeight</label>
+                    <label>9. BitWeight (scale factor, float)</label>
                     <input type="number" step="0.0001" id="bitweight_${i}">
 
-                    <label>10. Offset</label>
+                    <label>10. Offset (scale offset, float)</label>
                     <input type="number" step="0.0001" id="offset_${i}">
 
                     <label>11. Signed Register</label>
@@ -182,19 +182,27 @@
                         <option value="1">Signed</option>
                     </select>
 
-                    <label>12. Precision</label>
+                    <label>12. Precision (decimal places to show in value, 1-8)</label>
                     <select id="precision_${i}">
                         <option value="0">0</option>
                         <option value="1">1</option>
                         <option value="2">2</option>
                         <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
                     </select>
 
                     <label>13. Byte Order</label>
                     <select id="byte_order_${i}">
-                        <option value="0">LSB First</option>
-                        <option value="1">MSB First</option>
+                        <option value="0">LSB First (little)</option>
+                        <option value="1">MSB First (big)</option>
                     </select>
+                                        
+                    <label>14. Bit Number (for extracing single bit from packed register, 0-32, 0=unpacked)</label>
+                    <input type="number" id="bit_number_${i}" min="0" max="32">
                 `;
                 tabContentContainer.appendChild(tabContent);
             }
