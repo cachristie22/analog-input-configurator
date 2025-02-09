@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AQUAVX Pro Config Editor</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; padding: 20px; background-color: #f4f4f4; }
+        h2 { color: #333; }
+        label { font-weight: bold; display: block; margin-top: 10px; }
+        select, input, textarea { width: 100%; padding: 8px; margin-top: 5px; }
+        button { margin-top: 20px; padding: 10px; background-color: #28a745; color: white; border: none; cursor: pointer; }
+        button:hover { background-color: #218838; }
+        .config-section { background: white; padding: 20px; margin-top: 20px; border-radius: 5px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); }
+    </style>
+</head>
+<body>
+
+    <h2>AQUAVX Pro Config Editor</h2>
+
+    <label for="configCategory">Select Configuration Section:</label>
+    <select id="configCategory" onchange="loadConfigOptions()">
+        <option value="site">Site Config</option>
+        <option value="modbus">MODBUS Settings</option>
+        <option value="display">Display Settings</option>
+    </select>
+
+    <div id="configEditor" class="config-section">
+        <h3>Configuration Settings</h3>
+        <div id="configFields"></div>
+        <button onclick="exportConfig()">Download Config</button>
+    </div>
+
+    <script>
+        const configOptions = {
+            site: [
+                { id: "siteName", label: "Site Name", type: "text", placeholder: "Enter site name" },
+                { id: "timeZone", label: "Time Zone", type: "select", options: [
+                    { value: "0", text: "GMT" },
+                    { value: "1", text: "Atlantic (-4:00)" },
+                    { value: "2", text: "Eastern (-5:00)" },
+                    { value: "3", text: "Central (-6:00)" },
+                    { value: "4", text: "Mountain (-7:00)" },
+                    { value: "5", text: "Pacific (-8:00)" }
+                ] },
+                { id: "dst", label: "Daylight Savings Offset (hrs)", type: "number", min: "0", max: "2" }
+            ],
+            modbus: [
+                { id: "pollMode", label: "MODBUS Poll Mode", type: "select", options: [
+                    { value: "0", text: "Single Register Poll" },
+                    { value: "1", text: "Multi-Register Poll" }
+                ] },
+                { id: "pollRate", label: "MODBUS Poll Rate (secs)", type: "number", min: "0", max: "3600" },
+                { id: "slaveId", label: "MODBUS Slave ID", type: "number", min: "1", max: "247" }
+            ],
+            display: [
+                { id: "ledBrightness", label: "LED Brightness (%)", type: "number", min: "0", max: "100" },
+                { id: "displayBrightness", label: "Display Brightness (%)", type: "number", min: "0", max: "100" },
+                { id: "displayTimeout", label: "Display Off Timeout (mins)", type: "number", min: "0", max: "1440" }
+            ]
+        };
+
+        function loadConfigOptions() {
+            const selectedCategory = document.getElementById("configCategory").value;
+            const configFieldsDiv = document.getElementById("configFields");
+            configFieldsDiv.innerHTML = "";
+
+            configOptions[selectedCategory].forEach(option => {
+                const label = document.createElement("label");
+                label.innerHTML = option.label;
+
+                let input;
+                if (option.type === "select") {
+                    input = document.createElement("select");
+                    option.options.forEach(opt => {
+                        let optionElement = document.createElement("option");
+                        optionElement.value = opt.value;
+                        optionElement.text = opt.text;
+                        input.appendChild(optionElement);
+                    });
+                } else {
+                    input = document.createElement("input");
+                    input.type = option.type;
+                    if (option.min) input.min = option.min;
+                    if (option.max) input.max = option.max;
+                    if (option.placeholder) input.placeholder = option.placeholder;
+                }
+
+                input.id = option.id;
+                configFieldsDiv.appendChild(label);
+                configFieldsDiv.appendChild(input);
+            });
+        }
+
+        function exportConfig() {
+            const selectedCategory = document.getElementById("configCategory").value;
+            let configData = `____________${selectedCategory.toUpperCase()} Config____________\n`;
+
+            configOptions[selectedCategory].forEach(option => {
+                const input = document.getElementById(option.id);
+                configData += `${option.label}: ${input.value}\n`;
+            });
+
+            const blob = new Blob([configData], { type: "text/plain" });
+            const link = document.createElement("a");
+            link.href = URL.createObjectURL(blob);
+            link.download = `${selectedCategory}_config.txt`;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+        window.onload = loadConfigOptions;
+    </script>
+
+</body>
+</html>
