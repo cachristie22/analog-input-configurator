@@ -156,10 +156,10 @@
                         <option value="16">Write Multiple Holding (4x)</option>
                     </select>
 
-                    <label>Register Address (register in slave to read, 1-65535)</label>
+                    <label>7. Register Address (register in slave to read, 1-65535)</label>
                     <input type="number" id="register_address_${i}" min="1" max="65535">
 
-                    <label>7. Register Type</label>
+                    <label>8. Register Type</label>
                     <select id="register_type_${i}">
                         <option value="0">reg16</option>
                         <option value="1">reg32</option>
@@ -182,7 +182,7 @@
                         <option value="1">Signed</option>
                     </select>
 
-                    <label>12. Precision (decimal places to show in value, 1-8)</label>
+                    <label>12. Display Precision (decimal places to show in value, 1-8)</label>
                     <select id="precision_${i}">
                         <option value="0">0</option>
                         <option value="1">1</option>
@@ -195,13 +195,16 @@
                         <option value="8">8</option>
                     </select>
 
-                    <label>13. Byte Order</label>
+                    <label>13. Byte Order (Endian)</label>
                     <select id="byte_order_${i}">
                         <option value="0">LSB First (little)</option>
                         <option value="1">MSB First (big)</option>
                     </select>
                                         
                     <label>14. Bit Number (for extracing single bit from packed register, 0-32, 0=unpacked)</label>
+                    <input type="number" id="bit_number_${i}" min="0" max="32">
+
+                    <label>15. Packed Mask (used to mask unwanted bits in packed register - 0x0-0xFFFFFFFF)</label>
                     <input type="number" id="bit_number_${i}" min="0" max="32">
                 `;
                 tabContentContainer.appendChild(tabContent);
