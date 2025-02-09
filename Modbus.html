@@ -205,7 +205,7 @@
                     <input type="number" id="bit_number_${i}" min="0" max="32">
 
                     <label>15. Packed Mask (used to mask unwanted bits in packed register - 0x0-0xFFFFFFFF)</label>
-                    <input type="number" id="bit_number_${i}" min="0" max="32">
+                    <input type="text" id="packed_mask_${i}" value="FFFFFFFF">
                 `;
                 tabContentContainer.appendChild(tabContent);
             }
@@ -245,7 +245,8 @@
                 const signedRegister = document.getElementById(`signed_register_${i}`).value;
                 const precision = document.getElementById(`precision_${i}`).value;
                 const bitNumber = document.getElementById(`bit_number_${i}`).value;
-                const configString = `258,18,${i},1,${name},2,${enable},3,${linktype},4,${slaveid},6,${functionCode},7,${registerAddress},8,${registerType},9,${bitWeight},10,${offset},11,${signedRegister},12,${precision},13,${byte_order_},14,${bitNumber},15,FFFFFFFF,98,${600 + i}`;
+                const packedMask = document.getElementById(`packed_mask_${i}`).value;
+                const configString = `258,18,${i},1,${name},2,${enable},3,${linktype},4,${slaveid},6,${functionCode},7,${registerAddress},8,${registerType},9,${bitWeight},10,${offset},11,${signedRegister},12,${precision},13,${byte_order_},14,${bitNumber},15,${packedMask},98,${600 + i}`;
                 configStrings.push(configString);
             }
 
