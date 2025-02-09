@@ -192,6 +192,23 @@
             }
         }
 
+        function showTab(tabIndex) {
+            const tabs = document.querySelectorAll('.tabs button');
+            const tabContents = document.querySelectorAll('.tab-content');
+
+            tabs.forEach((tab, index) => {
+                if (index + 1 === tabIndex) {
+                    tab.classList.add('active');
+                    tabContents[index].classList.add('active');
+                } else {
+                    tab.classList.remove('active');
+                    tabContents[index].classList.remove('active');
+                }
+            });
+
+            currentTab = tabIndex;
+        }
+
         function generateConfigStrings() {
             let configStrings = [];
 
@@ -210,3 +227,6 @@
     </script>
 </body>
 </html>
+```
+
+Copy and paste this updated code into your `Modbus.html` file and commit the changes. This should fix the tabbed interface.
