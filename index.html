@@ -8,7 +8,28 @@
         body {
             font-family: Helvetica, Arial, sans-serif;
             background-color: white;
-           }
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            font-size: 14px;
+        }
+        .container {
+            background-color: white;
+            padding: 15px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            max-width: 800px;
+            width: 100%;
+        }
+        h1 {
+            color: #333;
+            margin: 0 0 20px;
+            text-align: center;
+        }
         nav {
             margin-bottom: 20px;
         }
@@ -27,23 +48,142 @@
         nav ul li a:hover {
             text-decoration: underline;
         }
+        .tabs {
+            display: flex;
+            margin-bottom: 20px;
+        }
+        .tabs button {
+            background-color: #333;
+            color: white;
+            border: 1px solid #ccc;
+            border-bottom: none;
+            cursor: pointer;
+            padding: 10px;
+            margin-right: 5px;
+            flex: 1;
+        }
+        .tabs button.active {
+            background-color: #007BFF;
+            color: white;
+            border-bottom: 1px solid white;
+        }
+        .tab-content {
+            display: none;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            background-color: white;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        label {
+            display: block;
+            margin: 6px 0 2px;
+        }
+        input, select, button {
+            width: 100%;
+            padding: 6px;
+            margin-bottom: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            font-size: 14px;
+        }
+        button {
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            cursor: pointer;
+            padding: 10px;
+            margin-top: 10px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        pre {
+            background-color: #f8f8f8;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            white-space: pre-wrap;
+            font-size: 14px;
+        }
     </style>
 </head>
 <body>
-    <header>
+    <div class="container">
         <h1>Aquavx Pro I/O Configuration</h1>
-    </header>
-    <nav>
-        <ul>
-            <li><a href="index.html">Home</a></li>
-            <li><a href="AnalogConfigsTabbed.html">Analog Input Configuration</a></li>
-            <li><a href="DigitalConfigsTabbed2.html">Digital Input Configuration</a></li>
-            <li><a href="Modbus.html">Modbus</a></li>
-            <li><a href="AquavxDictionaries.html">Dictionary Reference</a></li>
-        </ul>
-    </nav>
-    <main>
-        <p>Welcome!</p>
-    </main>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="AnalogConfigsTabbed.html">Analog Input Configuration</a></li>
+                <li><a href="DigitalConfigsTabbed2.html">Digital Input Configuration</a></li>
+                <li><a href="Modbus.html">Modbus</a></li>
+                <li><a href="AquavxDictionaries.html">Dictionary Reference</a></li>
+            </ul>
+        </nav>
+        <div class="tabs">
+            <!-- JavaScript will populate this with tabs -->
+        </div>
+        <div id="tabContentContainer">
+            <!-- JavaScript will populate this with tab contents -->
+        </div>
+    </div>
+    <script>
+        const numTabs = 3; // Set the number of tabs
+        let currentTab = 1;
+
+        document.addEventListener('DOMContentLoaded', () => {
+            createTabs();
+            showTab(1);
+        });
+
+        function createTabs() {
+            const tabsContainer = document.querySelector('.tabs');
+            const tabContentContainer = document.getElementById('tabContentContainer');
+
+            const tabNames = ['Home', 'Welcome', 'Info']; // Names of the tabs
+            for (let i = 1; i <= numTabs; i++) {
+                const tabButton = document.createElement('button');
+                tabButton.textContent = tabNames[i - 1];
+                tabButton.className = i === 1 ? 'active' : '';
+                tabButton.onclick = () => showTab(i);
+                tabsContainer.appendChild(tabButton);
+
+                const tabContent = document.createElement('div');
+                tabContent.className = i === 1 ? 'tab-content active' : 'tab-content';
+                tabContent.id = `tab${i}`;
+                tabContent.innerHTML = `
+                    <h2>${tabNames[i - 1]}</h2>
+                    <p>Content for ${tabNames[i - 1]} tab.</p>
+                `;
+                tabContentContainer.appendChild(tabContent);
+            }
+        }
+
+        function showTab(tabIndex) {
+            const tabs = document.querySelectorAll('.tabs button');
+            const tabContents = document.querySelectorAll('.tab-content');
+
+            tabs.forEach((tab, index) => {
+                if (index + 1 === tabIndex) {
+                    tab.classList.add('active');
+                } else {
+                    tab.classList.remove('active');
+                }
+            });
+
+            tabContents.forEach((content, index) => {
+                if (index + 1 === tabIndex) {
+                    content.classList.add('active');
+                } else {
+                    content.classList.remove('active');
+                }
+            });
+
+            currentTab = tabIndex;
+        }
+    </script>
 </body>
 </html>
