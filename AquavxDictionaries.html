@@ -84,10 +84,11 @@
             <option value="alarm">Alarm Function Block Dictionary</option>
         </select>
 
-        <!-- Site Dictionary -->
-        <div id="site" class="dictionary-section active">
-            <div class="dictionary-title">Site Dictionary</div>
-            <pre>
+        <div id="dictionarySections">
+            <!-- Site Dictionary -->
+            <div id="site" class="dictionary-section active">
+                <div class="dictionary-title">Site Dictionary</div>
+                <pre>
 Name            (1): site name (31 chars)
 DST             (2): daylight savings offset (0-2 hrs)
 Timezone        (3): 0-26
@@ -98,33 +99,72 @@ GetTimeMethod   (11): 0=Internet, 1=CELL, 2=GPS, 3=BLE, 4=None
 MaxDataAge      (13): the maximum interval before runtime data is considered static (1-32000 secs)
 LED Brightness  (51): set LED brightness (0-100%)
 Display Timeout (53): turn off display after this time of inactivity (0-1440 mins)
-            </pre>
-        </div>
+                </pre>
+            </div>
 
-        <!-- MODBUS Dictionary -->
-        <div id="modbus" class="dictionary-section">
-            <div class="dictionary-title">MODBUS Master Dictionary</div>
-            <pre>
+            <!-- MODBUS Dictionary -->
+            <div id="modbus" class="dictionary-section">
+                <div class="dictionary-title">MODBUS Master Dictionary</div>
+                <pre>
 Name             (1): representative register name (31 chars)
 Enable           (2): 0=disabled, 1=enabled
 Link Type        (3): physical link type, 0=RTU, 1=TCP
 SlaveID          (4): address of slave device to read from (1-247/255)
-FunctionCode     (6): 1=read coil(0x), 2=read status(1x), 3=read hold(4x), 4=read input(3x),
-                      5=write coil(0x), 6=write hold(4x), 15=write multiple coil(0x), 16=write multiple hold(4x)
+FunctionCode     (6): Read/Write function codes
 RegisterAddress  (7): address of register in slave to read (1-65535)
 RegisterType     (8): 0=reg16, 1=reg32, 2=bit16, 3=bit32, 4=packed16, 5=packed32, 6=float32
 BitWeight        (9): scale factor (float)
 Offset           (10): scale offset (float)
-SignedRegister   (11): 0=register not signed, 1=register is signed
+SignedRegister   (11): 0=unsigned, 1=signed
 DisplayPrecision (12): decimal places to show in value (0-8)
 ByteOrder(Endian)(13): 0=LSB first (little), 1=MSB first (big)
-BitNumber        (14): for extracting single bit from packed register (0-32, 0=leave packed)
-PackedMask       (15): used to mask unwanted bits in packed register (0x0-0xFFFFFFFF)
-            </pre>
+BitNumber        (14): for extracting single bit (0-32, 0=leave packed)
+PackedMask       (15): mask unwanted bits in packed register (0x0-0xFFFFFFFF)
+                </pre>
+            </div>
+
+            <!-- More Dictionaries -->
+            <div id="options" class="dictionary-section">
+                <div class="dictionary-title">Options Dictionary</div>
+                <pre>
+Block Alarm Dialog  (1): Enable to block all alarm dialog popups
+LEDsOff             (3): Enable to turn off all LEDs except the GRN System LED
+ShortVID            (17): Shorten AssetID to last 6 chars of IMEI
+PersistentCELL      (28): Suspend CELL session instead of tearing down after transfer
+MQTTProtocol        (29): Set telemetry to use MQTT protocol
+Disable Auto Backup (30): Disable automatic backing up of config before updates
+                </pre>
+            </div>
+
+            <div id="cell" class="dictionary-section">
+                <div class="dictionary-title">CELL Dictionary</div>
+                <pre>
+AssetID              (1): Asset ID string (31 chars)
+AcknowledgeType      (2): 0=none, 1=auto, 2=on-demand
+PINGRate             (4): Send PING to server (0-1440 mins, 0=disable)
+HostServerProtocol   (6): 0=UDP, 1=TCP, 2=SSL
+SIM APN              (12): Access Point Name (63 chars)
+SIM Username         (13): Username (63 chars)
+SIM Password         (14): Password (63 chars)
+MaxDailySMS          (18): Max daily SMS transmissions (0-25)
+SMS911Phone#         (19): Phone number to send SMS 911 messages (15 chars)
+                </pre>
+            </div>
+
+            <div id="ftp" class="dictionary-section">
+                <div class="dictionary-title">FTP Dictionary</div>
+                <pre>
+ReportType         (1): Get/Put FTP Report Type
+PutPath            (2): FTP server write path (63 chars)
+GetPath            (3): FTP server read path (63 chars)
+GetFileName        (4): File name on FTP server (63 chars)
+FTPServerIPAddress (7): FTP server IP address (127 chars)
+FTPServerUserName  (8): FTP login username (63 chars)
+FTPServerPassword  (9): FTP login password (63 chars)
+Mode               (10): 0=active, 1=passive
+                </pre>
+            </div>
         </div>
-
-        <!-- More dictionaries can be added similarly -->
-
     </div>
 
     <script>
