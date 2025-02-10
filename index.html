@@ -77,6 +77,38 @@
         .tab-content.active {
             display: block;
         }
+        .sub-tabs {
+            display: none;
+            margin-top: 20px;
+        }
+        .sub-tabs.active {
+            display: flex;
+        }
+        .sub-tabs button {
+            background-color: #555;
+            color: white;
+            border: 1px solid #ccc;
+            border-bottom: none;
+            cursor: pointer;
+            padding: 10px;
+            margin-right: 5px;
+            flex: 1;
+        }
+        .sub-tabs button.active {
+            background-color: #007BFF;
+            color: white;
+            border-bottom: 1px solid white;
+        }
+        .sub-tab-content {
+            display: none;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            background-color: white;
+        }
+        .sub-tab-content.active {
+            display: block;
+        }
         label {
             display: block;
             margin: 6px 0 2px;
@@ -113,7 +145,7 @@
 </head>
 <body>
     <div class="container">
-        <h1>Aquavx Pro/Pro Plus Online Configuration Tool</h1>
+        <h1>Aquavx Pro I/O Configuration</h1>
         <nav>
             <ul>
                 <li><a href="index.html">Home</a></li>
@@ -143,7 +175,7 @@
             const tabsContainer = document.querySelector('.tabs');
             const tabContentContainer = document.getElementById('tabContentContainer');
 
-            const tabNames = ['Home', 'Welcome', 'Info']; // Names of the tabs
+            const tabNames = ['Home', 'Welcome', 'Configure']; // Names of the tabs
             for (let i = 1; i <= numTabs; i++) {
                 const tabButton = document.createElement('button');
                 tabButton.textContent = tabNames[i - 1];
@@ -154,10 +186,32 @@
                 const tabContent = document.createElement('div');
                 tabContent.className = i === 1 ? 'tab-content active' : 'tab-content';
                 tabContent.id = `tab${i}`;
-                tabContent.innerHTML = `
-                    <h2>${tabNames[i - 1]}</h2>
-                    <p>Content for ${tabNames[i - 1]} tab.</p>
-                `;
+                if (tabNames[i - 1] === 'Configure') {
+                    tabContent.innerHTML = `
+                        <div class="sub-tabs" id="subTabs${i}">
+                            <button onclick="showSubTab(${i}, 1)" class="active">Analog</button>
+                            <button onclick="showSubTab(${i}, 2)">Digital</button>
+                            <button onclick="showSubTab(${i}, 3)">Modbus</button>
+                        </div>
+                        <div class="sub-tab-content active" id="subTabContent${i}_1">
+                            <h2>Analog Configuration</h2>
+                            <p>Content for Analog Configuration.</p>
+                        </div>
+                        <div class="sub-tab-content" id="subTabContent${i}_2">
+                            <h2>Digital Configuration</h2>
+                            <p>Content for Digital Configuration.</p>
+                        </div>
+                        <div class="sub-tab-content" id="subTabContent${i}_3">
+                            <h2>Modbus Configuration</h2>
+                            <p>Content for Modbus Configuration.</p>
+                        </div>
+                    `;
+                } else {
+                    tabContent.innerHTML = `
+                        <h2>${tabNames[i - 1]}</h2>
+                        <p>Content for ${tabNames[i - 1]} tab.</p>
+                    `;
+                }
                 tabContentContainer.appendChild(tabContent);
             }
         }
@@ -183,6 +237,27 @@
             });
 
             currentTab = tabIndex;
+        }
+
+        function showSubTab(parentTabIndex, subTabIndex) {
+            const subTabs = document.querySelectorAll(`#tab${parentTabIndex} .sub-tabs button`);
+            const subTabContents = document.querySelectorAll(`#tab${parentTabIndex} .sub-tab-content`);
+
+            subTabs.forEach((tab, index) => {
+                if (index + 1 === subTabIndex) {
+                    tab.classList.add('active');
+                } else {
+                    tab.classList.remove('active');
+                }
+            });
+
+            subTabContents.forEach((content, index) => {
+                if (index + 1 === subTabIndex) {
+                    content.classList.add('active');
+                } else {
+                    content.classList.remove('active');
+                }
+            });
         }
     </script>
 </body>
