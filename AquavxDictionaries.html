@@ -82,6 +82,10 @@
             <option value="adc">ADC Dictionary</option>
             <option value="pumpControl">Pump Control Dictionary</option>
             <option value="alarm">Alarm Function Block Dictionary</option>
+            <option value="digitalOutput">Digital Output Dictionary</option>
+            <option value="analogOutput">Analog Output Dictionary</option>
+            <option value="timedEvent">Timed Event Dictionary</option>
+            <option value="averages">Averages Dictionary</option>
         </select>
 
         <div id="dictionarySections">
@@ -166,7 +170,152 @@ Mode               (10): 0=active, 1=passive
             </div>
         </div>
     </div>
+<!-- SerialPort Dictionary -->
+<div id="serial" class="dictionary-section">
+    <div class="dictionary-title">SerialPort Dictionary</div>
+    <pre>
+Name             (1): Representative port name
+Enable           (2): 0=disabled, 1=enabled
+PortMode         (3): 0=none, 1=debug, 2=cell, 3=master, 4=slave, 5=satellite, 6=bluetooth
+RS232/RS485      (4): 0=RS232, 1=RS485
+Baud             (5): Baud rate options: 1200, 2400, 4800, 9600, 19200, 38400, 57600, 115200
+FlowControl      (15): 0=no flow control, 1=rts/cts flow control
+    </pre>
+</div>
 
+<!-- Report Dictionary -->
+<div id="report" class="dictionary-section">
+    <div class="dictionary-title">Report Dictionary</div>
+    <pre>
+EndOfDayOffset        (1): Offset from midnight for end of day report (0-1440 mins)
+EndOfDayRate          (2): End of day report rate (0-1440 mins)
+StdReportRate         (3): Standard report rate (0-1440 mins)
+PushMaintInterval     (20): Max interval between successive PUSH messages (1-1440 mins)
+    </pre>
+</div>
+
+<!-- CHAN Dictionary -->
+<div id="chan" class="dictionary-section">
+    <div class="dictionary-title">CHAN Dictionary</div>
+    <pre>
+Name              (1): Representative Channel name (31 chars)
+Type              (3): 1=digital, 2=analog
+Enable            (2): 1=enabled, 0=disabled
+Reports           (4): 1=enabled, 0=disabled
+SourceDataReg     (5): Source data register for this channel
+DisplayPrecision  (20): Decimal positions to show in value (0-8)
+    </pre>
+</div>
+
+<!-- Ethernet Dictionary -->
+<div id="ethernet" class="dictionary-section">
+    <div class="dictionary-title">Ethernet Dictionary</div>
+    <pre>
+Host Name              (1): Representative Host Name (15 chars)
+Default IP Address     (2): Default unit IP (127 chars)
+Subnet Mask            (3): Subnet mask (xxx.xxx.xxx.xxx)
+Gateway IP             (4): Gateway IP address (127 chars)
+DHCP Client Enable     (5): 0=disable, 1=enable
+Modbus TCP Server Enable (20): 0=disable, 1=enable
+Modbus TCP Client Enable (30): 0=disable, 1=enable
+    </pre>
+</div>
+
+<!-- ADC Dictionary -->
+<div id="adc" class="dictionary-section">
+    <div class="dictionary-title">ADC Dictionary</div>
+    <pre>
+Name            (1): Representative ADC input name (31 chars)
+InputType      (2): 0=none, 1=0-20mA, 2=4-20mA, 3=0-5v, 4=1-5v, 5=+/-600ACV, 6=+/-5AAC
+DampingFactor  (3): Smooth noisy signals (0.0-1.0, float)
+ZeroScaleEngr  (4): Zero scale engineering units (float)
+FullScaleEngr  (5): Full scale engineering units (float)
+DispPrecision  (6): Decimal places to show in values (0-8)
+    </pre>
+</div>
+
+<!-- Pump Control Dictionary -->
+<div id="pumpControl" class="dictionary-section">
+    <div class="dictionary-title">Pump Control Dictionary</div>
+    <pre>
+Enable               (1): 0=disabled, 1=enabled
+Mode                 (2): 0=drain, 1=fill
+Alternation          (4): 0=automatic, 1=manual
+Number Pumps         (3): 1=simplex, 2=duplex
+Sensor Type          (7): 0=floats, 1=sensor
+Debounce             (30): Debounce for all float inputs & setpoints (secs)
+Start Delay          (31): Delay pump start (secs)
+    </pre>
+</div>
+
+<!-- Alarm Function Block Dictionary -->
+<div id="alarm" class="dictionary-section">
+    <div class="dictionary-title">Alarm Function Block Dictionary</div>
+    <pre>
+Name          (1): Representative alarm name (31 chars)
+Enable        (2): 1 enables, 0 disables
+Popup         (3): 1 enables alarm popups, 0 disables
+Type          (4): 0=standard, 1=latched
+SourceChan    (5): Value checked for alarm condition
+DispPrecision (6): Decimal places for analog values (0-8)
+AlarmDelay    (7): Time in alarm state before activation (0-999999 secs)
+CallRoster    (8): 0=none, 1=standard, 2=priority
+    </pre>
+</div>
+
+<!-- Digital Output Function Block Dictionary -->
+<div id="digitalOutput" class="dictionary-section">
+    <div class="dictionary-title">Digital Output Function Block Dictionary</div>
+    <pre>
+Name                 (1): Representative digital output name (31 chars)
+Enable               (2): 1 enables, 0 disables
+SourceReg            (3): Data register determining output state
+SrcActiveState       (5): Source active state (0-1)
+OutputDataReg        (4): Output state written to this data register
+OutputActiveState    (7): 0=deactivate, 1=activate
+OutputDuration       (8): Max duration in active state (secs)
+    </pre>
+</div>
+
+<!-- Analog Output Function Block Dictionary -->
+<div id="analogOutput" class="dictionary-section">
+    <div class="dictionary-title">Analog Output Function Block Dictionary</div>
+    <pre>
+Name                (1): Representative analog output name (31 chars)
+Enable              (2): 1 enables, 0 disables
+SourceReg           (3): Determines output value
+DestinationReg      (4): Output value written here
+AnalogZeroScale     (6): Scaling zero value (float)
+AnalogFullScale     (7): Scaling full value (float)
+DispPrecision       (5): Decimal places in values (0-8)
+    </pre>
+</div>
+
+<!-- Timed Event Function Block Dictionary -->
+<div id="timedEvent" class="dictionary-section">
+    <div class="dictionary-title">Timed Event Function Block Dictionary</div>
+    <pre>
+Name            (1): Representative timed event name (31 chars)
+Enable          (2): 1 enables, 0 disables
+AutoStartOffset (3): Offset from midnight to start (mins)
+RepeatInterval  (5): Time between repeats (mins)
+RunDuration     (6): Run duration of timed event (secs)
+    </pre>
+</div>
+
+<!-- Averages Function Block Dictionary -->
+<div id="averages" class="dictionary-section">
+    <div class="dictionary-title">Averages Function Block Dictionary</div>
+    <pre>
+Name              (1): Representative name for this function block (31 chars)
+Enable            (2): 1 enables, 0 disables
+SourceReg         (3): Data register for computed average
+SamplingInterval  (5): Time interval for samples (1-86400 secs)
+AveragingInterval (6): Interval for computed average (1-1440 mins)
+LowThreshold      (7): Discard samples below this threshold (float)
+HighThreshold     (8): Discard samples above this threshold (float)
+    </pre>
+</div>
     <script>
         function showDictionary() {
             let selectedDict = document.getElementById("dictionarySelect").value;
