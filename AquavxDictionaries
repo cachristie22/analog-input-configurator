@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AQUAVX Pro Dictionary Reference</title>
+    <style>
+        body {
+            font-family: Helvetica, Arial, sans-serif;
+            background-color: white;
+            margin: 0;
+            padding: 20px;
+            font-size: 14px;
+        }
+        .container {
+            background-color: white;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            max-width: 800px;
+            margin: auto;
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+        label {
+            font-weight: bold;
+            display: block;
+            margin-top: 10px;
+        }
+        select {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            font-size: 14px;
+        }
+        .dictionary-section {
+            display: none;
+            margin-top: 20px;
+            padding: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            background-color: #f8f8f8;
+        }
+        .dictionary-section.active {
+            display: block;
+        }
+        .dictionary-title {
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        pre {
+            white-space: pre-wrap;
+            background-color: white;
+            padding: 10px;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>AQUAVX Pro Dictionary Reference</h1>
+
+        <label for="dictionarySelect">Select a Dictionary:</label>
+        <select id="dictionarySelect" onchange="showDictionary()">
+            <option value="site">Site Dictionary</option>
+            <option value="modbus">MODBUS Master Dictionary</option>
+            <option value="options">Options Dictionary</option>
+            <option value="cell">CELL Dictionary</option>
+            <option value="ftp">FTP Dictionary</option>
+            <option value="serial">SerialPort Dictionary</option>
+            <option value="report">Report Dictionary</option>
+            <option value="chan">CHAN Dictionary</option>
+            <option value="ethernet">Ethernet Dictionary</option>
+            <option value="adc">ADC Dictionary</option>
+            <option value="pumpControl">Pump Control Dictionary</option>
+            <option value="alarm">Alarm Function Block Dictionary</option>
+        </select>
+
+        <!-- Site Dictionary -->
+        <div id="site" class="dictionary-section active">
+            <div class="dictionary-title">Site Dictionary</div>
+            <pre>
+Name            (1): site name (31 chars)
+DST             (2): daylight savings offset (0-2 hrs)
+Timezone        (3): 0-26
+MODBUS PollMode (7): 0=single register poll, 1=multi-register poll
+MODBUS PollRate (8): poll rate (0-3600 secs, 0=500 msec)
+MODBUS Slave ID (9): MODBUS Slave ID (1-247/255)
+GetTimeMethod   (11): 0=Internet, 1=CELL, 2=GPS, 3=BLE, 4=None
+MaxDataAge      (13): the maximum interval before runtime data is considered static (1-32000 secs)
+LED Brightness  (51): set LED brightness (0-100%)
+Display Timeout (53): turn off display after this time of inactivity (0-1440 mins)
+            </pre>
+        </div>
+
+        <!-- MODBUS Dictionary -->
+        <div id="modbus" class="dictionary-section">
+            <div class="dictionary-title">MODBUS Master Dictionary</div>
+            <pre>
+Name             (1): representative register name (31 chars)
+Enable           (2): 0=disabled, 1=enabled
+Link Type        (3): physical link type, 0=RTU, 1=TCP
+SlaveID          (4): address of slave device to read from (1-247/255)
+FunctionCode     (6): 1=read coil(0x), 2=read status(1x), 3=read hold(4x), 4=read input(3x),
+                      5=write coil(0x), 6=write hold(4x), 15=write multiple coil(0x), 16=write multiple hold(4x)
+RegisterAddress  (7): address of register in slave to read (1-65535)
+RegisterType     (8): 0=reg16, 1=reg32, 2=bit16, 3=bit32, 4=packed16, 5=packed32, 6=float32
+BitWeight        (9): scale factor (float)
+Offset           (10): scale offset (float)
+SignedRegister   (11): 0=register not signed, 1=register is signed
+DisplayPrecision (12): decimal places to show in value (0-8)
+ByteOrder(Endian)(13): 0=LSB first (little), 1=MSB first (big)
+BitNumber        (14): for extracting single bit from packed register (0-32, 0=leave packed)
+PackedMask       (15): used to mask unwanted bits in packed register (0x0-0xFFFFFFFF)
+            </pre>
+        </div>
+
+        <!-- More dictionaries can be added similarly -->
+
+    </div>
+
+    <script>
+        function showDictionary() {
+            let selectedDict = document.getElementById("dictionarySelect").value;
+            let sections = document.querySelectorAll(".dictionary-section");
+
+            sections.forEach(section => {
+                section.classList.remove("active");
+                if (section.id === selectedDict) {
+                    section.classList.add("active");
+                }
+            });
+        }
+    </script>
+</body>
+</html>
