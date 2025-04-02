@@ -1,274 +1,144 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aquavx Pro/Pro Plus Modbus Master Configuration</title>
-    <style>
-        body {
-            font-family: Helvetica, Arial, sans-serif;
-            background-color: white;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            font-size: 14px;
-        }
-        .container {
-            background-color: white;
-            padding: 15px;
-            border: 1px solid #ccc;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            max-width: 800px;
-            width: 100%;
-        }
-        h1 {
-            color: #333;
-            margin: 0 0 20px;
-            text-align: center;
-        }
-        .tabs {
-            display: flex;
-            margin-bottom: 20px;
-        }
-        .tabs button {
-            background-color: #333;
-            color: white;
-            border: 1px solid #ccc;
-            border-bottom: none;
-            cursor: pointer;
-            padding: 10px;
-            margin-right: 5px;
-            flex: 1;
-        }
-        .tabs button.active {
-            background-color: #007BFF;
-        }
-        .tab-content {
-            display: none;
-            padding: 20px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            background-color: white;
-        }
-        .tab-content.active {
-            display: block;
-        }
-        label {
-            display: block;
-            margin: 6px 0 2px;
-        }
-        input, select, button {
-            width: 100%;
-            padding: 6px;
-            margin-bottom: 8px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            box-sizing: border-box;
-            font-size: 14px;
-        }
-        button {
-            background-color: #007BFF;
-            color: white;
-            border: none;
-            cursor: pointer;
-            padding: 10px;
-            margin-top: 10px;
-        }
-        button:hover {
-            background-color: #0056b3;
-        }
-        pre {
-            background-color: #f8f8f8;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            white-space: pre-wrap;
-            font-size: 14px;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aquavx Pro/Pro Plus Modbus Master Configuration</title>
+  <style>
+    body { font-family: Helvetica, Arial, sans-serif; background-color: white; margin: 0; padding: 0; display: flex; justify-content: center; align-items: center; min-height: 100vh; font-size: 14px; }
+    .container { background-color: white; padding: 15px; border: 1px solid #ccc; border-radius: 8px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); max-width: 800px; width: 100%; }
+    h1 { color: #333; margin: 0 0 20px; text-align: center; }
+    .tabs { display: flex; margin-bottom: 20px; }
+    .tabs button { background-color: #333; color: white; border: 1px solid #ccc; border-bottom: none; cursor: pointer; padding: 10px; margin-right: 5px; flex: 1; }
+    .tabs button.active { background-color: #007BFF; }
+    .tab-content { display: none; padding: 20px; border: 1px solid #ccc; border-radius: 4px; background-color: white; }
+    .tab-content.active { display: block; }
+    label { display: block; margin: 6px 0 2px; }
+    input, select, button { width: 100%; padding: 6px; margin-bottom: 8px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; font-size: 14px; }
+    button { background-color: #007BFF; color: white; border: none; cursor: pointer; padding: 10px; margin-top: 10px; }
+    button:hover { background-color: #0056b3; }
+    pre { background-color: #f8f8f8; padding: 10px; border: 1px solid #ccc; border-radius: 4px; white-space: pre-wrap; font-size: 14px; }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Modbus Register Configuration</h1>
-        <div class="tabs"></div>
-        <div id="tabContentContainer"></div>
-        <button onclick="generateConfigStrings()">Generate Configuration Strings</button>
-        <h2>Configuration Strings:</h2>
-        <pre id="configStringsOutput"></pre>
-        <button onclick="exportConfig()">Export Config</button>
-        <input type="file" id="importFileInput" accept=".txt" style="margin-top: 10px;">
-        <button onclick="importConfig()">Import Config</button>
-    </div>
-
-    <script>
-        const numModbusRegisters = 10;
-        let currentTab = 1;
-
-        document.addEventListener('DOMContentLoaded', () => {
-            createTabs();
-            showTab(1);
+  <div class="container">
+    <h1>Modbus Register Configuration</h1>
+    <div class="tabs"></div>
+    <div id="tabContentContainer"></div>
+    <button onclick="generateConfigStrings()">Generate Configuration Strings</button>
+    <h2>Configuration Strings:</h2>
+    <pre id="configStringsOutput"></pre>
+    <button onclick="exportConfig()">Export Config</button>
+    <input type="file" id="importFileInput" accept=".txt" style="margin-top: 10px;">
+    <button onclick="importConfig()">Import Config</button>
+  </div>
+  <script>
+    const numModbusRegisters = 10;
+    let currentTab = 1;
+    document.addEventListener('DOMContentLoaded', () => {
+      createTabs();
+      showTab(1);
+    });
+    function createTabs() {
+      const tabsContainer = document.querySelector('.tabs');
+      const tabContentContainer = document.getElementById('tabContentContainer');
+      for (let i = 1; i <= numModbusRegisters; i++) {
+        const tabButton = document.createElement('button');
+        tabButton.textContent = `Register ${i}`;
+        tabButton.className = i === 1 ? 'active' : '';
+        tabButton.onclick = () => showTab(i);
+        tabsContainer.appendChild(tabButton);
+        const tabContent = document.createElement('div');
+        tabContent.className = i === 1 ? 'tab-content active' : 'tab-content';
+        tabContent.id = `tab${i}`;
+        tabContent.innerHTML = `
+          <h2>Modbus Register ${i}, Data Register ${600 + i}</h2>
+          <label>1. Name (max 31 chars)</label>
+          <input type="text" id="name_${i}" maxlength="31">
+          <label>2. Enable</label>
+          <select id="enable_${i}"><option value="1">1 Enabled</option><option value="0">0 Disabled</option></select>
+          <label>3. Link Type</label>
+          <select id="link_type_${i}"><option value="0">0 RTU</option><option value="1">1 TCP</option></select>
+          <label>4. Slave ID</label>
+          <input type="number" id="slave_id_${i}" min="1" max="255">
+          <label>6. Function Code</label>
+          <select id="function_code_${i}"><option value="1">1 Read Coil (0x)</option><option value="2">2 Read Status (1x)</option><option value="3">3 Read Holding (4x)</option><option value="4">4 Read Input (3x)</option><option value="5">5 Write Coil (0x)</option><option value="6">6 Write Holding (4x)</option><option value="15">15 Write Multiple Coil (0x)</option><option value="16">16 Write Multiple Holding (4x)</option></select>
+          <label>7. Register Address</label>
+          <input type="number" id="register_address_${i}" min="1" max="65535">
+          <label>8. Register Type</label>
+          <select id="register_type_${i}"><option value="0">0 reg16</option><option value="1">1 reg32</option><option value="2">2 bit16</option><option value="3">3 bit32</option><option value="4">4 packed16</option><option value="5">5 packed32</option><option value="6">6 float32</option></select>
+          <label>9. BitWeight</label>
+          <input type="number" step="0.0001" id="bitweight_${i}">
+          <label>10. Offset</label>
+          <input type="number" step="0.0001" id="offset_${i}">
+          <label>11. Signed Register</label>
+          <select id="signed_register_${i}"><option value="0">0 Unsigned</option><option value="1">1 Signed</option></select>
+          <label>12. Display Precision</label>
+          <select id="precision_${i}">${[...Array(9).keys()].map(v => `<option value="${v}">${v}</option>`).join('')}</select>
+          <label>13. Byte Order</label>
+          <select id="byte_order_${i}"><option value="0">0 LSB First</option><option value="1">1 MSB First</option></select>
+          <label>14. Bit Number</label>
+          <input type="number" id="bit_number_${i}" min="0" max="32">
+          <label>15. Packed Mask</label>
+          <input type="text" id="packed_mask_${i}" value="FFFFFFFF">
+        `;
+        tabContentContainer.appendChild(tabContent);
+      }
+    }
+    function showTab(i) {
+      document.querySelectorAll('.tabs button').forEach((btn, idx) => btn.classList.toggle('active', idx + 1 === i));
+      document.querySelectorAll('.tab-content').forEach((tab, idx) => tab.classList.toggle('active', idx + 1 === i));
+      currentTab = i;
+    }
+    function generateConfigStrings() {
+      const configStrings = [];
+      for (let i = 1; i <= numModbusRegisters; i++) {
+        const values = [`258,18,${i},1,${document.getElementById(`name_${i}`).value}`,`2,${document.getElementById(`enable_${i}`).value}`,`3,${document.getElementById(`link_type_${i}`).value}`,`4,${document.getElementById(`slave_id_${i}`).value}`,`6,${document.getElementById(`function_code_${i}`).value}`,`7,${document.getElementById(`register_address_${i}`).value}`,`8,${document.getElementById(`register_type_${i}`).value}`,`9,${document.getElementById(`bitweight_${i}`).value}`,`10,${document.getElementById(`offset_${i}`).value}`,`11,${document.getElementById(`signed_register_${i}`).value}`,`12,${document.getElementById(`precision_${i}`).value}`,`13,${document.getElementById(`byte_order_${i}`).value}`,`14,${document.getElementById(`bit_number_${i}`).value}`,`15,${document.getElementById(`packed_mask_${i}`).value}`,`98,${600 + i}`];
+        configStrings.push(values.join(','));
+      }
+      document.getElementById('configStringsOutput').innerText = configStrings.join('\n');
+    }
+    function exportConfig() {
+      generateConfigStrings();
+      const blob = new Blob([document.getElementById('configStringsOutput').innerText], { type: 'text/plain' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'modbus_config.txt';
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+    function importConfig() {
+      const fileInput = document.getElementById('importFileInput');
+      if (!fileInput.files.length) return alert('Please choose a file first.');
+      const reader = new FileReader();
+      reader.onload = e => {
+        e.target.result.split('\n').forEach(line => {
+          const parts = line.split(',');
+          const i = parseInt(parts[2], 10);
+          if (isNaN(i) || i < 1 || i > numModbusRegisters) return;
+          const name = parts[4] || '';
+          const map = {};
+          for (let j = 5; j < parts.length; j += 2) map[parts[j]] = parts[j + 1];
+          document.getElementById(`name_${i}`).value = name;
+          document.getElementById(`enable_${i}`).value = map['2'] || '1';
+          document.getElementById(`link_type_${i}`).value = map['3'] || '0';
+          document.getElementById(`slave_id_${i}`).value = map['4'] || '';
+          document.getElementById(`function_code_${i}`).value = map['6'] || '3';
+          document.getElementById(`register_address_${i}`).value = map['7'] || '';
+          document.getElementById(`register_type_${i}`).value = map['8'] || '0';
+          document.getElementById(`bitweight_${i}`).value = map['9'] || '';
+          document.getElementById(`offset_${i}`).value = map['10'] || '';
+          document.getElementById(`signed_register_${i}`).value = map['11'] || '0';
+          document.getElementById(`precision_${i}`).value = map['12'] || '0';
+          document.getElementById(`byte_order_${i}`).value = map['13'] || '0';
+          document.getElementById(`bit_number_${i}`).value = map['14'] || '';
+          document.getElementById(`packed_mask_${i}`).value = map['15'] || 'FFFFFFFF';
         });
-
-        function createTabs() {
-            const tabsContainer = document.querySelector('.tabs');
-            const tabContentContainer = document.getElementById('tabContentContainer');
-
-            for (let i = 1; i <= numModbusRegisters; i++) {
-                const tabButton = document.createElement('button');
-                tabButton.textContent = `Register ${i}`;
-                tabButton.className = i === 1 ? 'active' : '';
-                tabButton.onclick = () => showTab(i);
-                tabsContainer.appendChild(tabButton);
-
-                const tabContent = document.createElement('div');
-                tabContent.className = i === 1 ? 'tab-content active' : 'tab-content';
-                tabContent.id = `tab${i}`;
-                tabContent.innerHTML = `
-                    <h2>Modbus Register ${i}, Data Register ${600 + i}</h2>
-                    <label>1. Name (max 31 chars)</label>
-                    <input type="text" id="name_${i}" maxlength="31">
-                    <label>2. Enable</label>
-                    <select id="enable_${i}">
-                        <option value="1">1 Enabled</option>
-                        <option value="0">0 Disabled</option>
-                    </select>
-                    <label>3. Link Type</label>
-                    <select id="link_type_${i}">
-                        <option value="0">0 RTU</option>
-                        <option value="1">1 TCP</option>
-                    </select>
-                    <label>4. Slave ID</label>
-                    <input type="number" id="slave_id_${i}" min="1" max="255">
-                    <label>6. Function Code</label>
-                    <select id="function_code_${i}">
-                        <option value="1">1 Read Coil (0x)</option>
-                        <option value="2">2 Read Status (1x)</option>
-                        <option value="3">3 Read Holding (4x)</option>
-                        <option value="4">4 Read Input (3x)</option>
-                        <option value="5">5 Write Coil (0x)</option>
-                        <option value="6">6 Write Holding (4x)</option>
-                        <option value="15">15 Write Multiple Coil (0x)</option>
-                        <option value="16">16 Write Multiple Holding (4x)</option>
-                    </select>
-                    <label>7. Register Address</label>
-                    <input type="number" id="register_address_${i}" min="1" max="65535">
-                    <label>8. Register Type</label>
-                    <select id="register_type_${i}">
-                        <option value="0">0 reg16</option>
-                        <option value="1">1 reg32</option>
-                        <option value="2">2 bit16</option>
-                        <option value="3">3 bit32</option>
-                        <option value="4">4 packed16</option>
-                        <option value="5">5 packed32</option>
-                        <option value="6">6 float32</option>
-                    </select>
-                    <label>9. BitWeight</label>
-                    <input type="number" step="0.0001" id="bitweight_${i}">
-                    <label>10. Offset</label>
-                    <input type="number" step="0.0001" id="offset_${i}">
-                    <label>11. Signed Register</label>
-                    <select id="signed_register_${i}">
-                        <option value="0">0 Unsigned</option>
-                        <option value="1">1 Signed</option>
-                    </select>
-                    <label>12. Display Precision</label>
-                    <select id="precision_${i}">
-                        ${[...Array(9).keys()].map(v => `<option value="${v}">${v}</option>`).join('')}
-                    </select>
-                    <label>13. Byte Order</label>
-                    <select id="byte_order_${i}">
-                        <option value="0">0 LSB First</option>
-                        <option value="1">1 MSB First</option>
-                    </select>
-                    <label>14. Bit Number</label>
-                    <input type="number" id="bit_number_${i}" min="0" max="32">
-                    <label>15. Packed Mask</label>
-                    <input type="text" id="packed_mask_${i}" value="FFFFFFFF">
-                `;
-                tabContentContainer.appendChild(tabContent);
-            }
-        }
-
-        function showTab(i) {
-            document.querySelectorAll('.tabs button').forEach((btn, idx) => {
-                btn.classList.toggle('active', idx + 1 === i);
-            });
-            document.querySelectorAll('.tab-content').forEach((tab, idx) => {
-                tab.classList.toggle('active', idx + 1 === i);
-            });
-            currentTab = i;
-        }
-
-        function generateConfigStrings() {
-            const configStrings = [];
-            for (let i = 1; i <= numModbusRegisters; i++) {
-                const values = [
-                    `258,18,${i},1,${document.getElementById(`name_${i}`).value}`,
-                    `2,${document.getElementById(`enable_${i}`).value}`,
-                    `3,${document.getElementById(`link_type_${i}`).value}`,
-                    `4,${document.getElementById(`slave_id_${i}`).value}`,
-                    `6,${document.getElementById(`function_code_${i}`).value}`,
-                    `7,${document.getElementById(`register_address_${i}`).value}`,
-                    `8,${document.getElementById(`register_type_${i}`).value}`,
-                    `9,${document.getElementById(`bitweight_${i}`).value}`,
-                    `10,${document.getElementById(`offset_${i}`).value}`,
-                    `11,${document.getElementById(`signed_register_${i}`).value}`,
-                    `12,${document.getElementById(`precision_${i}`).value}`,
-                    `13,${document.getElementById(`byte_order_${i}`).value}`,
-                    `14,${document.getElementById(`bit_number_${i}`).value}`,
-                    `15,${document.getElementById(`packed_mask_${i}`).value}`,
-                    `98,${600 + i}`
-                ];
-                configStrings.push(values.join(','));
-            }
-            document.getElementById('configStringsOutput').innerText = configStrings.join('\n');
-        }
-
-        function exportConfig() {
-            generateConfigStrings();
-            const blob = new Blob([document.getElementById('configStringsOutput').innerText], { type: 'text/plain' });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = 'modbus_config.txt';
-            a.click();
-            URL.revokeObjectURL(url);
-        }
-
-        function importConfig() {
-            const fileInput = document.getElementById('importFileInput');
-            if (!fileInput.files.length) return alert('Please choose a file first.');
-            const reader = new FileReader();
-            reader.onload = e => {
-                e.target.result.split('\n').forEach(line => {
-                    const parts = line.split(',');
-                    const i = parseInt(parts[2], 10);
-                    if (isNaN(i) || i < 1 || i > numModbusRegisters) return;
-                    const map = {};
-                    for (let j = 4; j < parts.length; j += 2) map[parts[j]] = parts[j + 1];
-                    document.getElementById(`name_${i}`).value = map['1'] || '';
-                    document.getElementById(`enable_${i}`).value = map['2'] || '1';
-                    document.getElementById(`link_type_${i}`).value = map['3'] || '0';
-                    document.getElementById(`slave_id_${i}`).value = map['4'] || '';
-                    document.getElementById(`function_code_${i}`).value = map['6'] || '3';
-                    document.getElementById(`register_address_${i}`).value = map['7'] || '';
-                    document.getElementById(`register_type_${i}`).value = map['8'] || '0';
-                    document.getElementById(`bitweight_${i}`).value = map['9'] || '';
-                    document.getElementById(`offset_${i}`).value = map['10'] || '';
-                    document.getElementById(`signed_register_${i}`).value = map['11'] || '0';
-                    document.getElementById(`precision_${i}`).value = map['12'] || '0';
-                    document.getElementById(`byte_order_${i}`).value = map['13'] || '0';
-                    document.getElementById(`bit_number_${i}`).value = map['14'] || '';
-                    document.getElementById(`packed_mask_${i}`).value = map['15'] || 'FFFFFFFF';
-                });
-                alert('Configuration imported successfully!');
-            };
-            reader.readAsText(fileInput.files[0]);
-        }
-    </script>
+        alert('Configuration imported successfully!');
+      };
+      reader.readAsText(fileInput.files[0]);
+    }
+  </script>
 </body>
 </html>
