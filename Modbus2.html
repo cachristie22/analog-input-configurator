@@ -28,6 +28,8 @@
     <button onclick="generateConfigStrings()">Generate Configuration Strings</button>
     <h2>Configuration Strings:</h2>
     <pre id="configStringsOutput"></pre>
+    <label for="filenameInput">Export File Name (without .txt):</label>
+    <input type="text" id="filenameInput" placeholder="modbus_config">
     <button onclick="exportConfig()">Export Config</button>
     <input type="file" id="importFileInput" accept=".txt" style="margin-top: 10px;">
     <button onclick="importConfig()">Import Config</button>
@@ -93,18 +95,21 @@
     function generateConfigStrings() {
       const configStrings = [];
       for (let i = 1; i <= numModbusRegisters; i++) {
-        const values = [`258,18,${i},1,${document.getElementById(`name_${i}`).value}`,`2,${document.getElementById(`enable_${i}`).value}`,`3,${document.getElementById(`link_type_${i}`).value}`,`4,${document.getElementById(`slave_id_${i}`).value}`,`6,${document.getElementById(`function_code_${i}`).value}`,`7,${document.getElementById(`register_address_${i}`).value}`,`8,${document.getElementById(`register_type_${i}`).value}`,`9,${document.getElementById(`bitweight_${i}`).value}`,`10,${document.getElementById(`offset_${i}`).value}`,`11,${document.getElementById(`signed_register_${i}`).value}`,`12,${document.getElementById(`precision_${i}`).value}`,`13,${document.getElementById(`byte_order_${i}`).value}`,`14,${document.getElementById(`bit_number_${i}`).value}`,`15,${document.getElementById(`packed_mask_${i}`).value}`,`98,${600 + i}`];
+        const values = [`18,${i},1,${document.getElementById(`name_${i}`).value}`,`2,${document.getElementById(`enable_${i}`).value}`,`3,${document.getElementById(`link_type_${i}`).value}`,`4,${document.getElementById(`slave_id_${i}`).value}`,`6,${document.getElementById(`function_code_${i}`).value}`,`7,${document.getElementById(`register_address_${i}`).value}`,`8,${document.getElementById(`register_type_${i}`).value}`,`9,${document.getElementById(`bitweight_${i}`).value}`,`10,${document.getElementById(`offset_${i}`).value}`,`11,${document.getElementById(`signed_register_${i}`).value}`,`12,${document.getElementById(`precision_${i}`).value}`,`13,${document.getElementById(`byte_order_${i}`).value}`,`14,${document.getElementById(`bit_number_${i}`).value}`,`15,${document.getElementById(`packed_mask_${i}`).value}`,`98,${600 + i}`];
         configStrings.push(values.join(','));
       }
       document.getElementById('configStringsOutput').innerText = configStrings.join('\n');
     }
     function exportConfig() {
       generateConfigStrings();
-      const blob = new Blob([document.getElementById('configStringsOutput').innerText], { type: 'text/plain' });
+      const text = document.getElementById('configStringsOutput').innerText;
+      const filenameInput = document.getElementById('filenameInput').value.trim();
+      const filename = (filenameInput ? filenameInput : 'modbus_config') + '.txt';
+      const blob = new Blob([text], { type: 'text/plain' });
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = url;
-      a.download = 'modbus_config.txt';
+      a.download = filename;
       a.click();
       URL.revokeObjectURL(url);
     }
@@ -114,12 +119,15 @@
       const reader = new FileReader();
       reader.onload = e => {
         e.target.result.split('\n').forEach(line => {
+          if (!line.includes('18,')) return;
           const parts = line.split(',');
-          const i = parseInt(parts[2], 10);
+          const baseIndex = parts[0] === '18' ? 0 : parts[1] === '18' ? 1 : -1;
+          if (baseIndex === -1) return;
+          const i = parseInt(parts[baseIndex + 1], 10);
           if (isNaN(i) || i < 1 || i > numModbusRegisters) return;
-          const name = parts[4] || '';
+          const name = parts[baseIndex + 3] || '';
           const map = {};
-          for (let j = 5; j < parts.length; j += 2) map[parts[j]] = parts[j + 1];
+          for (let j = baseIndex + 4; j < parts.length; j += 2) map[parts[j]] = parts[j + 1];
           document.getElementById(`name_${i}`).value = name;
           document.getElementById(`enable_${i}`).value = map['2'] || '1';
           document.getElementById(`link_type_${i}`).value = map['3'] || '0';
