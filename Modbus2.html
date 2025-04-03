@@ -143,7 +143,7 @@
         if (isNaN(i) || i < 1 || i > numModbusRegisters) return;
         const name = parts[3] || '';
         const map = {};
-        for (let j = 4; j < parts.length; j += 2) {
+        for (let j = 4; j < parts.length - 1; j += 2) {
           const key = parts[j];
           const val = parts[j + 1];
           if (key !== undefined && val !== undefined) map[key] = val;
