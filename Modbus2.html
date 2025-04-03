@@ -18,6 +18,7 @@
     button { background-color: #007BFF; color: white; border: none; cursor: pointer; padding: 10px; margin-top: 10px; }
     button:hover { background-color: #0056b3; }
     pre { background-color: #f8f8f8; padding: 10px; border: 1px solid #ccc; border-radius: 4px; white-space: pre-wrap; font-size: 14px; }
+    #importPreview { margin-top: 10px; padding: 10px; border: 1px solid #ccc; border-radius: 4px; background: #f0f0f0; max-height: 200px; overflow-y: auto; font-family: monospace; }
   </style>
 </head>
 <body>
@@ -32,15 +33,20 @@
     <input type="text" id="filenameInput" placeholder="modbus_config">
     <button onclick="exportConfig()">Export Config</button>
     <input type="file" id="importFileInput" accept=".txt" style="margin-top: 10px;">
+    <button onclick="previewImportConfig()">Preview Import</button>
+    <div id="importPreview"></div>
     <button onclick="importConfig()">Import Config</button>
   </div>
   <script>
     const numModbusRegisters = 10;
     let currentTab = 1;
+    let importLines = [];
+
     document.addEventListener('DOMContentLoaded', () => {
       createTabs();
       showTab(1);
     });
+
     function createTabs() {
       const tabsContainer = document.querySelector('.tabs');
       const tabContentContainer = document.getElementById('tabContentContainer');
@@ -87,11 +93,13 @@
         tabContentContainer.appendChild(tabContent);
       }
     }
+
     function showTab(i) {
       document.querySelectorAll('.tabs button').forEach((btn, idx) => btn.classList.toggle('active', idx + 1 === i));
       document.querySelectorAll('.tab-content').forEach((tab, idx) => tab.classList.toggle('active', idx + 1 === i));
       currentTab = i;
     }
+
     function generateConfigStrings() {
       const configStrings = [];
       for (let i = 1; i <= numModbusRegisters; i++) {
@@ -100,6 +108,7 @@
       }
       document.getElementById('configStringsOutput').innerText = configStrings.join('\n');
     }
+
     function exportConfig() {
       generateConfigStrings();
       const text = document.getElementById('configStringsOutput').innerText;
@@ -113,39 +122,48 @@
       a.click();
       URL.revokeObjectURL(url);
     }
-    function importConfig() {
+
+    function previewImportConfig() {
       const fileInput = document.getElementById('importFileInput');
       if (!fileInput.files.length) return alert('Please choose a file first.');
       const reader = new FileReader();
       reader.onload = e => {
-        e.target.result.split('\n').forEach(line => {
-          if (!line.includes('18,')) return;
-          const parts = line.split(',');
-          const baseIndex = parts[0] === '18' ? 0 : parts[1] === '18' ? 1 : -1;
-          if (baseIndex === -1) return;
-          const i = parseInt(parts[baseIndex + 1], 10);
-          if (isNaN(i) || i < 1 || i > numModbusRegisters) return;
-          const name = parts[baseIndex + 3] || '';
-          const map = {};
-          for (let j = baseIndex + 4; j < parts.length; j += 2) map[parts[j]] = parts[j + 1];
-          document.getElementById(`name_${i}`).value = name;
-          document.getElementById(`enable_${i}`).value = map['2'] || '1';
-          document.getElementById(`link_type_${i}`).value = map['3'] || '0';
-          document.getElementById(`slave_id_${i}`).value = map['4'] || '';
-          document.getElementById(`function_code_${i}`).value = map['6'] || '3';
-          document.getElementById(`register_address_${i}`).value = map['7'] || '';
-          document.getElementById(`register_type_${i}`).value = map['8'] || '0';
-          document.getElementById(`bitweight_${i}`).value = map['9'] || '';
-          document.getElementById(`offset_${i}`).value = map['10'] || '';
-          document.getElementById(`signed_register_${i}`).value = map['11'] || '0';
-          document.getElementById(`precision_${i}`).value = map['12'] || '0';
-          document.getElementById(`byte_order_${i}`).value = map['13'] || '0';
-          document.getElementById(`bit_number_${i}`).value = map['14'] || '';
-          document.getElementById(`packed_mask_${i}`).value = map['15'] || 'FFFFFFFF';
-        });
-        alert('Configuration imported successfully!');
+        const lines = e.target.result.split('\n').filter(line => line.startsWith('18,'));
+        importLines = lines;
+        document.getElementById('importPreview').innerText = lines.length ? lines.join('\n') : 'No valid lines found.';
       };
       reader.readAsText(fileInput.files[0]);
+    }
+
+    function importConfig() {
+      if (!importLines.length) return alert('Please preview a config file first.');
+      importLines.forEach(line => {
+        const parts = line.split(',');
+        const i = parseInt(parts[1], 10);
+        if (isNaN(i) || i < 1 || i > numModbusRegisters) return;
+        const name = parts[3] || '';
+        const map = {};
+        for (let j = 4; j < parts.length; j += 2) {
+          const key = parts[j];
+          const val = parts[j + 1];
+          if (key !== undefined && val !== undefined) map[key] = val;
+        }
+        document.getElementById(`name_${i}`).value = name;
+        document.getElementById(`enable_${i}`).value = map['2'] || '1';
+        document.getElementById(`link_type_${i}`).value = map['3'] || '0';
+        document.getElementById(`slave_id_${i}`).value = map['4'] || '';
+        document.getElementById(`function_code_${i}`).value = map['6'] || '3';
+        document.getElementById(`register_address_${i}`).value = map['7'] || '';
+        document.getElementById(`register_type_${i}`).value = map['8'] || '0';
+        document.getElementById(`bitweight_${i}`).value = map['9'] || '';
+        document.getElementById(`offset_${i}`).value = map['10'] || '';
+        document.getElementById(`signed_register_${i}`).value = map['11'] || '0';
+        document.getElementById(`precision_${i}`).value = map['12'] || '0';
+        document.getElementById(`byte_order_${i}`).value = map['13'] || '0';
+        document.getElementById(`bit_number_${i}`).value = map['14'] || '';
+        document.getElementById(`packed_mask_${i}`).value = map['15'] || 'FFFFFFFF';
+      });
+      alert('Configuration imported successfully!');
     }
   </script>
 </body>
