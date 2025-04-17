@@ -51,7 +51,7 @@
 
     // Initial load from embedded configLines (replace ... with actual data)
     const configLines = `...`.trim().split(/\r?\n/);
-    configLines.forEach(line => {
+    //configLines.forEach(line => {
       const parts = line.split(',');
       if (parts[0] !== '9') return;
       renderRow(parts[1], parts.slice(2));
