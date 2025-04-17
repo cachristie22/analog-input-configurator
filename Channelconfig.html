@@ -5,94 +5,116 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>IoT Channel Config Editor</title>
   <style>
-    table { border-collapse: collapse; width: 100%; overflow-x: auto; }
-    th, td { border: 1px solid #ccc; padding: 4px; text-align: left; }
-    input { width: 100%; box-sizing: border-box; }
-    textarea { width: 100%; height: 200px; margin-top: 10px; }
+    body { font-family: Arial, sans-serif; padding: 20px; }
     .container { overflow-x: scroll; margin-bottom: 10px; }
+    table { border-collapse: collapse; width: 100%; }
+    th, td { border: 1px solid #ccc; padding: 5px; }
+    input { width: 100%; box-sizing: border-box; }
+    textarea { width: 100%; height: 120px; margin-top: 10px; }
+    .controls { margin-bottom: 10px; }
   </style>
 </head>
 <body>
   <h1>IoT Channel Configuration Editor</h1>
+  <div class="controls">
+    <input type="file" id="fileInput" accept=".log" />
+    <button id="exportBtn">Export to Textarea</button>
+    <button id="downloadBtn">Download .log File</button>
+  </div>
   <div class="container">
     <table id="configTable">
       <thead><tr id="headerRow"></tr></thead>
       <tbody id="configBody"></tbody>
     </table>
   </div>
-
-  <button onclick="exportConfig()">Export to Textarea</button>
-  <button onclick="downloadConfig()">Download .log File</button>
-  <input type="file" id="fileInput" accept=".log" onchange="importConfig(event)" />
-  <textarea id="output" placeholder="Updated config lines..."></textarea>
+  <textarea id="output" placeholder="File content / Updated config lines..."></textarea>
 
   <script>
-    const paramMap = {
-      1: 'name', 2: 'enable', 3: 'type', 4: 'report', 5: 'srcreg',
-      6: 'scroll', 7: 'delta', 8: 'deltadeb', 9: 'pump',
-      20: 'prec', 21: 'units', 30: 'bitnum', 31: 'zerolabel', 32: 'onelabel',
-      98: 'id'
-    };
+    // Parameter number → field name
+    const paramMap = {1:'name',2:'enable',3:'type',4:'report',5:'srcreg',6:'scroll',7:'delta',8:'deltadeb',9:'pump',20:'prec',21:'units',30:'bitnum',31:'zerolabel',32:'onelabel',98:'id'};
     const allParams = Object.values(paramMap);
-    document.getElementById('headerRow').innerHTML =
-      '<th>Channel</th>' + allParams.map(p => `<th>${p}</th>`).join('');
+    const headerRow = document.getElementById('headerRow');
     const configBody = document.getElementById('configBody');
+    const outputArea = document.getElementById('output');
+    const fileInput = document.getElementById('fileInput');
+    const exportBtn = document.getElementById('exportBtn');
+    const downloadBtn = document.getElementById('downloadBtn');
 
-    function renderRow(chanNum, entries) {
+    function buildHeader() {
+      headerRow.innerHTML = '<th>Channel</th>' +
+        allParams.map(name => `<th>${name}</th>`).join('');
+    }
+
+    function renderRow(chan, data) {
       const row = document.createElement('tr');
-      row.dataset.chan = chanNum;
-      const values = {};
-      for (let i = 0; i < entries.length; i += 2) {
-        const key = paramMap[entries[i]];
-        if (key) values[key] = entries[i + 1];
-      }
-      row.innerHTML = `<td>${chanNum}</td>` +
-        allParams.map(p =>
-          `<td><input type="text" data-chan="${chanNum}" data-param="${p}" value="${values[p] || ''}" /></td>`
-        ).join('');
+      row.dataset.chan = chan;
+      row.innerHTML = `<td>${chan}</td>` +
+        allParams.map(key => {
+          const val = data[key] || '';
+          return `<td><input data-chan="${chan}" data-param="${key}" value="${val}" /></td>`;
+        }).join('');
       configBody.appendChild(row);
     }
 
-    function importConfig(event) {
-      const file = event.target.files[0];
+    function importConfig(evt) {
+      const file = evt.target.files[0];
       if (!file) return;
       const reader = new FileReader();
-      reader.onload = e => {
+      reader.onload = () => {
+        const text = reader.result;
+        // Debug: show raw file
+        outputArea.value = text;
         configBody.innerHTML = '';
-        const lines = e.target.result.split(/\r?\n/);
+        const lines = text.split(/\r?\n/);
         lines.forEach(line => {
           const t = line.trim();
           if (!t || t.startsWith('//')) return;
           const parts = t.split(',');
           if (parts[0] !== '9') return;
-          renderRow(parts[1], parts.slice(2));
+          const chan = parts[1];
+          const entries = parts.slice(2);
+          const data = {};
+          for (let i = 0; i < entries.length; i += 2) {
+            const num = entries[i];
+            const key = paramMap[num];
+            if (key) data[key] = entries[i+1] || '';
+          }
+          renderRow(chan, data);
         });
       };
       reader.readAsText(file);
     }
 
     function exportConfig() {
-      let output = '';
+      let out = '';
       configBody.querySelectorAll('tr').forEach(row => {
         const chan = row.dataset.chan;
         const inputs = row.querySelectorAll('input');
-        const entries = Array.from(inputs).map(inp => {
-          const num = Object.entries(paramMap).find(([k, v]) => v === inp.dataset.param)[0];
+        const parts = Array.from(inputs).map(inp => {
+          const num = Object.entries(paramMap).find(([k,v]) => v === inp.dataset.param)[0];
           return `${num},${inp.value}`;
         });
-        output += `9,${chan},${entries.join(',')}\n`;
+        out += `9,${chan},${parts.join(',')}\n`;
       });
-      document.getElementById('output').value = output.trim();
+      outputArea.value = out.trim();
     }
 
     function downloadConfig() {
       exportConfig();
-      const blob = new Blob([document.getElementById('output').value], { type: 'text/plain' });
-      const link = document.createElement('a');
-      link.href = URL.createObjectURL(blob);
-      link.download = 'config.log';
-      link.click();
+      const blob = new Blob([outputArea.value], {type:'text/plain'});
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'config.log';
+      a.click();
+      URL.revokeObjectURL(url);
     }
+
+    // Event bindings
+    document.addEventListener('DOMContentLoaded', buildHeader);
+    fileInput.addEventListener('change', importConfig);
+    exportBtn.addEventListener('click', exportConfig);
+    downloadBtn.addEventListener('click', downloadConfig);
   </script>
 </body>
 </html>
