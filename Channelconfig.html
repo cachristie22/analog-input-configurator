@@ -8,15 +8,15 @@
     body { font-family: Arial, sans-serif; padding: 20px; }
     .controls { margin-bottom: 10px; }
     .controls input, .controls button { margin-right: 5px; }
-    .container { overflow-x: auto; max-height: 70vh; margin-bottom: 10px; }
+    .container { overflow-x: auto; max-height: 60vh; margin-bottom: 10px; }
     table { border-collapse: collapse; width: 100%; }
     th, td { border: 1px solid #ccc; padding: 5px; text-align: left; }
     input[type="text"] { width: 100%; box-sizing: border-box; }
-    textarea { width: 100%; height: 120px; }
+    textarea { width: 100%; height: 200px; font-family: monospace; }
   </style>
 </head>
 <body>
-  <h1>IoT Channel Configuration Editor</h1>
+  <h1>IoT Channel Configuration Editor (Debug Mode)</h1>
   <div class="controls">
     <input type="file" id="fileInput" accept=".log" />
     <button id="exportBtn">Export to Textarea</button>
@@ -28,110 +28,89 @@
       <tbody id="configBody"></tbody>
     </table>
   </div>
-  <textarea id="output" placeholder="File content or exported config..."></textarea>
+  <textarea id="output" placeholder="File content / Debug logs / Exported config..."></textarea>
 
   <script>
-    // Map parameter numbers to field names
-    const paramMap = {
-      1: 'name', 2: 'enable', 3: 'type', 4: 'report', 5: 'srcreg',
-      6: 'scroll', 7: 'delta', 8: 'deltadeb', 9: 'pump',
-      20: 'prec', 21: 'units', 30: 'bitnum', 31: 'zerolabel', 32: 'onelabel',
-      98: 'id'
-    };
+    const paramMap = {1:'name',2:'enable',3:'type',4:'report',5:'srcreg',6:'scroll',7:'delta',8:'deltadeb',9:'pump',20:'prec',21:'units',30:'bitnum',31:'zerolabel',32:'onelabel',98:'id'};
     const allParams = Object.values(paramMap);
 
-    // Build table header
     function buildHeader() {
-      const headerRow = document.getElementById('headerRow');
-      headerRow.innerHTML = '<th>Channel</th>' + allParams.map(p => `<th>${p}</th>`).join('');
+      document.getElementById('headerRow').innerHTML = '<th>Channel</th>' + allParams.map(p => `<th>${p}</th>`).join('');
     }
 
-    // Render a row for a given channel
     function renderRow(channel, data) {
-      const tbody = document.getElementById('configBody');
       const tr = document.createElement('tr');
       tr.dataset.chan = channel;
-      let rowHtml = `<td>${channel}</td>`;
-      allParams.forEach(param => {
-        const val = data[param] || '';
-        rowHtml += `<td><input type="text" data-chan="${channel}" data-param="${param}" value="${val}" /></td>`;
+      let html = `<td>${channel}</td>`;
+      allParams.forEach(key => {
+        html += `<td><input type="text" data-chan="${channel}" data-param="${key}" value="${data[key]||''}"></td>`;
       });
-      tr.innerHTML = rowHtml;
-      tbody.appendChild(tr);
+      document.getElementById('configBody').appendChild(tr).innerHTML = html;
     }
 
-    // Initialize once DOM is ready
-    document.addEventListener('DOMContentLoaded', () => {
+    window.addEventListener('DOMContentLoaded', () => {
       buildHeader();
       const fileInput = document.getElementById('fileInput');
-      const outputArea = document.getElementById('output');
-      const exportBtn = document.getElementById('exportBtn');
-      const downloadBtn = document.getElementById('downloadBtn');
+      const output = document.getElementById('output');
 
-      // Import config from file
-      fileInput.addEventListener('change', (e) => {
+      fileInput.addEventListener('change', e => {
         const file = e.target.files[0];
         if (!file) return;
         const reader = new FileReader();
         reader.onload = () => {
           const text = reader.result;
-          outputArea.value = text;  // show raw content
-
-          // Parse lines
           const lines = text.split(/\r?\n/);
-          const channelData = [];
-          lines.forEach(line => {
+          let debug = `Total lines: ${lines.length}\n`;
+          const parsed = [];
+          lines.forEach((line, idx) => {
             const t = line.trim();
-            if (!t.startsWith('9,')) return;
-            const parts = t.split(',');
-            const chan = parts[1];
-            const entries = parts.slice(2);
-            const data = {};
-            for (let i = 0; i < entries.length; i += 2) {
-              const num = entries[i];
-              const key = paramMap[num];
-              if (key) data[key] = entries[i+1] || '';
+            const isChan = t.startsWith('9,');
+            debug += `${idx}: '${t}' => ${isChan ? 'PARSE' : 'SKIP'}\n`;
+            if (isChan) {
+              const parts = t.split(',');
+              const chan = parts[1];
+              const entries = parts.slice(2);
+              const data = {};
+              for (let i = 0; i < entries.length; i += 2) {
+                const num = entries[i];
+                if (paramMap[num]) data[paramMap[num]] = entries[i+1] || '';
+              }
+              parsed.push({chan, data});
             }
-            channelData.push({ chan, data });
           });
+          if (parsed.length === 0) debug += '\nNo channel lines parsed!';
+          output.value = debug;
 
-          // Render rows
+          // Render table
           const tbody = document.getElementById('configBody');
           tbody.innerHTML = '';
           buildHeader();
-          channelData.forEach(item => renderRow(item.chan, item.data));
-
-          // If no rows, notify
-          if (channelData.length === 0) {
-            alert('No channel lines (starting with 9,) were found in the file.');
-          }
+          parsed.forEach(item => renderRow(item.chan, item.data));
         };
         reader.readAsText(file);
       });
 
-      // Export table data to textarea
-      exportBtn.addEventListener('click', () => {
-        let result = '';
+      document.getElementById('exportBtn').addEventListener('click', () => {
+        let out = '';
         document.querySelectorAll('#configBody tr').forEach(tr => {
           const chan = tr.dataset.chan;
           const parts = Array.from(tr.querySelectorAll('input')).map(inp => {
             const num = Object.entries(paramMap).find(([k,v]) => v === inp.dataset.param)[0];
             return `${num},${inp.value}`;
           });
-          result += `9,${chan},${parts.join(',')}\n`;
+          out += `9,${chan},${parts.join(',')}\n`;
         });
-        outputArea.value = result.trim();
+        output.value = out.trim();
       });
 
-      // Download textarea content as .log
-      downloadBtn.addEventListener('click', () => {
-        exportBtn.click();
-        const blob = new Blob([outputArea.value], { type: 'text/plain' });
-        const link = document.createElement('a');
-        link.href = URL.createObjectURL(blob);
-        link.download = 'config.log';
-        link.click();
-        URL.revokeObjectURL(link.href);
+      document.getElementById('downloadBtn').addEventListener('click', () => {
+        document.getElementById('exportBtn').click();
+        const blob = new Blob([output.value], {type:'text/plain'});
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = 'config.log';
+        a.click();
+        URL.revokeObjectURL(a.href);
       });
     });
   </script>
