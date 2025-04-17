@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>IoT Channel Configuration Editor</title>
+  <title>IoT Channel Config Editor</title>
   <style>
     body { font-family: Arial, sans-serif; padding: 20px; }
     .controls { margin-bottom: 10px; }
@@ -31,7 +31,7 @@
   <textarea id="output" placeholder="File content or exported config..."></textarea>
 
   <script>
-    // Map of parameter indices to field names
+    // Map parameter numbers to field names
     const paramMap = {
       1: 'name', 2: 'enable', 3: 'type', 4: 'report', 5: 'srcreg',
       6: 'scroll', 7: 'delta', 8: 'deltadeb', 9: 'pump',
@@ -40,14 +40,13 @@
     };
     const allParams = Object.values(paramMap);
 
-    // Build table header based on allParams
+    // Build table header
     function buildHeader() {
       const headerRow = document.getElementById('headerRow');
-      headerRow.innerHTML = '<th>Channel</th>' +
-        allParams.map(key => `<th>${key}</th>`).join('');
+      headerRow.innerHTML = '<th>Channel</th>' + allParams.map(p => `<th>${p}</th>`).join('');
     }
 
-    // Render a single channel row
+    // Render a row for a given channel
     function renderRow(channel, data) {
       const tbody = document.getElementById('configBody');
       const tr = document.createElement('tr');
@@ -61,73 +60,79 @@
       tbody.appendChild(tr);
     }
 
-    // Import config from .log file
-    function importConfig(event) {
-      const input = document.getElementById('fileInput');
-      const file = input.files[0];
-      if (!file) return;
-      const reader = new FileReader();
-      reader.onload = () => {
-        const text = reader.result;
-        // Show raw file content
-        document.getElementById('output').value = text;
-
-        // Clear existing rows
-        document.getElementById('configBody').innerHTML = '';
-        buildHeader();
-
-        // Parse and render each valid line
-        text.split(/\r?\n/).forEach(line => {
-          const trimmed = line.trim();
-          if (!trimmed || !trimmed.startsWith('9,')) return;
-          const parts = trimmed.split(',');
-          const channel = parts[1];
-          const entries = parts.slice(2);
-          const data = {};
-          for (let i = 0; i < entries.length; i += 2) {
-            const num = entries[i];
-            const key = paramMap[num];
-            if (key) data[key] = entries[i+1] || '';
-          }
-          renderRow(channel, data);
-        });
-      };
-      reader.readAsText(file);
-    }
-
-    // Export current table data to textarea
-    function exportConfig() {
-      let result = '';
-      document.querySelectorAll('#configBody tr').forEach(tr => {
-        const channel = tr.dataset.chan;
-        const parts = Array.from(tr.querySelectorAll('input')).map(inp => {
-          const paramNum = Object.entries(paramMap).find(([num, key]) => key === inp.dataset.param)[0];
-          return `${paramNum},${inp.value}`;
-        });
-        result += `9,${channel},${parts.join(',')}\n`;
-      });
-      document.getElementById('output').value = result.trim();
-    }
-
-    // Download the textarea content as a .log file
-    function downloadConfig() {
-      exportConfig();
-      const content = document.getElementById('output').value;
-      const blob = new Blob([content], { type: 'text/plain' });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = 'config.log';
-      a.click();
-      URL.revokeObjectURL(url);
-    }
-
-    // Initialize events on DOM load
-    window.addEventListener('DOMContentLoaded', () => {
+    // Initialize once DOM is ready
+    document.addEventListener('DOMContentLoaded', () => {
       buildHeader();
-      document.getElementById('fileInput').addEventListener('change', importConfig);
-      document.getElementById('exportBtn').addEventListener('click', exportConfig);
-      document.getElementById('downloadBtn').addEventListener('click', downloadConfig);
+      const fileInput = document.getElementById('fileInput');
+      const outputArea = document.getElementById('output');
+      const exportBtn = document.getElementById('exportBtn');
+      const downloadBtn = document.getElementById('downloadBtn');
+
+      // Import config from file
+      fileInput.addEventListener('change', (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = () => {
+          const text = reader.result;
+          outputArea.value = text;  // show raw content
+
+          // Parse lines
+          const lines = text.split(/\r?\n/);
+          const channelData = [];
+          lines.forEach(line => {
+            const t = line.trim();
+            if (!t.startsWith('9,')) return;
+            const parts = t.split(',');
+            const chan = parts[1];
+            const entries = parts.slice(2);
+            const data = {};
+            for (let i = 0; i < entries.length; i += 2) {
+              const num = entries[i];
+              const key = paramMap[num];
+              if (key) data[key] = entries[i+1] || '';
+            }
+            channelData.push({ chan, data });
+          });
+
+          // Render rows
+          const tbody = document.getElementById('configBody');
+          tbody.innerHTML = '';
+          buildHeader();
+          channelData.forEach(item => renderRow(item.chan, item.data));
+
+          // If no rows, notify
+          if (channelData.length === 0) {
+            alert('No channel lines (starting with 9,) were found in the file.');
+          }
+        };
+        reader.readAsText(file);
+      });
+
+      // Export table data to textarea
+      exportBtn.addEventListener('click', () => {
+        let result = '';
+        document.querySelectorAll('#configBody tr').forEach(tr => {
+          const chan = tr.dataset.chan;
+          const parts = Array.from(tr.querySelectorAll('input')).map(inp => {
+            const num = Object.entries(paramMap).find(([k,v]) => v === inp.dataset.param)[0];
+            return `${num},${inp.value}`;
+          });
+          result += `9,${chan},${parts.join(',')}\n`;
+        });
+        outputArea.value = result.trim();
+      });
+
+      // Download textarea content as .log
+      downloadBtn.addEventListener('click', () => {
+        exportBtn.click();
+        const blob = new Blob([outputArea.value], { type: 'text/plain' });
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(blob);
+        link.download = 'config.log';
+        link.click();
+        URL.revokeObjectURL(link.href);
+      });
     });
   </script>
 </body>
