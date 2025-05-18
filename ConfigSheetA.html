@@ -23,85 +23,55 @@
   </div>
   <div id="formContainer"></div>
 
-  <!-- SheetJS library -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
   <script>
-    let globalWorksheet;
+    // Embedded sheet data as a JS array
+    const sheetData = [["","","","","","","","","","","","",""],["","Aquavx Pro Plus Description","x","","","","","","","","","",""],["","Channel Name","Units per Pulse","Units","","","","","","","","",""],["","Pump Speed (Hz) Input","x","","","","","","","","","",""],["","Pump Speed Output","x","","","","","","","","","",""],["","Example line showing a typical entry","","","","","","","","","","",""],["","// Section Header: Advanced Settings","","","","","","","","","","",""],["","Advanced Param A","x","","","","","","","","","",""],["","Advanced Param B","x","","","","","","","","","",""]];
 
-    // Load the embedded Excel file on page load
-    window.addEventListener('load', loadDefaultSheet, false);
-    document.getElementById('exportBtn').addEventListener('click', exportData, false);
-    document.getElementById('importFile').addEventListener('change', importData, false);
-
-    function loadDefaultSheet() {
-      fetch('Aquavx Pro Config Sheet v2.xlsx')
-        .then(res => res.arrayBuffer())
-        .then(buffer => {
-          const data = new Uint8Array(buffer);
-          const wb = XLSX.read(data, { type: 'array' });
-          globalWorksheet = wb.Sheets[wb.SheetNames[0]];
-          renderForm();
-        })
-        .catch(err => console.error('Error loading default sheet:', err));
-    }
+    // Render the form on load
+    window.addEventListener('DOMContentLoaded', renderForm);
+    document.getElementById('exportBtn').addEventListener('click', exportData);
+    document.getElementById('importFile').addEventListener('change', importData);
 
     function renderForm() {
-      const range = XLSX.utils.decode_range(globalWorksheet['!ref']);
       const container = document.getElementById('formContainer');
       container.innerHTML = '';
       const table = document.createElement('table');
 
-      for (let R = range.s.r; R <= range.e.r; ++R) {
+      sheetData.forEach((row, r) => {
         const tr = document.createElement('tr');
-        // Detect section header rows (starting with "//" in the first column)
-        const firstCellRef = XLSX.utils.encode_cell({ r: R, c: range.s.c });
-        const firstCell = globalWorksheet[firstCellRef];
-        const isSection = firstCell && typeof firstCell.v === 'string' && firstCell.v.trim().startsWith('//');
+        const firstCell = row[0] || '';
+        const isSection = typeof firstCell === 'string' && firstCell.trim().startsWith('//');
 
-        for (let C = range.s.c; C <= range.e.c; ++C) {
-          const cellRef = XLSX.utils.encode_cell({ r: R, c: C });
-          const cell = globalWorksheet[cellRef];
+        row.forEach((cellValue, c) => {
           const td = document.createElement('td');
-
-          if (isSection) {
-            td.classList.add('section-header-cell');
-          }
-
-          const text = cell && cell.v != null ? cell.v.toString() : '';
-          // Style "example" lines
-          if (!isSection && text.toLowerCase().includes('example')) {
+          if (isSection) td.classList.add('section-header-cell');
+          if (!isSection && typeof cellValue === 'string' && cellValue.toLowerCase().includes('example')) {
             td.classList.add('example-line');
           }
 
-          if (cell && cell.v === 'x') {
+          if (cellValue === 'x') {
             const input = document.createElement('input');
             input.type = 'text';
-            input.dataset.address = cellRef;
+            input.dataset.address = `${r}_${c}`;
             td.appendChild(input);
           } else {
-            td.textContent = text;
+            td.textContent = cellValue;
           }
-
           tr.appendChild(td);
-        }
+        });
+
         table.appendChild(tr);
-      }
+      });
       container.appendChild(table);
     }
 
     function exportData() {
       const inputs = document.querySelectorAll('#formContainer input');
       const data = {};
-      inputs.forEach(input => {
-        data[input.dataset.address] = input.value;
-      });
+      inputs.forEach(input => { data[input.dataset.address] = input.value; });
       const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
       const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = 'aquavx_form_data.json';
-      a.click();
-      URL.revokeObjectURL(url);
+      const a = document.createElement('a'); a.href = url; a.download = 'aquavx_form_data.json'; a.click(); URL.revokeObjectURL(url);
     }
 
     function importData(e) {
