@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Aquavx Pro/Pro Plus Configuration Form</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; }
+    h1 { margin-bottom: 16px; }
+    .controls { margin-bottom: 16px; }
+    .controls > * { margin-right: 8px; }
+    table { border-collapse: collapse; width: 100%; }
+    td, th { border: 1px solid #ccc; padding: 8px; vertical-align: top; }
+    input[type="text"] { width: 100%; box-sizing: border-box; background-color: #f0f0f0; border: 1px solid #aaa; padding: 4px; }
+    .section-header-cell { font-weight: bold; background-color: #e8e8e8; }
+    .example-row td { color: #007acc; font-style: italic; }
+  </style>
+</head>
+<body>
+  <h1>Aquavx Pro/Pro Plus Configuration Form</h1>
+  <div class="controls">
+    <button id="exportBtn">Export Data as JSON</button>
+    <button id="emailBtn">Email JSON</button>
+    <label>Import JSON: <input type="file" id="importFile" accept=".json" /></label>
+  </div>
+  <table>
+    <!-- table content omitted for brevity -->
+  </table>
+  v. 0.1 518
+  <script>
+    function exportData() {
+      const inputs = document.querySelectorAll('table input[data-address]');
+      const data = {};
+      inputs.forEach(input => { data[input.dataset.address] = input.value; });
+      const siteName = data['4_2']?.trim() || '';
+      const imei = data['5_2']?.trim() || '';
+      const timestamp = new Date().toISOString().replace(/[:.-]/g, '');
+      let filename = 'AquavxConfig';
+      if (siteName) filename += '_' + siteName;
+      if (imei) filename += '_' + imei;
+      filename += '_' + timestamp + '.json';
+      const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = filename;
+      a.click();
+      URL.revokeObjectURL(url);
+      return { blob, filename };
+    }
+
+    function emailData() {
+      const { blob, filename } = exportData();
+      const file = new File([blob], filename, { type: 'application/json' });
+      // Use Web Share API if available
+      if (navigator.canShare && navigator.canShare({ files: [file] })) {
+        navigator.share({ files: [file], title: filename })
+          .catch(error => console.error('Share failed:', error));
+      } else {
+        // Fallback: download and open mail client
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = filename;
+        a.click();
+        URL.revokeObjectURL(url);
+        setTimeout(() => {
+          window.location.href = `mailto:aquavxconfig@cattron.com?subject=${encodeURIComponent(filename)}`;
+        }, 100);
+      }
+    }
+
+    document.getElementById('exportBtn').addEventListener('click', exportData);
+    document.getElementById('emailBtn').addEventListener('click', emailData);
+    document.getElementById('importFile').addEventListener('change', function(e) {
+      const file = e.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = function(evt) {
+        const imported = JSON.parse(evt.target.result);
+        Object.entries(imported).forEach(([address, value]) => {
+          const input = document.querySelector(`table input[data-address='${address}']`);
+          if (input) input.value = value;
+        });
+      };
+      reader.readAsText(file);
+    });
+  </script>
+</body>
+</html>
