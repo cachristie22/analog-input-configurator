@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Aquavx Pro/Pro Plus Configuration Form</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; }
+    h1 { margin-bottom: 16px; }
+    .controls { margin-bottom: 16px; }
+    .controls > * { margin-right: 8px; }
+    table { border-collapse: collapse; width: 100%; }
+    td, th { border: 1px solid #ccc; padding: 8px; vertical-align: top; }
+    input[type="text"], select { width: 100%; box-sizing: border-box; background-color: #f0f0f0; border: 1px solid #aaa; padding: 4px; }
+    .section-header-cell { font-weight: bold; background-color: #e8e8e8; }
+    .example-row td { color: #007acc; font-style: italic; }
+  </style>
+</head>
+<body>
+  <h1>Aquavx Pro/Pro Plus Configuration Form</h1>
+  <div class="controls">
+    <button id="exportBtn">Export Data as JSON</button>
+    <label>Import JSON: <input type="file" id="importFile" accept=".json" /></label>
+  </div>
+  <table>
+<tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td></td><td>Aquavx Pro/Pro Plus Configuration Form</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td></td><td>Site Name:</td><td><input type="text" data-address="4_2" /></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td></td><td>ESN/IMEI:</td><td><input type="text" data-address="5_2" /></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td></td><td>Account Name:</td><td><input type="text" data-address="6_2" /></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td></td><td>GPS Coordinates:</td><td><input type="text" data-address="7_2" /></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr class="section-header-cell"><td colspan="13">Digital Inputs</td></tr>
+<tr><td></td><td>Chan Number</td><td>Description</td><td>Channel Name </td><td>NO/NC</td><td>O State</td><td>1 State</td><td>Is this a Pump?</td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr class="example-row"><td></td><td>Example</td><td>Digital Input Example</td><td>Pump A</td><td>NO</td><td>Stopped</td><td>Running</td><td>Y</td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td></td><td>21</td><td>Digital Input 1</td><td><input type="text" data-address="14_3" /></td><td><input type="text" data-address="14_4" /></td><td><input type="text" data-address="14_5" /></td><td><input type="text" data-address="14_6" /></td><td><input type="text" data-address="14_7" /></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td></td><td>22</td><td>Digital Input 2</td><td><input type="text" data-address="15_3" /></td><td><input type="text" data-address="15_4" /></td><td><input type="text" data-address="15_5" /></td><td><input type="text" data-address="15_6" /></td><td><input type="text" data-address="15_7" /></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td></td><td>23</td><td>Digital Input 3</td><td><input type="text" data-address="16_3" /></td><td><input type="text" data-address="16_4" /></td><td><input type="text" data-address="16_5" /></td><td><input type="text" data-address="16_6" /></td><td><input type="text" data-address="16_7" /></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td></td><td>24</td><td>Digital Input 4</td><td><input type="text" data-address="17_3" /></td><td><input type="text" data-address="17_4" /></td><td><input type="text" data-address="17_5" /></td><td><input type="text" data-address="17_6" /></td><td><input type="text" data-address="17_7" /></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td></td><td>25</td><td>Digital Input 5</td><td><input type="text" data-address="18_3" /></td><td><input type="text" data-address="18_4" /></td><td><input type="text" data-address="18_5" /></td><td><input type="text" data-address="18_6" /></td><td><input type="text" data-address="18_7" /></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td></td><td>26</td><td>Digital Input 6</td><td><input type="text" data-address="19_3" /></td><td><input type="text" data-address="19_4" /></td><td><input type="text" data-address="19_5" /></td><td><input type="text" data-address="19_6" /></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td></td><td>27</td><td>Digital Input 7</td><td><input type="text" data-address="20_3" /></td><td><input type="text" data-address="20_4" /></td><td><input type="text" data-address="20_5" /></td><td><input type="text" data-address="20_6" /></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td></td><td>28</td><td>Digital Input 8</td><td><input type="text" data-address="21_3" /></td><td><input type="text" data-address="21_4" /></td><td><input type="text" data-address="21_5" /></td><td><input type="text" data-address="21_6" /></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td></td><td>29</td><td>Digital Input 9</td><td><input type="text" data-address="22_3" /></td><td><input type="text" data-address="22_4" /></td><td><input type="text" data-address="22_5" /></td><td><input type="text" data-address="22_6" /></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td></td><td>30</td><td>Digital Input 10</td><td><input type="text" data-address="23_3" /></td><td><input type="text" data-address="23_4" /></td><td><input type="text" data-address="23_5" /></td><td><input type="text" data-address="23_6" /></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td></td><td>Pulse Inputs</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td></td><td>Chan Number</td><td>Description</td><td>Channel Name </td><td>Units per Pulse</td><td>Units</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr class="example-row"><td></td><td>Example</td><td>Pulse Input Example</td><td>Flowmeter1</td><td>5</td><td>gals</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td></td><td>41</td><td>Pulse Input 1</td><td><input type="text" data-address="28_3" /></td><td><input type="text" data-address="28_4" /></td><td><input type="text" data-address="28_5" /></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td></td><td>42</td><td>Pulse Input 2</td><td><input type="text" data-address="29_3" /></td><td><input type="text" data-address="29_4" /></td><td><input type="text" data-address="29_5" /></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr class="section-header-cell"><td colspan="13">Analog Inputs</td></tr>
+<tr><td></td><td>Chan Number</td><td>Description</td><td>Channel Name </td><td>Type</td><td>Zero Scale </td><td>Full Scale</td><td>Units</td><td>Low Setpoint</td><td>High Setpoint</td><td>Low Alarm</td><td>High Alarm</td><td></td></tr>
+<tr class="example-row"><td></td><td>Example</td><td>Analog Input Example</td><td>Tank A Level</td><td>4-20 mA</td><td>0</td><td>138.6</td><td>inches</td><td>10</td><td>30</td><td>5</td><td>42</td><td></td></tr>
+<tr><td></td><td>51</td><td>Analog Input 1</td><td><input type="text" data-address="34_3" /></td><td><input type="text" data-address="34_4" /></td><td><input type="text" data-address="34_5" /></td><td><input type="text" data-address="34_6" /></td><td><input type="text" data-address="34_7" /></td><td><input type="text" data-address="34_8" /></td><td><input type="text" data-address="34_9" /></td><td><input type="text" data-address="34_10" /></td><td><input type="text" data-address="34_11" /></td><td></td></tr>
+<tr><td></td><td>52</td><td>Analog Input 2</td><td><input type="text" data-address="35_3" /></td><td><input type="text" data-address="35_4" /></td><td><input type="text" data-address="35_5" /></td><td><input type="text" data-address="35_6" /></td><td><input type="text" data-address="35_7" /></td><td><input type="text" data-address="35_8" /></td><td><input type="text" data-address="35_9" /></td><td><input type="text" data-address="35_10" /></td><td><input type="text" data-address="35_11" /></td><td></td></tr>
+<tr><td></td><td>53</td><td>Analog Input 3</td><td><input type="text" data-address="36_3" /></td><td><input type="text" data-address="36_4" /></td><td><input type="text" data-address="36_5" /></td><td><input type="text" data-address="36_6" /></td><td><input type="text" data-address="36_7" /></td><td><input type="text" data-address="36_8" /></td><td><input type="text" data-address="36_9" /></td><td><input type="text" data-address="36_10" /></td><td><input type="text" data-address="36_11" /></td><td></td></tr>
+<tr><td></td><td>54</td><td>Analog Input 4</td><td><input type="text" data-address="37_3" /></td><td><input type="text" data-address="37_4" /></td><td><input type="text" data-address="37_5" /></td><td><input type="text" data-address="37_6" /></td><td><input type="text" data-address="37_7" /></td><td><input type="text" data-address="37_8" /></td><td><input type="text" data-address="37_9" /></td><td><input type="text" data-address="37_10" /></td><td><input type="text" data-address="37_11" /></td><td></td></tr>
+<tr><td></td><td>55</td><td>Analog Input 5</td><td><input type="text" data-address="38_3" /></td><td><input type="text" data-address="38_4" /></td><td><input type="text" data-address="38_5" /></td><td><input type="text" data-address="38_6" /></td><td><input type="text" data-address="38_7" /></td><td><input type="text" data-address="38_8" /></td><td><input type="text" data-address="38_9" /></td><td><input type="text" data-address="38_10" /></td><td><input type="text" data-address="38_11" /></td><td></td></tr>
+<tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr class="section-header-cell"><td colspan="13">Analog Outputs</td></tr>
+<tr><td></td><td>Chan Number</td><td>Description</td><td>Channel Name </td><td>Type</td><td>Zero Scale </td><td>Full Scale</td><td>Units</td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr class="example-row"><td></td><td>Example</td><td>Analog Output Example</td><td>Valve</td><td>4-20 mA</td><td>0</td><td>100</td><td>percent</td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td></td><td>65</td><td>Analog Output 1</td><td><input type="text" data-address="43_3" /></td><td><input type="text" data-address="43_4" /></td><td><input type="text" data-address="43_5" /></td><td><input type="text" data-address="43_6" /></td><td><input type="text" data-address="43_7" /></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td></td><td>66</td><td>Analog Output 2</td><td><input type="text" data-address="44_3" /></td><td><input type="text" data-address="44_4" /></td><td><input type="text" data-address="44_5" /></td><td><input type="text" data-address="44_6" /></td><td><input type="text" data-address="44_7" /></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr class="section-header-cell"><td colspan="13">Digital Outputs</td></tr>
+<tr><td></td><td>Chan Number</td><td>Description</td><td>Channel Name </td><td>NO/NC</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td></td><td>71</td><td>Digital Output 1</td><td><input type="text" data-address="48_3" /></td><td><input type="text" data-address="48_4" /></td><td><input type="text" data-address="48_5" /></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td></td><td>72</td><td>Digital Output 2</td><td><input type="text" data-address="49_3" /></td><td><input type="text" data-address="49_4" /></td><td><input type="text" data-address="49_5" /></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td></td><td>73</td><td>Digital Output 3</td><td><input type="text" data-address="50_3" /></td><td><input type="text" data-address="50_4" /></td><td><input type="text" data-address="50_5" /></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td></td><td>74</td><td>Digital Output 4</td><td><input type="text" data-address="51_3" /></td><td><input type="text" data-address="51_4" /></td><td><input type="text" data-address="51_5" /></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td></td><td>75</td><td>Digital Output 5</td><td><input type="text" data-address="52_3" /></td><td><input type="text" data-address="52_4" /></td><td><input type="text" data-address="52_5" /></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td></td><td>76</td><td>Digital Output 6</td><td><input type="text" data-address="53_3" /></td><td><input type="text" data-address="53_4" /></td><td><input type="text" data-address="53_5" /></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td></td><td>Modbus Channels (contact Cattron Support for more information)</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td></td><td>Chan Number</td><td>Description</td><td>Channel Name </td><td>Type 
+(AIN, AOUT, DIN, DOUT)</td><td>Slave ID</td><td>Register Address</td><td>Reg Type</td><td>Weight</td><td>Offset</td><td>Precision</td><td>Bit Number</td><td>Mask</td></tr>
+<tr><td></td><td>MOD 1</td><td>Modbus 1</td><td><input type="text" data-address="57_3" /></td><td><input type="text" data-address="57_4" /></td><td><input type="text" data-address="57_5" /></td><td><input type="text" data-address="57_6" /></td><td><input type="text" data-address="57_7" /></td><td><input type="text" data-address="57_8" /></td><td><input type="text" data-address="57_9" /></td><td><input type="text" data-address="57_10" /></td><td><input type="text" data-address="57_11" /></td><td><input type="text" data-address="57_12" /></td></tr>
+<tr><td></td><td>MOD 2</td><td>Modbus 2</td><td><input type="text" data-address="58_3" /></td><td><input type="text" data-address="58_4" /></td><td><input type="text" data-address="58_5" /></td><td><input type="text" data-address="58_6" /></td><td><input type="text" data-address="58_7" /></td><td><input type="text" data-address="58_8" /></td><td><input type="text" data-address="58_9" /></td><td><input type="text" data-address="58_10" /></td><td><input type="text" data-address="58_11" /></td><td><input type="text" data-address="58_12" /></td></tr>
+<tr><td></td><td>MOD 3</td><td>Modbus 3</td><td><input type="text" data-address="59_3" /></td><td><input type="text" data-address="59_4" /></td><td><input type="text" data-address="59_5" /></td><td><input type="text" data-address="59_6" /></td><td><input type="text" data-address="59_7" /></td><td><input type="text" data-address="59_8" /></td><td><input type="text" data-address="59_9" /></td><td><input type="text" data-address="59_10" /></td><td><input type="text" data-address="59_11" /></td><td><input type="text" data-address="59_12" /></td></tr>
+<tr><td></td><td>MOD 4</td><td>Modbus 4</td><td><input type="text" data-address="60_3" /></td><td><input type="text" data-address="60_4" /></td><td><input type="text" data-address="60_5" /></td><td><input type="text" data-address="60_6" /></td><td><input type="text" data-address="60_7" /></td><td><input type="text" data-address="60_8" /></td><td><input type="text" data-address="60_9" /></td><td><input type="text" data-address="60_10" /></td><td><input type="text" data-address="60_11" /></td><td><input type="text" data-address="60_12" /></td></tr>
+<tr><td></td><td>MOD 5</td><td>Modbus 5</td><td><input type="text" data-address="61_3" /></td><td><input type="text" data-address="61_4" /></td><td><input type="text" data-address="61_5" /></td><td><input type="text" data-address="61_6" /></td><td><input type="text" data-address="61_7" /></td><td><input type="text" data-address="61_8" /></td><td><input type="text" data-address="61_9" /></td><td><input type="text" data-address="61_10" /></td><td><input type="text" data-address="61_11" /></td><td><input type="text" data-address="61_12" /></td></tr>
+<tr><td></td><td>MOD 6</td><td>Modbus 6</td><td><input type="text" data-address="62_3" /></td><td><input type="text" data-address="62_4" /></td><td><input type="text" data-address="62_5" /></td><td><input type="text" data-address="62_6" /></td><td><input type="text" data-address="62_7" /></td><td><input type="text" data-address="62_8" /></td><td><input type="text" data-address="62_9" /></td><td><input type="text" data-address="62_10" /></td><td><input type="text" data-address="62_11" /></td><td><input type="text" data-address="62_12" /></td></tr>
+<tr><td></td><td>MOD 7</td><td>Modbus 7</td><td><input type="text" data-address="63_3" /></td><td><input type="text" data-address="63_4" /></td><td><input type="text" data-address="63_5" /></td><td><input type="text" data-address="63_6" /></td><td><input type="text" data-address="63_7" /></td><td><input type="text" data-address="63_8" /></td><td><input type="text" data-address="63_9" /></td><td><input type="text" data-address="63_10" /></td><td><input type="text" data-address="63_11" /></td><td><input type="text" data-address="63_12" /></td></tr>
+<tr><td></td><td>MOD 8</td><td>Modbus 8</td><td><input type="text" data-address="64_3" /></td><td><input type="text" data-address="64_4" /></td><td><input type="text" data-address="64_5" /></td><td><input type="text" data-address="64_6" /></td><td><input type="text" data-address="64_7" /></td><td><input type="text" data-address="64_8" /></td><td><input type="text" data-address="64_9" /></td><td><input type="text" data-address="64_10" /></td><td><input type="text" data-address="64_11" /></td><td><input type="text" data-address="64_12" /></td></tr>
+<tr><td></td><td>MOD 9</td><td>Modbus 9</td><td><input type="text" data-address="65_3" /></td><td><input type="text" data-address="65_4" /></td><td><input type="text" data-address="65_5" /></td><td><input type="text" data-address="65_6" /></td><td><input type="text" data-address="65_7" /></td><td><input type="text" data-address="65_8" /></td><td><input type="text" data-address="65_9" /></td><td><input type="text" data-address="65_10" /></td><td><input type="text" data-address="65_11" /></td><td><input type="text" data-address="65_12" /></td></tr>
+<tr><td></td><td>MOD 10</td><td>Modbus 10</td><td><input type="text" data-address="66_3" /></td><td><input type="text" data-address="66_4" /></td><td><input type="text" data-address="66_5" /></td><td><input type="text" data-address="66_6" /></td><td><input type="text" data-address="66_7" /></td><td><input type="text" data-address="66_8" /></td><td><input type="text" data-address="66_9" /></td><td><input type="text" data-address="66_10" /></td><td><input type="text" data-address="66_11" /></td><td><input type="text" data-address="66_12" /></td></tr>
+<tr><td></td><td>MOD 11</td><td>Modbus 11</td><td><input type="text" data-address="67_3" /></td><td><input type="text" data-address="67_4" /></td><td><input type="text" data-address="67_5" /></td><td><input type="text" data-address="67_6" /></td><td><input type="text" data-address="67_7" /></td><td><input type="text" data-address="67_8" /></td><td><input type="text" data-address="67_9" /></td><td><input type="text" data-address="67_10" /></td><td><input type="text" data-address="67_11" /></td><td><input type="text" data-address="67_12" /></td></tr>
+<tr><td></td><td>MOD 12</td><td>Modbus 12</td><td><input type="text" data-address="68_3" /></td><td><input type="text" data-address="68_4" /></td><td><input type="text" data-address="68_5" /></td><td><input type="text" data-address="68_6" /></td><td><input type="text" data-address="68_7" /></td><td><input type="text" data-address="68_8" /></td><td><input type="text" data-address="68_9" /></td><td><input type="text" data-address="68_10" /></td><td><input type="text" data-address="68_11" /></td><td><input type="text" data-address="68_12" /></td></tr>
+<tr><td></td><td>MOD 13</td><td>Modbus 13</td><td><input type="text" data-address="69_3" /></td><td><input type="text" data-address="69_4" /></td><td><input type="text" data-address="69_5" /></td><td><input type="text" data-address="69_6" /></td><td><input type="text" data-address="69_7" /></td><td><input type="text" data-address="69_8" /></td><td><input type="text" data-address="69_9" /></td><td><input type="text" data-address="69_10" /></td><td><input type="text" data-address="69_11" /></td><td><input type="text" data-address="69_12" /></td></tr>
+<tr><td></td><td>MOD 14</td><td>Modbus 14</td><td><input type="text" data-address="70_3" /></td><td><input type="text" data-address="70_4" /></td><td><input type="text" data-address="70_5" /></td><td><input type="text" data-address="70_6" /></td><td><input type="text" data-address="70_7" /></td><td><input type="text" data-address="70_8" /></td><td><input type="text" data-address="70_9" /></td><td><input type="text" data-address="70_10" /></td><td><input type="text" data-address="70_11" /></td><td><input type="text" data-address="70_12" /></td></tr>
+<tr><td></td><td>MOD 15</td><td>Modbus 15</td><td><input type="text" data-address="71_3" /></td><td><input type="text" data-address="71_4" /></td><td><input type="text" data-address="71_5" /></td><td><input type="text" data-address="71_6" /></td><td><input type="text" data-address="71_7" /></td><td><input type="text" data-address="71_8" /></td><td><input type="text" data-address="71_9" /></td><td><input type="text" data-address="71_10" /></td><td><input type="text" data-address="71_11" /></td><td><input type="text" data-address="71_12" /></td></tr>
+<tr><td></td><td>MOD 16</td><td>Modbus 16</td><td><input type="text" data-address="72_3" /></td><td><input type="text" data-address="72_4" /></td><td><input type="text" data-address="72_5" /></td><td><input type="text" data-address="72_6" /></td><td><input type="text" data-address="72_7" /></td><td><input type="text" data-address="72_8" /></td><td><input type="text" data-address="72_9" /></td><td><input type="text" data-address="72_10" /></td><td><input type="text" data-address="72_11" /></td><td><input type="text" data-address="72_12" /></td></tr>
+<tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr class="section-header-cell"><td colspan="13">Peer to Peer Send Channels</td></tr>
+<tr><td></td><td> (send channel data from this device to other devices)</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td></td><td></td><td>Chan Number</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td></td><td>Send Channel 1:</td><td><input type="text" data-address="77_2" /></td><td><input type="text" data-address="77_3" /></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td></td><td>Send Channel 2:</td><td><input type="text" data-address="78_2" /></td><td><input type="text" data-address="78_3" /></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td></td><td>Send Channel 3:</td><td><input type="text" data-address="79_2" /></td><td><input type="text" data-address="79_3" /></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td></td><td>Peer to Peer Recieve Channels</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td></td><td> (receive channel data from other devices)</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td></td><td></td><td>Remote Chan Number</td><td>ESN/IMEI of Sending Device</td><td>Describe Automated Actions From Peer Channel</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td></td><td>Receive Channel 1:</td><td><input type="text" data-address="84_2" /></td><td><input type="text" data-address="84_3" /></td><td><input type="text" data-address="84_4" /></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td></td><td>Receive Channel 2:</td><td><input type="text" data-address="85_2" /></td><td><input type="text" data-address="85_3" /></td><td><input type="text" data-address="85_4" /></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td></td><td>Receive Channel 3:</td><td><input type="text" data-address="86_2" /></td><td><input type="text" data-address="86_3" /></td><td><input type="text" data-address="86_4" /></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+  </table>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      let currentSection = '';
+      document.querySelectorAll('table tr').forEach(tr => {
+        if (tr.classList.contains('section-header-cell')) {
+          const txt = tr.textContent.trim();
+          if (txt === 'Digital Inputs') currentSection = 'digital';
+          else if (txt === 'Digital Outputs') currentSection = 'digitalOut';
+          else if (txt === 'Analog Inputs') currentSection = 'analog';
+          else if (txt === 'Analog Outputs') currentSection = 'analogOut';
+          else currentSection = '';
+        } else {
+          if (currentSection === 'digital' || currentSection === 'digitalOut') {
+            const td = tr.children[4];
+            const addr = td.querySelector('input')?.dataset.address;
+            const val = td.querySelector('input')?.value || '';
+            const sel = document.createElement('select');
+            sel.dataset.address = addr;
+            ['NO','NC'].forEach(optVal => {
+              const opt = document.createElement('option'); opt.value = optVal; opt.textContent = optVal;
+              if (optVal === val) opt.selected = true;
+              sel.appendChild(opt);
+            });
+            td.innerHTML = '';
+            td.appendChild(sel);
+          } else if (currentSection === 'analog' || currentSection === 'analogOut') {
+            const td = tr.children[4];
+            const addr = td.querySelector('input')?.dataset.address;
+            const val = td.querySelector('input')?.value || '';
+            const sel = document.createElement('select');
+            sel.dataset.address = addr;
+            ['4-20mA','0-5V'].forEach(optVal => {
+              const opt = document.createElement('option'); opt.value = optVal; opt.textContent = optVal;
+              if (optVal === val) opt.selected = true;
+              sel.appendChild(opt);
+            });
+            td.innerHTML = '';
+            td.appendChild(sel);
+          }
+        }
+      });
+    });
+
+    function exportData() {
+      const fields = document.querySelectorAll('table input[data-address], table select[data-address]');
+      const data = {};
+      fields.forEach(el => { data[el.dataset.address] = el.value; });
+      const siteName = data['4_2']?.trim() || '';
+      const imei = data['5_2']?.trim() || '';
+      const timestamp = new Date().toISOString().replace(/[:.-]/g, '');
+      let filename = 'AquavxConfig';
+      if (siteName) filename += '_' + siteName;
+      if (imei) filename += '_' + imei;
+      filename += '_' + timestamp + '.json';
+      const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url; a.download = filename; a.click();
+      URL.revokeObjectURL(url);
+    }
+
+    document.getElementById('exportBtn').addEventListener('click', exportData);
+    document.getElementById('importFile').addEventListener('change', function(e) {
+      const file = e.target.files[0]; if (!file) return;
+      const reader = new FileReader(); reader.onload = function(evt) {
+        const imported = JSON.parse(evt.target.result);
+        Object.entries(imported).forEach(([address, value]) => {
+          const sel = document.querySelector(`select[data-address='${address}']`);
+          const inp = document.querySelector(`input[data-address='${address}']`);
+          if (sel) sel.value = value;
+          if (inp) inp.value = value;
+        });
+      }; reader.readAsText(file);
+    });
+  </script>
+</body>
+</html>
