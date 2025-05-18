@@ -4,17 +4,20 @@
   <meta charset="UTF-8">
   <title>Aquavx Pro/Pro Plus Configuration Form</title>
   <style>
-    table { border-collapse: collapse; width: 100%; }
-    td, th { border: 1px solid #ccc; padding: 4px; }
-    input[type="text"] { width: 100%; box-sizing: border-box; }
+    body { font-family: Arial, sans-serif; padding: 20px; }
+    h1 { margin-bottom: 16px; }
     .controls { margin-bottom: 16px; }
     .controls > * { margin-right: 8px; }
+    table { border-collapse: collapse; width: 100%; }
+    td, th { border: 1px solid #ccc; padding: 8px; }
+    input[type="text"] { width: 100%; box-sizing: border-box; background-color: #f0f0f0; border: 1px solid #aaa; padding: 4px; }
+    .section-header-cell { font-weight: bold; background-color: #e8e8e8; }
+    .example-line { color: #007acc; font-style: italic; }
   </style>
 </head>
 <body>
   <h1>Aquavx Pro/Pro Plus Configuration Form</h1>
   <div class="controls">
-    <label>Load Excel: <input type="file" id="excelFile" accept=".xlsx" /></label>
     <button id="exportBtn">Export Data as JSON</button>
     <label>Import JSON: <input type="file" id="importFile" accept=".json" /></label>
   </div>
@@ -24,22 +27,22 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
   <script>
     let globalWorksheet;
-    document.getElementById('excelFile').addEventListener('change', handleFile, false);
+
+    // Load the embedded Excel file on page load
+    window.addEventListener('load', loadDefaultSheet, false);
     document.getElementById('exportBtn').addEventListener('click', exportData, false);
     document.getElementById('importFile').addEventListener('change', importData, false);
 
-    function handleFile(e) {
-      const file = e.target.files[0];
-      if (!file) return;
-      const reader = new FileReader();
-      reader.onload = function(evt) {
-        const data = new Uint8Array(evt.target.result);
-        const wb = XLSX.read(data, { type: 'array' });
-        const sheetName = wb.SheetNames[0];
-        globalWorksheet = wb.Sheets[sheetName];
-        renderForm();
-      };
-      reader.readAsArrayBuffer(file);
+    function loadDefaultSheet() {
+      fetch('Aquavx Pro Config Sheet v2.xlsx')
+        .then(res => res.arrayBuffer())
+        .then(buffer => {
+          const data = new Uint8Array(buffer);
+          const wb = XLSX.read(data, { type: 'array' });
+          globalWorksheet = wb.Sheets[wb.SheetNames[0]];
+          renderForm();
+        })
+        .catch(err => console.error('Error loading default sheet:', err));
     }
 
     function renderForm() {
@@ -47,20 +50,38 @@
       const container = document.getElementById('formContainer');
       container.innerHTML = '';
       const table = document.createElement('table');
+
       for (let R = range.s.r; R <= range.e.r; ++R) {
         const tr = document.createElement('tr');
+        // Detect section header rows (starting with "//" in the first column)
+        const firstCellRef = XLSX.utils.encode_cell({ r: R, c: range.s.c });
+        const firstCell = globalWorksheet[firstCellRef];
+        const isSection = firstCell && typeof firstCell.v === 'string' && firstCell.v.trim().startsWith('//');
+
         for (let C = range.s.c; C <= range.e.c; ++C) {
-          const cellRef = XLSX.utils.encode_cell({r:R,c:C});
+          const cellRef = XLSX.utils.encode_cell({ r: R, c: C });
           const cell = globalWorksheet[cellRef];
           const td = document.createElement('td');
+
+          if (isSection) {
+            td.classList.add('section-header-cell');
+          }
+
+          const text = cell && cell.v != null ? cell.v.toString() : '';
+          // Style "example" lines
+          if (!isSection && text.toLowerCase().includes('example')) {
+            td.classList.add('example-line');
+          }
+
           if (cell && cell.v === 'x') {
             const input = document.createElement('input');
             input.type = 'text';
             input.dataset.address = cellRef;
             td.appendChild(input);
           } else {
-            td.textContent = cell && cell.v != null ? cell.v : '';
+            td.textContent = text;
           }
+
           tr.appendChild(td);
         }
         table.appendChild(tr);
