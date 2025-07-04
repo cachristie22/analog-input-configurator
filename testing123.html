@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Orbit Pump Daily Activity Summary</title>
+  <style>
+    body { font-family: Arial; padding: 20px; }
+    table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+    th, td { border: 1px solid #ccc; padding: 8px; text-align: left; }
+    th { background-color: #f2f2f2; }
+    .active { color: green; font-weight: bold; }
+    .inactive { color: red; font-weight: bold; }
+  </style>
+</head>
+<body>
+  <h2>Orbit Pump Daily Activity Summary</h2>
+  <p>This table shows if each pump was <strong>Active</strong> or <strong>Inactive</strong> each day based on Engine Speed.</p>
+  <table id="activity-table">
+    <thead>
+      <tr><th>Date</th><th>Device Name</th><th>Activity</th></tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+
+  <script>
+    // 🔧 CONFIGURATION
+    const API_TOKEN = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NjgyNjRkYjk1NzMwMDMyMGE0NzM1NjgiLCJzdWJ0eXBlIjoiYXBpVG9rZW4iLCJzY29wZSI6WyJhcHBsaWNhdGlvbi5hcHBseVRlbXBsYXRlIiwiYXBwbGljYXRpb24uYXJjaGl2ZURhdGEiLCJhcHBsaWNhdGlvbi5iYWNrZmlsbEFyY2hpdmVEYXRhIiwiYXBwbGljYXRpb24uY2xvbmUiLCJhcHBsaWNhdGlvbi5leHBvcnQiLCJhcHBsaWNhdGlvbi5pbXBvcnQiLCJhcHBsaWNhdGlvbi5mdWxsRXZlbnRzQXJjaGl2ZSIsImFwcGxpY2F0aW9uLmZ1bGxEYXRhVGFibGVzQXJjaGl2ZSIsImFwcGxpY2F0aW9uLmRlYnVnIiwiYXBwbGljYXRpb24uZGVsZXRlIiwiYXBwbGljYXRpb24uZ2V0IiwiYXBwbGljYXRpb24ubXF0dFB1Ymxpc2hNZXNzYWdlIiwiYXBwbGljYXRpb24ubXF0dFN1YnNjcmlwdGlvblN0cmVhbSIsImFwcGxpY2F0aW9uLnBhdGNoIiwiYXBwbGljYXRpb24ucGF5bG9hZENvdW50cyIsImFwcGxpY2F0aW9uLnBheWxvYWRDb3VudHNCcmVha2Rvd24iLCJhcHBsaWNhdGlvbi5kZXZpY2VDb3VudHMiLCJhcHBsaWNhdGlvbi5ub3RlYm9va01pbnV0ZUNvdW50cyIsImFwcGxpY2F0aW9uLnNlYXJjaCIsImFwcGxpY2F0aW9uLmltcG9ydExvZ3MiLCJkYXRhLmV4cG9ydCIsImRhdGEubGFzdFZhbHVlUXVlcnkiLCJkYXRhLnRpbWVTZXJpZXNRdWVyeSIsImRldmljZS5hZ2VudExvZ3MiLCJkZXZpY2UuY29tbWFuZFN0cmVhbSIsImRldmljZS5kZWJ1ZyIsImRldmljZS5kZWxldGUiLCJkZXZpY2UuZXhwb3J0IiwiZGV2aWNlLmdldCIsImRldmljZS5nZXRDb21tYW5kIiwiZGV2aWNlLmdldENvbXBvc2l0ZVN0YXRlIiwiZGV2aWNlLmdldExvZ0VudHJpZXMiLCJkZXZpY2UuZ2V0U3RhdGUiLCJkZXZpY2UucGF0Y2giLCJkZXZpY2UucGF5bG9hZENvdW50cyIsImRldmljZS5wYXlsb2FkQ291bnRzQnJlYWtkb3duIiwiZGV2aWNlLnJlbW92ZURhdGEiLCJkZXZpY2Uuc2VuZENvbW1hbmQiLCJkZXZpY2Uuc2VuZFN0YXRlIiwiZGV2aWNlLnNldENvbm5lY3Rpb25TdGF0dXMiLCJkZXZpY2Uuc3RhdGVTdHJlYW0iLCJkZXZpY2VzLmF0dHJpYnV0ZU5hbWVzIiwiZGV2aWNlcy5wYXRjaCIsImRldmljZXMuZGVsZXRlIiwiZGV2aWNlcy5yZW1vdmVEYXRhIiwiZGV2aWNlcy5kZXRhaWxlZFN1bW1hcnkiLCJkZXZpY2VzLmRldmljZU5hbWVzIiwiZGV2aWNlcy5leHBvcnQiLCJkZXZpY2VzLmdldCIsImRldmljZXMuZ2V0Q29tcG9zaXRlU3RhdGUiLCJkZXZpY2VzLmhpc3RvcmljYWxJbXBvcnQiLCJkZXZpY2VzLnBheWxvYWRDb3VudHMiLCJkZXZpY2VzLnBvc3QiLCJkZXZpY2VzLnNlbmRDb21tYW5kIiwiZGV2aWNlcy50YWdLZXlzIiwiZGV2aWNlcy50YWdWYWx1ZXMiXSwiaWF0IjoxNzE5ODIxNTMxLCJpc3MiOiJhcGkuZ2V0c3RydWN0dXJlLmlvIn0.rC3Ub8F4BP2S2SuEupgJl8viX3IyrJYUli13f9e3ig4';
+    const APPLICATION_ID = '6254b63150e14fb6deb3aa31';
+    const DAYS_TO_LOOK_BACK = 7;
+
+    async function fetchDevices() {
+      const url = `https://api.losant.com/applications/${APPLICATION_ID}/devices?query={"terms":{"deviceTags.Customer_Alias":"Orbit"}}`;
+      const res = await fetch(url, {
+        headers: { 'Authorization': `Bearer ${API_TOKEN}` }
+      });
+      const json = await res.json();
+      return json.devices;
+    }
+
+    async function fetchDeviceData(deviceId, attribute, start, end) {
+      const url = `https://api.losant.com/applications/${APPLICATION_ID}/devices/${deviceId}/data/series`;
+      const res = await fetch(`${url}?start=${start}&end=${end}&resolution=1d&attribute=${attribute}&aggregation=max`, {
+        headers: { 'Authorization': `Bearer ${API_TOKEN}` }
+      });
+      const json = await res.json();
+      return json.data[0]?.points || [];
+    }
+
+    async function summarizeActivity() {
+      const devices = await fetchDevices();
+      const endDate = new Date();
+      const startDate = new Date();
+      startDate.setDate(endDate.getDate() - DAYS_TO_LOOK_BACK);
+
+      const startISO = startDate.toISOString();
+      const endISO = endDate.toISOString();
+
+      const tableBody = document.querySelector('#activity-table tbody');
+      const rows = [];
+
+      for (const device of devices) {
+        const points = await fetchDeviceData(device.id, 'Engine_Speed', startISO, endISO);
+        for (const point of points) {
+          const date = new Date(point.timestamp).toISOString().split('T')[0];
+          const isActive = point.value > 0;
+          rows.push({
+            date,
+            name: device.name,
+            activity: isActive ? 'Active' : 'Inactive'
+          });
+        }
+      }
+
+      // Sort by date then name
+      rows.sort((a, b) => {
+        if (a.date === b.date) return a.name.localeCompare(b.name);
+        return new Date(a.date) - new Date(b.date);
+      });
+
+      // Populate table
+      for (const row of rows) {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td>${row.date}</td>
+          <td>${row.name}</td>
+          <td class="${row.activity.toLowerCase()}">${row.activity}</td>
+        `;
+        tableBody.appendChild(tr);
+      }
+    }
+
+    summarizeActivity().catch(err => {
+      console.error('Error loading data:', err);
+      alert('Failed to load data. Check the console for details.');
+    });
+  </script>
+</body>
+</html>
