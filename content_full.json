@@ -902,115 +902,80 @@
     ],
     "lists": [],
     "tables": [
-      [
-        [
-          "Parameter",
-          "Description",
-          "Description"
-        ],
-        [
-          "Name (1)",
-          "Name (1)",
-          "Representative name for this alarm (max 31 characters).",
-          "Representative name for this alarm (max 31 characters)."
-        ],
-        [
-          "Enable (2)",
-          "Enable (2)",
-          "Enables or disables this alarm. 1 = Enabled, 0 = Disabled.",
-          "Enables or disables this alarm. 1 = Enabled, 0 = Disabled."
-        ],
-        [
-          "Popup (3)",
-          "Popup (3)",
-          "Enables alarm popups on display. 1 = Enabled, 0 = Disabled.",
-          "Enables alarm popups on display. 1 = Enabled, 0 = Disabled."
-        ],
-        [
-          "Type (4)",
-          "Type (4)",
-          "Defines the alarm type. 0 = Standard, 1 = Latched.",
-          "Defines the alarm type. 0 = Standard, 1 = Latched."
-        ],
-        [
-          "SourceChan (5)",
-          "SourceChan (5)",
-          "The value of this channel is checked for the alarm condition.",
-          "The value of this channel is checked for the alarm condition."
-        ],
-        [
-          "DispPrecision (6)",
-          "DispPrecision (6)",
-          "Number of decimal places to display for analog values (0\u20138).",
-          "Number of decimal places to display for analog values (0\u20138)."
-        ],
-        [
-          "AlarmDelay (7)",
-          "AlarmDelay (7)",
-          "Source value must remain in alarm for this duration before being considered 'In Alarm' (0\u2013999,999 seconds).",
-          "Source value must remain in alarm for this duration before being considered 'In Alarm' (0\u2013999,999 seconds)."
-        ],
-        [
-          "CallRoster (8)",
-          "CallRoster (8)",
-          "Roster to call when alarm goes active. 0 = None, 1 = Standard, 2 = Priority.",
-          "Roster to call when alarm goes active. 0 = None, 1 = Standard, 2 = Priority."
-        ],
-        [
-          "AlarmState (14)",
-          "AlarmState (14)",
-          "For Digital Channels: The state of the source register that triggers the alarm (0 or 1).",
-          "For Digital Channels: The state of the source register that triggers the alarm (0 or 1)."
-        ],
-        [
-          "LimitType (9)",
-          "LimitType (9)",
-          "For Analog Channels: 0 = Low limit, 1 = High limit.",
-          "For Analog Channels: 0 = Low limit, 1 = High limit."
-        ],
-        [
-          "Limit (10)",
-          "Limit (10)",
-          "Threshold value checked against the source value based on LimitType (float).",
-          "Threshold value checked against the source value based on LimitType (float)."
-        ],
-        [
-          "Hysteresis (11)",
-          "Hysteresis (11)",
-          "For Low Limit: Source must exceed (limit + hysteresis) to return to normal.\nFor High Limit: Source must fall below (limit - hysteresis) to return to normal.",
-          "For Low Limit: Source must exceed (limit + hysteresis) to return to normal.\nFor High Limit: Source must fall below (limit - hysteresis) to return to normal."
-        ],
-        [
-          "LowFailSafe",
-          "LowFailSafe",
-          "Source value must be above this value to be considered valid (float).",
-          "Source value must be above this value to be considered valid (float)."
-        ],
-        [
-          "HighFailSafe",
-          "HighFailSafe",
-          "Source value must be below this value to be considered valid (float).",
-          "Source value must be below this value to be considered valid (float)."
-        ],
-        [
-          "InAlarmDestChan",
-          "InAlarmDestChan",
-          "Channel number to hold the alarm state.",
-          "Channel number to hold the alarm state."
-        ],
-        [
-          "InFailSafeDestChan",
-          "InFailSafeDestChan",
-          "Channel number to hold the failsafe state.",
-          "Channel number to hold the failsafe state."
-        ],
-        [
-          "LatchedValDestChan",
-          "LatchedValDestChan",
-          "Channel number to hold the latched value.",
-          "Channel number to hold the latched value."
-        ]
-      ]
+     [
+  [
+    "Parameter",
+    "Description"
+  ],
+  [
+    "Name (1)",
+    "Representative name for this alarm (max 31 characters)."
+  ],
+  [
+    "Enable (2)",
+    "Enables or disables this alarm. 1 = Enabled, 0 = Disabled."
+  ],
+  [
+    "Popup (3)",
+    "Enables alarm popups on display. 1 = Enabled, 0 = Disabled."
+  ],
+  [
+    "Type (4)",
+    "Defines the alarm type. 0 = Standard, 1 = Latched."
+  ],
+  [
+    "SourceChan (5)",
+    "The value of this channel is checked for the alarm condition."
+  ],
+  [
+    "DispPrecision (6)",
+    "Number of decimal places to display for analog values (0–8)."
+  ],
+  [
+    "AlarmDelay (7)",
+    "Source value must remain in alarm for this duration before being considered 'In Alarm' (0–999,999 seconds)."
+  ],
+  [
+    "CallRoster (8)",
+    "Roster to call when alarm goes active. 0 = None, 1 = Standard, 2 = Priority."
+  ],
+  [
+    "AlarmState (14)",
+    "For Digital Channels: The state of the source register that triggers the alarm (0 or 1)."
+  ],
+  [
+    "LimitType (9)",
+    "For Analog Channels: 0 = Low limit, 1 = High limit."
+  ],
+  [
+    "Limit (10)",
+    "Threshold value checked against the source value based on LimitType (float)."
+  ],
+  [
+    "Hysteresis (11)",
+    "For Low Limit: Source must exceed (limit + hysteresis) to return to normal. For High Limit: Source must fall below (limit - hysteresis) to return to normal."
+  ],
+  [
+    "LowFailSafe",
+    "Source value must be above this value to be considered valid (float)."
+  ],
+  [
+    "HighFailSafe",
+    "Source value must be below this value to be considered valid (float)."
+  ],
+  [
+    "InAlarmDestChan",
+    "Channel number to hold the alarm state."
+  ],
+  [
+    "InFailSafeDestChan",
+    "Channel number to hold the failsafe state."
+  ],
+  [
+    "LatchedValDestChan",
+    "Channel number to hold the latched value."
+  ]
+]
     ],
     "images": []
   },
