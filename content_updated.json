@@ -1131,14 +1131,15 @@
       {
         "title": "Overview",
         "content": [
-          "The Peer-to-Peer Networking (also called Push Messaging) feature allows one Aquavx Pro controller to share real-time input/output (I/O) data—such as tank level, pressure, or pump status—with one or more remote Aquavx Pro units. Unlike traditional wired Modbus links, this function communicates securely through the RemoteIQ Cloud using each unit's cellular data connection. As long as both devices have a reliable 4G LTE connection to the cloud, they can exchange data instantly, no matter where they are located geographically.",
-          "Sharing a tank-level signal from one site to control a booster or lift-station pump at another.",
-          "Sending status, alarms, or flow information to a remote monitoring site.",
-          "Creating distributed control networks without the need for dedicated private radio systems."
+          "The Peer-to-Peer Networking (also called Push Messaging) feature allows one Aquavx Pro controller to share real-time input/output (I/O) data—such as tank level, pressure, or pump status—with one or more remote Aquavx Pro units. Unlike traditional wired Modbus links, this function communicates securely through the RemoteIQ Cloud using each unit's cellular data connection. As long as both devices have a reliable 4G LTE connection to the cloud, they can exchange data instantly, no matter where they are located geographically."
+
         ],
         "lists": [
           [
-            "Typical applications include:"
+            "Typical applications include:",
+          "Sharing a tank-level signal from one site to control a booster or lift-station pump at another.",
+          "Sending status, alarms, or flow information to a remote monitoring site.",
+          "Creating distributed control networks without the need for dedicated private radio systems."
           ]
         ],
         "tables": [],
