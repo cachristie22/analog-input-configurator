@@ -80,7 +80,7 @@ function renderContent() {
         // Add main section images
         if (section.images && section.images.length > 0) {
             section.images.forEach(image => {
-                sectionContent += `<div class="image-container"><img src="${image.url}" class="content-image" alt="${escapeHtml(image.alt)}" /></div>`;
+                sectionContent += renderMedia(image);
             });
         }
 
@@ -117,7 +117,7 @@ function renderContent() {
                 // Subsection images
                 if (subsection.images && subsection.images.length > 0) {
                     subsection.images.forEach(image => {
-                        sectionContent += `<div class="image-container"><img src="${image.url}" class="content-image" alt="${escapeHtml(image.alt)}" /></div>`;
+                        sectionContent += renderMedia(image);
                     });
                 }
             });
@@ -437,6 +437,55 @@ function renderText(text) {
     }
     // Otherwise escape all HTML
     return escapeHtml(text);
+}
+
+function renderMedia(media) {
+    const url = media.url;
+    const alt = escapeHtml(media.alt);
+    
+    // Check if it's a YouTube URL
+    const youtubeMatch = url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([a-zA-Z0-9_-]{11})/);
+    
+    if (youtubeMatch) {
+        const videoId = youtubeMatch[1];
+        const youtubeUrl = `https://www.youtube.com/watch?v=${videoId}`;
+        const embedUrl = `https://www.youtube.com/embed/${videoId}`;
+        
+        return `
+            <div class="video-container">
+                <iframe 
+                    class="youtube-video" 
+                    src="${embedUrl}" 
+                    frameborder="0" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                    allowfullscreen>
+                </iframe>
+                ${alt ? `<p class="media-caption">${alt} • <a href="${youtubeUrl}" target="_blank" rel="noopener">Open in YouTube</a></p>` : `<p class="media-caption"><a href="${youtubeUrl}" target="_blank" rel="noopener">Open in YouTube</a></p>`}
+            </div>
+        `;
+    }
+    
+    // Detect file type by extension
+    const extension = url.split('.').pop().toLowerCase();
+    
+    // Video extensions
+    const videoExtensions = ['mp4', 'webm', 'ogg', 'mov', 'avi', 'mkv', 'm4v'];
+    
+    if (videoExtensions.includes(extension)) {
+        // Render as video with controls
+        return `
+            <div class="image-container">
+                <video class="content-video" controls>
+                    <source src="${url}" type="video/${extension === 'mov' ? 'quicktime' : extension}">
+                    Your browser does not support the video tag. <a href="${url}">Download video</a>
+                </video>
+                ${alt ? `<p class="media-caption">${alt}</p>` : ''}
+            </div>
+        `;
+    } else {
+        // Render as image (default)
+        return `<div class="image-container"><img src="${url}" class="content-image" alt="${alt}" /></div>`;
+    }
 }
 
 function escapeRegex(text) {
