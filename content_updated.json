@@ -69,7 +69,7 @@
     ],
     "lists": [],
     "tables": [],
-    "images": "images": []
+    "images": []
   },
   {
     "title": "Installation",
@@ -94,7 +94,7 @@
     "images": [
       {
         "id": "img_1",
-        "url": "images/aquavx_diagram_1.jpg",
+        "url": "images/aquavx_diagram_1.png",
         "alt": "Aquavx Diagram 1"
       }
     ]
