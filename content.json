@@ -1,0 +1,333 @@
+[
+  {
+    "title": "Introduction",
+    "id": "introduction",
+    "subsections": [
+      {
+        "title": "General Operation",
+        "content": [
+          "Aquavx Pro systems have a flexible set of analog and digital inputs and outputs, along with the ability to read and write to Modbus TCP and RTU registers.",
+          "Aquavx Pro reports information to the RemoteIQ hosted-service system based on the following:",
+          "Time interval",
+          "Channels going into/out of alarm conditions",
+          "Delta reporting when a channel changes by a user definable amount",
+          "Daily statistics reported at the end of day",
+          "Alarms and Event History can be viewed locally on the Aquavx Pro controller, allowing the operator an easy method of determining how the system has been operating over time.",
+          "Aquavx Pro supports use of a security passcode at the unit, preventing unwanted changes to the system. The factory set passcode is 1 1 1 1.",
+          "."
+        ]
+      },
+      {
+        "title": "Store and Forward Buffer",
+        "content": [
+          "Aquavx Pro has a large and forward buffer to save any records that should be sent to the internet hosted-service in the event that communication to the hosted-service has been interrupted for any reason. When communication is re-established, the buffer is sent all at once.",
+          "The buffer can be cleared through the Maintenance Menu \u2013 either one entry at a time or all entries at once."
+        ]
+      }
+    ],
+    "content": [
+      "The Aquavx\u2122 Pro is a premium remote monitoring, control, and data-acquisition device powered by the RemoteIQ\u2122 Water cloud platform. It provides operators with real-time visibility and control of critical field assets such as pumps, tanks, and lift stations.",
+      "The Aquavx Pro delivers many of the capabilities typically found in PLC-based SCADA systems\u2014including automation logic, alarm management, and data logging\u2014but in a smaller, more cost-effective form factor. Its built-in 4G LTE connectivity to the RemoteIQ Cloud eliminates the need for third-party networking hardware, external modems, or software licensing.",
+      "Operators receive instant alarm notifications via voice, text, or email whenever power is lost, communication is interrupted, or a system limit is exceeded. Intuitive graphics and dashboards within RemoteIQ Water provide live insights into site performance, enabling quick decisions and proactive maintenance.",
+      "Unlike traditional SCADA installations, the Aquavx Pro requires no custom engineering, IT infrastructure, or recurring software maintenance. The unit includes an 18-hour onboard backup battery, with an option to extend runtime up to 72 hours. When AC power is lost, the controller automatically switches to battery operation and maintains output power for critical sensor loops, ensuring continuous monitoring and alarm capability."
+    ]
+  },
+  {
+    "title": "Installation",
+    "id": "installation",
+    "subsections": [
+      {
+        "title": "Wiring a 24 VDC 4-20mA Sensor",
+        "content": []
+      }
+    ],
+    "content": [
+      "Aquavx Pro shipped mounted inside a NEMA 4X enclosure. The dimensions of the enclosure are shown below.",
+      "Figure 1: Mounting Holes",
+      "The connectors for Primary Power, Phone and I/O use quick disconnect plugs. The diagram below shows the location of these connections for the NEMA 4X enclosure.",
+      "Figure 2: Field Wiring Diagram"
+    ]
+  },
+  {
+    "title": "Assisted Configuration",
+    "id": "assisted-configuration",
+    "subsections": [],
+    "content": [
+      "For fastest setup, perform the field wiring then fill out the online configuration form and submit it to Cattron Support:",
+      "Link: Online Configuration Form",
+      "Once the form is submitted, a configuration file will be generated and uploaded to the device remotely, or provided by email to be loaded onto the device with a USB thumb drive.",
+      "For more information, contact your Cattron representative."
+    ]
+  },
+  {
+    "title": "Aquavx Pro Main Screen Navigation",
+    "id": "aquavx-pro-main-screen-navigation",
+    "subsections": [
+      {
+        "title": "Overview",
+        "content": [
+          "The Aquavx Pro controller features an intuitive front panel interface for viewing system data, alarms, and configuration menus. The front panel consists of five soft keys below the LCD display and six side-mounted buttons for navigation",
+          "and control."
+        ]
+      },
+      {
+        "title": "Soft Keys (Below Display)",
+        "content": [
+          "Each of the five soft keys has a dynamic function indicated by an icon on the LCD screen above it. These provide quick access to common operations.",
+          "Scroll Channels: Starts/Stops automatic scrolling through the list of data channels.",
+          "Manual Scroll: Press button to scroll through the channels one screen at a time.",
+          "Channel List: Displays the full list of all available channels and data registers for review.",
+          "View Alarms: Opens the active alarm list to view current system alerts.",
+          "Settings / Status / Config: Opens system configuration, device status, and setup menus."
+        ]
+      },
+      {
+        "title": "Side Buttons (Right of Display)",
+        "content": [
+          "F1\u2013F4 \u2013 Programmable Function Keys: Custom shortcuts to user-selected screens. Navigate to any screen and press and hold a function key to assign it.",
+          "\ud83d\udd15 \u2013 Alarm Pause/Resume: Silences active alarms temporarily. Press again to re-enable audible alerts.",
+          "Admin Login: Access admin mode by pressing this button and entering your PIN.",
+          "Power: Turns the controller on or off."
+        ]
+      }
+    ],
+    "content": [
+      "Figure 1. Aquavx Pro Front Panel Interface"
+    ]
+  },
+  {
+    "title": "Channel Configuration",
+    "id": "channel-configuration",
+    "subsections": [],
+    "content": [
+      "Aquavx Pro channels can be configured by navigating to the channel configuration section on the screen. The following parameters can be configured for each channel. Each channel displays data from a source register, which in turn stores the raw data from physical analog and digital inputs and outputs, Modbus registers, internal device health data, and calculated values.",
+      "Common Channel Parameters",
+      "Analog Channel Parameters",
+      "Analog channels are used for variable signals such as pressure, level, or temperature. They support decimal precision and engineering unit labels.",
+      "Digital Channel Parameters",
+      "Digital channels are used for discrete (on/off) signals such as pump run status, float switch state, or alarm indicators.",
+      "When configuring channels via the HMI, ensure each channel is properly labeled and mapped to its correct data register. For analog inputs, set the display precision and units. For digital inputs, define meaningful ON/OFF labels and confirm the correct bit number if using packed Modbus registers."
+    ]
+  },
+  {
+    "title": "Aquavx Pro \u2014 Channel List",
+    "id": "aquavx-pro-\u2014-channel-list",
+    "subsections": [
+      {
+        "title": "System/Default Channels",
+        "content": []
+      },
+      {
+        "title": "User Channels",
+        "content": []
+      }
+    ],
+    "content": [
+      "There are 100 channels available in the Aquavx Pro and Pro Plus, System Channels with default configurations and User Channels which can be customized to populate as needed with Modbus values or calculated values such as total flow, etc.",
+      "In addition, some User Channels are automatically configured to support duplex/simplex pump control and other functions when those functions are enabled."
+    ]
+  },
+  {
+    "title": "Analog Input (ADC) Configuration",
+    "id": "analog-input-(adc)-configuration",
+    "subsections": [
+      {
+        "title": "ADC Analog Input Parameters",
+        "content": []
+      },
+      {
+        "title": "Setup Tips",
+        "content": [
+          "For most industrial transmitters, use Input Type = 2 (4\u201320mA).",
+          "Set Zero Scale Engr and Full Scale Engr to match your sensor\u2019s measurement range (e.g., 0.0 to 100.0).",
+          "Adjust Damping Factor if readings fluctuate rapidly \u2014 lower values produce faster response, higher values smooth noise.",
+          "Precision controls how many decimal digits are displayed on the HMI.",
+          "Use the Reset function on the HMI to restore calibration counts if sensor readings appear incorrect.",
+          "Verify Zero Count and Full Count match the expected values for your input type and range."
+        ]
+      }
+    ],
+    "content": [
+      "Configure analog input (AIN) on the Aquavx Pro system by navigating the the ADC configuration menu:q"
+    ]
+  },
+  {
+    "title": "Ethernet/Modbus TCP Configuration Guide",
+    "id": "ethernet-modbus-tcp-configuration-guide",
+    "subsections": [
+      {
+        "title": "Ethernet Interface Configuration",
+        "content": []
+      },
+      {
+        "title": "Modbus TCP Server (Slave)",
+        "content": []
+      },
+      {
+        "title": "Modbus TCP Client (Master)",
+        "content": []
+      },
+      {
+        "title": "Setup Tips",
+        "content": [
+          "Ensure only one device on the network shares the same IP address.",
+          "For most installations, use static IP addressing and disable DHCP.",
+          "When using Modbus TCP Server, confirm the listening port (typically 502) is not blocked by firewalls.",
+          "The TrivialFTP server is used for firmware or configuration file transfers; ensure the selected port does not conflict with Modbus ports.",
+          "Disable both Client and Server functions before changing DHCP or IP addressing parameters."
+        ]
+      }
+    ],
+    "content": [
+      "This section describes how to configure Ethernet communication parameters and enable Modbus TCP Server (Slave) and Client (Master) functionality in the Aquavx Pro system.",
+      "Figure 1 \u2014 Example HMI Screen: Ethernet and Modbus TCP Configuration",
+      "(Insert image of Ethernet/Modbus configuration screen here)"
+    ]
+  },
+  {
+    "title": "RS-485 Serial Port Configuration Guide",
+    "id": "rs-485-serial-port-configuration-guide",
+    "subsections": [
+      {
+        "title": "Serial Port Parameters",
+        "content": []
+      },
+      {
+        "title": "Configuration Notes",
+        "content": [
+          "All devices on the Modbus RTU network must share the same baud rate, parity, and stop bit settings.",
+          "Termination resistors should be enabled only on the first and last device in the RS-485 daisy chain.",
+          "Use twisted-pair, shielded cable for RS-485 wiring to reduce electrical noise.",
+          "Ensure each Modbus slave device has a unique address to avoid communication conflicts.",
+          "After switching between RS-232 and RS-485 modes, power-cycle the controller to apply the changes.",
+          "Use short cable runs when possible to minimize signal degradation and reflection on the RS-485 bus."
+        ]
+      }
+    ],
+    "content": [
+      "This section explains how to configure the RS-485 serial port for Modbus RTU Master or Slave operation on the Aquavx Pro controller. Proper configuration ensures reliable communication with connected devices."
+    ]
+  },
+  {
+    "title": "Modbus Register Configuration (Master Mode: TCP or RTU)",
+    "id": "modbus-register-configuration-(master-mode:-tcp-or-rtu)",
+    "subsections": [],
+    "content": [
+      "When the Aquavx is acting as a Modbus Master, each Modbus register can be configured with following parameters in the Modbus Setup section of the menu:"
+    ]
+  },
+  {
+    "title": "Alarm Configuration (Aquavx System)",
+    "id": "alarm-configuration-(aquavx-system)",
+    "subsections": [],
+    "content": [
+      "The following parameters define each alarm within the Aquavx System. Depending on whether the source channel is analog or digital, different fields apply."
+    ]
+  },
+  {
+    "title": "Duplex and Simplex Pump Control Setup",
+    "id": "duplex-and-simplex-pump-control-setup",
+    "subsections": [
+      {
+        "title": "Overview",
+        "content": [
+          "The Pump Control feature in your Aquavx Pro system manages how the system  automatically turns on and off pumps to control liquid levels in a tank or wet well. This guide explains how to review and change pump settings using the controller's built-in display and buttons."
+        ]
+      },
+      {
+        "title": "What This System Does",
+        "content": [
+          "Automatically starts and stops pumps to keep the tank level within set limits.",
+          "Alternates between pumps to prevent wear and tear (if two pumps are installed).",
+          "Raises alarms for fault conditions like pump failure or high liquid levels."
+        ]
+      },
+      {
+        "title": "Navigating the Menu",
+        "content": [
+          "Use the arrow keys to scroll, the Enter button to select, and the Back or Cancel button to go back.",
+          "To find Pump Control settings:",
+          "From the main screen, press the Menu button.",
+          "Scroll to Function Block Configs and press Enter.",
+          "Select Pump Control",
+          "Follow prompts to view or edit pump control parameters."
+        ]
+      },
+      {
+        "title": "Settings",
+        "content": [
+          "Level Setpoints",
+          "Lead On: Level where the first pump turns on.",
+          "Lag On: Level where the second pump turns on (if needed).",
+          "All Off: Level where both pumps turn off.",
+          "High Alarm / Low Alarm: Trigger visual or audible alarms if levels go outside safe range.",
+          "Delays and Timers",
+          "Debounce: Prevents pump from reacting to quick fluctuations.",
+          "Start Delay: Wait time before turning pump on.",
+          "Restart Delay: Time before same pump can start again.",
+          "Max On Time: Limits how long a pump can stay on in one cycle."
+        ]
+      },
+      {
+        "title": "How to Edit a Parameter",
+        "content": [
+          "Navigate to the setting using arrows.",
+          "Press Enter to select.",
+          "Use arrow keys to adjust the value.",
+          "Press Enter again to confirm.",
+          "For example, to change the Lead On Level:\n- Go to 'Lead On Setpt'\n- Press Enter, adjust level (e.g., 35.0)\n- Press Enter again to save"
+        ]
+      },
+      {
+        "title": "Tips",
+        "content": [
+          "Watch the Pump Status screen to see current level and pump state.",
+          "Use Favorites keys (F1\u2013F4) to jump quickly to pages like Pump Status, Alarms, or Events.",
+          "If unsure about a setting, contact your system technician."
+        ]
+      }
+    ],
+    "content": []
+  },
+  {
+    "title": "Pump Status and HOA",
+    "id": "pump-status-and-hoa",
+    "subsections": [],
+    "content": [
+      "Once you have set up pump control, you can monitor pump control activity as well as a virtual Hand/OFF/Auto interface (HOA) via the pump control status screen."
+    ]
+  },
+  {
+    "title": "Peer-to-Peer Networking",
+    "id": "peer-to-peer-networking",
+    "subsections": [
+      {
+        "title": "Overview",
+        "content": [
+          "The Peer-to-Peer Networking (also called Push Messaging) feature allows one Aquavx Pro controller to share real-time input/output (I/O) data\u2014such as tank level, pressure, or pump status\u2014with one or more remote Aquavx Pro units. Unlike traditional wired Modbus links, this function communicates securely through the RemoteIQ Cloud using each unit\u2019s cellular data connection. As long as both devices have a reliable 4G LTE connection to the cloud, they can exchange data instantly, no matter where they are located geographically.",
+          "Typical applications include:",
+          "Sharing a tank-level signal from one site to control a booster or lift-station pump at another.",
+          "Sending status, alarms, or flow information to a remote monitoring site.",
+          "Creating distributed control networks without the need for dedicated private radio systems."
+        ]
+      },
+      {
+        "title": "Push / Peer-to-Peer Parameters",
+        "content": []
+      },
+      {
+        "title": "Configuration Notes",
+        "content": [
+          "Each 'Send' unit can transmit to one or more 'Receive' units as long as each receiver\u2019s Peer IMEI matches the sender\u2019s hardware IMEI.",
+          "For analog signals, use the Delta parameter to avoid unnecessary cellular data usage caused by minor fluctuations.",
+          "Ensure that both Modbus and Peer-to-Peer communications are configured independently\u2014they can operate simultaneously without interference.",
+          "The Debounce setting helps eliminate noise or rapidly oscillating values before a transmission is triggered.",
+          "A reliable cellular signal (RSSI > -95 dBm) is recommended for consistent updates.",
+          "Verify cloud connectivity through the Cell Status page before enabling Push links.",
+          "After editing Push parameters, save and reboot the controller to activate new links."
+        ]
+      }
+    ],
+    "content": []
+  }
+]
