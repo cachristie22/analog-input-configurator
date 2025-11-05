@@ -113,12 +113,13 @@
     ]
   },
   {
-    "title": "Assisted Configuration",
+    "title": "Quickstart and Assisted Configuration",
     "id": "assisted-configuration",
     "subsections": [],
     "content": [
       "For fastest setup, perform the field wiring then fill out the online configuration form and submit it to Cattron Support:",
       "<a href='https://cachristie22.github.io/analog-input-configurator/AquavxProConfigForm_v2.html' target='_blank'>Online Configuration Form</a>",
+       "A Quickstart guide is also available: <a href='https://www.cattron.com/wp-content/uploads/aquavx-proplus-quick-start-guide-en.pdf' target='_blank'>Aquavx Pro Quickstart Guide</a>",
       "Once the form is submitted, a configuration file will be generated and uploaded to the device remotely, or provided by email to be loaded onto the device with a USB thumb drive.",
       "For more information, contact your Cattron representative."
     ],
