@@ -6,11 +6,10 @@
       {
         "title": "General Operation",
         "content": [
-          "Aquavx Pro systems have a flexible set of analog and digital inputs and outputs, along with the ability to read and write to Modbus TCP and RTU registers.",
-          "Aquavx Pro reports information to the RemoteIQ hosted-service system based on the following:",
+          "Aquavx Pro systems have a flexible set of analog and digital inputs and outputs, along with the ability to read and write to Modbus TCP and RTU registers. See I/O capabilities below",
           "Alarms and Event History can be viewed locally on the Aquavx Pro controller, allowing the operator an easy method of determining how the system has been operating over time.",
           "Aquavx Pro supports use of a security passcode at the unit, preventing unwanted changes to the system. The factory set passcode is 1 1 1 1.",
-          "."
+          "Aquavx Pro reports information to the RemoteIQ hosted-service system based on the following:",
         ],
         "lists": [
           [
