@@ -1,0 +1,1187 @@
+[
+  {
+    "title": "Introduction",
+    "id": "introduction",
+    "subsections": [
+      {
+        "title": "General Operation",
+        "content": [
+          "Aquavx Pro systems have a flexible set of analog and digital inputs and outputs, along with the ability to read and write to Modbus TCP and RTU registers.",
+          "Aquavx Pro reports information to the RemoteIQ hosted-service system based on the following:",
+          "Alarms and Event History can be viewed locally on the Aquavx Pro controller, allowing the operator an easy method of determining how the system has been operating over time.",
+          "Aquavx Pro supports use of a security passcode at the unit, preventing unwanted changes to the system. The factory set passcode is 1 1 1 1.",
+          "."
+        ],
+        "lists": [
+          [
+            "Time interval",
+            "Channels going into/out of alarm conditions",
+            "Delta reporting when a channel changes by a user definable amount",
+            "Daily statistics reported at the end of day"
+          ]
+        ],
+        "tables": [
+          [
+            [
+              "I/O",
+              "Digital Inputs",
+              "Analog Inputs",
+              "Outputs",
+              "Modbus Master Registers",
+              "Other"
+            ],
+            [
+              "Aquavx Pro",
+              "10",
+              "2",
+              "2 Digital, 1 Analog",
+              "16",
+              "2 Pulse Inputs"
+            ],
+            [
+              "Aquavx ProPlus",
+              "10",
+              "5",
+              "5 Digital, 2 Analog",
+              "32",
+              "2 Pulse Inputs"
+            ]
+          ]
+        ],
+        "images": []
+      },
+      {
+        "title": "Store and Forward Buffer",
+        "content": [
+          "Aquavx Pro has a large and forward buffer to save any records that should be sent to the internet hosted-service in the event that communication to the hosted-service has been interrupted for any reason. When communication is re-established, the buffer is sent all at once.",
+          "The buffer can be cleared through the Maintenance Menu \u2013 either one entry at a time or all entries at once."
+        ],
+        "lists": [],
+        "tables": [],
+        "images": []
+      }
+    ],
+    "content": [
+      "The Aquavx\u2122 Pro is a premium remote monitoring, control, and data-acquisition device powered by the RemoteIQ\u2122 Water cloud platform. It provides operators with real-time visibility and control of critical field assets such as pumps, tanks, and lift stations.",
+      "The Aquavx Pro delivers many of the capabilities typically found in PLC-based SCADA systems\u2014including automation logic, alarm management, and data logging\u2014but in a smaller, more cost-effective form factor. Its built-in 4G LTE connectivity to the RemoteIQ Cloud eliminates the need for third-party networking hardware, external modems, or software licensing.",
+      "Operators receive instant alarm notifications via voice, text, or email whenever power is lost, communication is interrupted, or a system limit is exceeded. Intuitive graphics and dashboards within RemoteIQ Water provide live insights into site performance, enabling quick decisions and proactive maintenance.",
+      "Unlike traditional SCADA installations, the Aquavx Pro requires no custom engineering, IT infrastructure, or recurring software maintenance. The unit includes an 18-hour onboard backup battery, with an option to extend runtime up to 72 hours. When AC power is lost, the controller automatically switches to battery operation and maintains output power for critical sensor loops, ensuring continuous monitoring and alarm capability."
+    ],
+    "lists": [],
+    "tables": [],
+    "images": []
+  },
+  {
+    "title": "Installation",
+    "id": "installation",
+    "subsections": [
+      {
+        "title": "Wiring a 24 VDC 4-20mA Sensor",
+        "content": [],
+        "lists": [],
+        "tables": [],
+        "images": []
+      }
+    ],
+    "content": [
+      "Aquavx Pro shipped mounted inside a NEMA 4X enclosure. The dimensions of the enclosure are shown below.",
+      "Figure 1: Mounting Holes",
+      "The connectors for Primary Power, Phone and I/O use quick disconnect plugs. The diagram below shows the location of these connections for the NEMA 4X enclosure.",
+      "Figure 2: Field Wiring Diagram"
+    ],
+    "lists": [],
+    "tables": [],
+    "images": [
+      {
+        "id": "img_1",
+        "url": "images/aquavx_diagram_1.jpg",
+        "alt": "Aquavx Diagram 1"
+      }
+    ]
+  },
+  {
+    "title": "Assisted Configuration",
+    "id": "assisted-configuration",
+    "subsections": [],
+    "content": [
+      "For fastest setup, perform the field wiring then fill out the online configuration form and submit it to Cattron Support:",
+      "Link: Online Configuration Form",
+      "Once the form is submitted, a configuration file will be generated and uploaded to the device remotely, or provided by email to be loaded onto the device with a USB thumb drive.",
+      "For more information, contact your Cattron representative."
+    ],
+    "lists": [],
+    "tables": [],
+    "images": []
+  },
+  {
+    "title": "Aquavx Pro Main Screen Navigation",
+    "id": "aquavx-pro-main-screen-navigation",
+    "subsections": [
+      {
+        "title": "Overview",
+        "content": [
+          "The Aquavx Pro controller features an intuitive front panel interface for viewing system data, alarms, and configuration menus. The front panel consists of five soft keys below the LCD display and six side-mounted buttons for navigation",
+          "and control."
+        ],
+        "lists": [],
+        "tables": [],
+        "images": []
+      },
+      {
+        "title": "Soft Keys (Below Display)",
+        "content": [
+          "Each of the five soft keys has a dynamic function indicated by an icon on the LCD screen above it. These provide quick access to common operations."
+        ],
+        "lists": [
+          [
+            "Scroll Channels: Starts/Stops automatic scrolling through the list of data channels.",
+            "Manual Scroll: Press button to scroll through the channels one screen at a time.",
+            "Channel List: Displays the full list of all available channels and data registers for review.",
+            "View Alarms: Opens the active alarm list to view current system alerts.",
+            "Settings / Status / Config: Opens system configuration, device status, and setup menus."
+          ]
+        ],
+        "tables": [],
+        "images": []
+      },
+      {
+        "title": "Side Buttons (Right of Display)",
+        "content": [],
+        "lists": [
+          [
+            "F1\u2013F4 \u2013 Programmable Function Keys: Custom shortcuts to user-selected screens. Navigate to any screen and press and hold a function key to assign it.",
+            "\ud83d\udd15 \u2013 Alarm Pause/Resume: Silences active alarms temporarily. Press again to re-enable audible alerts.",
+            "Admin Login: Access admin mode by pressing this button and entering your PIN.",
+            "Power: Turns the controller on or off."
+          ]
+        ],
+        "tables": [],
+        "images": []
+      }
+    ],
+    "content": [
+      "Figure 1. Aquavx Pro Front Panel Interface"
+    ],
+    "lists": [],
+    "tables": [],
+    "images": []
+  },
+  {
+    "title": "Channel Configuration",
+    "id": "channel-configuration",
+    "subsections": [],
+    "content": [
+      "Aquavx Pro channels can be configured by navigating to the channel configuration section on the screen. The following parameters can be configured for each channel. Each channel displays data from a source register, which in turn stores the raw data from physical analog and digital inputs and outputs, Modbus registers, internal device health data, and calculated values.",
+      "Common Channel Parameters",
+      "Analog Channel Parameters",
+      "Analog channels are used for variable signals such as pressure, level, or temperature. They support decimal precision and engineering unit labels.",
+      "Digital Channel Parameters",
+      "Digital channels are used for discrete (on/off) signals such as pump run status, float switch state, or alarm indicators.",
+      "When configuring channels via the HMI, ensure each channel is properly labeled and mapped to its correct data register. For analog inputs, set the display precision and units. For digital inputs, define meaningful ON/OFF labels and confirm the correct bit number if using packed Modbus registers."
+    ],
+    "lists": [],
+    "tables": [
+      [
+        [
+          "Parameter",
+          "Description",
+          "Options / Range"
+        ],
+        [
+          "Name",
+          "Representative channel name (max 31 characters)",
+          "Text (up to 31 chars)"
+        ],
+        [
+          "Type",
+          "Channel type",
+          "1 = Digital, 2 = Analog"
+        ],
+        [
+          "Enable",
+          "Enable or disable this channel",
+          "1 = Enabled, 0 = Disabled"
+        ],
+        [
+          "Reports",
+          "Include this channel in data reporting",
+          "1 = Enabled, 0 = Disabled"
+        ],
+        [
+          "SourceDataReg",
+          "Source data register for channel data",
+          "Register reference"
+        ],
+        [
+          "Scroll List",
+          "Show channel in scroll list on HMI",
+          "1 = Yes, 0 = No"
+        ],
+        [
+          "Pump Page",
+          "Display this channel on a pump page",
+          "1 = Yes, 0 = No"
+        ],
+        [
+          "Delta",
+          "Delta testing threshold (used to detect significant change)",
+          "Float value"
+        ],
+        [
+          "Debounce",
+          "Time in seconds the value must remain changed before registering (prevents flicker)",
+          "0\u20133600 seconds"
+        ]
+      ],
+      [
+        [
+          "Parameter",
+          "Description",
+          "Options / Range"
+        ],
+        [
+          "DisplayPrecision",
+          "Number of decimal positions shown in the value",
+          "0\u20138"
+        ],
+        [
+          "EngineeringUnits",
+          "Engineering units label displayed with the value",
+          "Up to 7 characters (e.g., PSI, GPM, \u00b0F)"
+        ]
+      ],
+      [
+        [
+          "Parameter",
+          "Description",
+          "Options / Range"
+        ],
+        [
+          "BitNumber",
+          "If the source data register is a packed Modbus register, extract this bit number as the digital value",
+          "0\u201332 (0 = use full register value)"
+        ],
+        [
+          "ZeroLabel",
+          "Custom label for the digital '0' (off) state",
+          "Up to 13 characters (e.g., OFF, CLOSED, STOPPED)"
+        ],
+        [
+          "OneLabel",
+          "Custom label for the digital '1' (on) state",
+          "Up to 13 characters (e.g., ON, OPEN, RUNNING)"
+        ]
+      ]
+    ],
+    "images": []
+  },
+  {
+    "title": "Aquavx Pro \u2014 Channel List",
+    "id": "aquavx-pro---channel-list",
+    "subsections": [
+      {
+        "title": "System/Default Channels",
+        "content": [],
+        "lists": [],
+        "tables": [
+          [
+            [
+              "1. Power",
+              "43. AC Freq (Hz)"
+            ],
+            [
+              "2. Cell Fault",
+              "51. Analog Input 1"
+            ],
+            [
+              "3. Comm1 Fault",
+              "52. Analog Input 2"
+            ],
+            [
+              "4. Comm2 Fault",
+              "53. Analog Input 3"
+            ],
+            [
+              "5. BLE Fault",
+              "54. Analog Input 4"
+            ],
+            [
+              "6. Ethernet Fault",
+              "55. Analog Input 5"
+            ],
+            [
+              "7. Display Fault",
+              "56. AC-VoltA"
+            ],
+            [
+              "8. PCB Temperature",
+              "57. AC-VoltB"
+            ],
+            [
+              "21. Digital Input 1",
+              "58. AC-VoltC"
+            ],
+            [
+              "22. Digital Input 2",
+              "59. AC-CurrA"
+            ],
+            [
+              "23. Digital Input 3",
+              "60. AC-CurrB"
+            ],
+            [
+              "24. Digital Input 4",
+              "61. AC-CurrC"
+            ],
+            [
+              "25. Digital Input 5",
+              "65. Analog Output 1"
+            ],
+            [
+              "26. Digital Input 6",
+              "66. Analog Output 2"
+            ],
+            [
+              "27. Digital Input 7",
+              "71. Digital Output 1"
+            ],
+            [
+              "28. Digital Input 8",
+              "72. Digital Output 2"
+            ],
+            [
+              "29. Digital Input 9",
+              "73. Digital Output 3"
+            ],
+            [
+              "30. Digital Input 10",
+              "74. Digital Output 4"
+            ],
+            [
+              "41. Pulse Input 1",
+              "75. Digital Output 5"
+            ],
+            [
+              "42. Pulse Input 2",
+              "76. Digital Output 6"
+            ]
+          ]
+        ],
+        "images": []
+      },
+      {
+        "title": "User Channels",
+        "content": [],
+        "lists": [],
+        "tables": [
+          [
+            [
+              "9. User Chan 9",
+              "63. User Chan 63"
+            ],
+            [
+              "10. User Chan 10",
+              "64. User Chan 64"
+            ],
+            [
+              "11. User Chan 11",
+              "67. User Chan 67"
+            ],
+            [
+              "12. User Chan 12",
+              "68. User Chan 68"
+            ],
+            [
+              "13. User Chan 13",
+              "69. User Chan 69"
+            ],
+            [
+              "14. User Chan 14",
+              "70. User Chan 70"
+            ],
+            [
+              "15. User Chan 15",
+              "77. User Chan 77"
+            ],
+            [
+              "16. User Chan 16",
+              "78. User Chan 78"
+            ],
+            [
+              "17. User Chan 17",
+              "79. User Chan 79"
+            ],
+            [
+              "18. User Chan 18",
+              "80. User Chan 80"
+            ],
+            [
+              "19. User Chan 19",
+              "81. User Chan 81"
+            ],
+            [
+              "20. User Chan 20",
+              "82. User Chan 82"
+            ],
+            [
+              "31. User Chan 31",
+              "83. User Chan 83"
+            ],
+            [
+              "32. User Chan 32",
+              "84. User Chan 84"
+            ],
+            [
+              "33. User Chan 33",
+              "85. User Chan 85"
+            ],
+            [
+              "34. User Chan 34",
+              "86. User Chan 86"
+            ],
+            [
+              "35. User Chan 35",
+              "87. User Chan 87"
+            ],
+            [
+              "36. User Chan 36",
+              "88. User Chan 88"
+            ],
+            [
+              "37. User Chan 37",
+              "89. User Chan 89"
+            ],
+            [
+              "38. User Chan 38",
+              "90. User Chan 90"
+            ],
+            [
+              "39. User Chan 39",
+              "91. User Chan 91"
+            ],
+            [
+              "40. User Chan 40",
+              "92. User Chan 92"
+            ],
+            [
+              "44. User Chan 44",
+              "93. User Chan 93"
+            ],
+            [
+              "45. User Chan 45",
+              "94. User Chan 94"
+            ],
+            [
+              "46. User Chan 46",
+              "95. User Chan 95"
+            ],
+            [
+              "47. User Chan 47",
+              "96. User Chan 96"
+            ],
+            [
+              "48. User Chan 48",
+              "97. User Chan 97"
+            ],
+            [
+              "49. User Chan 49",
+              "98. User Chan 98"
+            ],
+            [
+              "50. User Chan 50",
+              "99. User Chan 99"
+            ],
+            [
+              "62. User Chan 62",
+              "100. User Chan 100"
+            ]
+          ]
+        ],
+        "images": []
+      }
+    ],
+    "content": [
+      "There are 100 channels available in the Aquavx Pro and Pro Plus, System Channels with default configurations and User Channels which can be customized to populate as needed with Modbus values or calculated values such as total flow, etc.",
+      "In addition, some User Channels are automatically configured to support duplex/simplex pump control and other functions when those functions are enabled."
+    ],
+    "lists": [],
+    "tables": [],
+    "images": []
+  },
+  {
+    "title": "Analog Input (ADC) Configuration",
+    "id": "analog-input-(adc)-configuration",
+    "subsections": [
+      {
+        "title": "ADC Analog Input Parameters",
+        "content": [],
+        "lists": [],
+        "tables": [
+          [
+            [
+              "Parameter",
+              "Description"
+            ],
+            [
+              "Name (1)",
+              "Representative ADC input name (up to 31 characters)."
+            ],
+            [
+              "Input Type (2)",
+              "Defines the input signal type: 0=None, 1=0\u201320mA, 2=4\u201320mA, 3=0\u20135V, 4=1\u20135V, 5=\u00b1600VAC, 6=\u00b15AAC."
+            ],
+            [
+              "Damping or K Factor (3)",
+              "Used to smooth noisy signals (range 0.0\u20131.0)."
+            ],
+            [
+              "Zero Scale Engr (4)",
+              "Engineering units corresponding to the zero-scale signal (float)."
+            ],
+            [
+              "Full Scale Engr (5)",
+              "Engineering units corresponding to the full-scale signal (float)."
+            ],
+            [
+              "Disp Precision (6)",
+              "Number of decimal places shown in displayed values (0\u20138)."
+            ],
+            [
+              "Raw Offset (11)",
+              "ADC offset (in counts) when input is grounded (float)."
+            ],
+            [
+              "Zero Count (12)",
+              "Expected ADC counts when the input signal is at the zero-scale value (float)."
+            ],
+            [
+              "Full Count (13)",
+              "Expected ADC counts when the input signal is at the full-scale value (float)."
+            ],
+            [
+              "Zero Raw Units (14)",
+              "Expected raw input value (mA or V) at the zero-scale point (float)."
+            ],
+            [
+              "Full Raw Units (15)",
+              "Expected raw input value (mA or V) at the full-scale point (float)."
+            ]
+          ]
+        ],
+        "images": []
+      },
+      {
+        "title": "Setup Tips",
+        "content": [],
+        "lists": [
+          [
+            "For most industrial transmitters, use Input Type = 2 (4\u201320mA).",
+            "Set Zero Scale Engr and Full Scale Engr to match your sensor\u2019s measurement range (e.g., 0.0 to 100.0).",
+            "Adjust Damping Factor if readings fluctuate rapidly \u2014 lower values produce faster response, higher values smooth noise.",
+            "Precision controls how many decimal digits are displayed on the HMI.",
+            "Use the Reset function on the HMI to restore calibration counts if sensor readings appear incorrect.",
+            "Verify Zero Count and Full Count match the expected values for your input type and range."
+          ]
+        ],
+        "tables": [],
+        "images": []
+      }
+    ],
+    "content": [
+      "Configure analog input (AIN) on the Aquavx Pro system by navigating the the ADC configuration menu:q"
+    ],
+    "lists": [],
+    "tables": [],
+    "images": []
+  },
+  {
+    "title": "Ethernet/Modbus TCP Configuration Guide",
+    "id": "ethernet-modbus-tcp-configuration-guide",
+    "subsections": [
+      {
+        "title": "Ethernet Interface Configuration",
+        "content": [],
+        "lists": [],
+        "tables": [
+          [
+            [
+              "Parameter",
+              "Description"
+            ],
+            [
+              "Host Name (1)",
+              "Representative host name of the device (up to 15 characters)."
+            ],
+            [
+              "Default IP Address (2)",
+              "Default IP address when not assigned by DHCP (127 characters)."
+            ],
+            [
+              "Subnet Mask (3)",
+              "Network subnet mask in standard format (e.g., 255.255.255.0)."
+            ],
+            [
+              "Gateway IP (4)",
+              "Gateway IP address (127 characters)."
+            ],
+            [
+              "DHCP Client Enable (5)",
+              "Allows IP assignment by DHCP server \u2014 0 = Disable, 1 = Enable."
+            ],
+            [
+              "NOTE",
+              "Before enabling or disabling DHCP, both Modbus TCP Client and Server must be disabled."
+            ]
+          ]
+        ],
+        "images": []
+      },
+      {
+        "title": "Modbus TCP Server (Slave)",
+        "content": [],
+        "lists": [],
+        "tables": [
+          [
+            [
+              "Parameter",
+              "Description"
+            ],
+            [
+              "Enable (20)",
+              "Enables or disables the TCP Server \u2014 0 = Disable, 1 = Enable."
+            ],
+            [
+              "Listener Port (21)",
+              "Port number that the TCP Server listens on (0\u201365535)."
+            ],
+            [
+              "Remote Client Poll Timeout (22)",
+              "Maximum time between successive polls from the remote Client (500\u201360000 ms)."
+            ]
+          ]
+        ],
+        "images": []
+      },
+      {
+        "title": "Modbus TCP Client (Master)",
+        "content": [],
+        "lists": [],
+        "tables": [
+          [
+            [
+              "Parameter",
+              "Description"
+            ],
+            [
+              "Enable (30)",
+              "Enables or disables the TCP Client \u2014 0 = Disable, 1 = Enable."
+            ],
+            [
+              "Remote Server Port (31)",
+              "Port number of the remote TCP Server (0\u201365535)."
+            ],
+            [
+              "Remote Server IP (32)",
+              "IP address of the remote TCP Server (127 characters)."
+            ],
+            [
+              "Remote Server Connect Timeout (33)",
+              "Maximum time to wait for a connection to the remote Server (500\u201360000 ms)."
+            ],
+            [
+              "Remote Server Response Timeout (34)",
+              "Maximum time to wait for a response from the remote Server (500\u201360000 ms)."
+            ]
+          ]
+        ],
+        "images": []
+      },
+      {
+        "title": "Setup Tips",
+        "content": [],
+        "lists": [
+          [
+            "Ensure only one device on the network shares the same IP address.",
+            "For most installations, use static IP addressing and disable DHCP.",
+            "When using Modbus TCP Server, confirm the listening port (typically 502) is not blocked by firewalls.",
+            "The TrivialFTP server is used for firmware or configuration file transfers; ensure the selected port does not conflict with Modbus ports.",
+            "Disable both Client and Server functions before changing DHCP or IP addressing parameters."
+          ]
+        ],
+        "tables": [],
+        "images": []
+      }
+    ],
+    "content": [
+      "This section describes how to configure Ethernet communication parameters and enable Modbus TCP Server (Slave) and Client (Master) functionality in the Aquavx Pro system.",
+      "Figure 1 \u2014 Example HMI Screen: Ethernet and Modbus TCP Configuration",
+      "(Insert image of Ethernet/Modbus configuration screen here)"
+    ],
+    "lists": [],
+    "tables": [],
+    "images": []
+  },
+  {
+    "title": "RS-485 Serial Port Configuration Guide",
+    "id": "rs-485-serial-port-configuration-guide",
+    "subsections": [
+      {
+        "title": "Serial Port Parameters",
+        "content": [],
+        "lists": [],
+        "tables": [
+          [
+            [
+              "Parameter",
+              "Description"
+            ],
+            [
+              "Name (1)",
+              "Representative port name."
+            ],
+            [
+              "Enable (2)",
+              "0 = disabled, 1 = enabled."
+            ],
+            [
+              "Port Mode (3)",
+              "3 = master, 4 = slave"
+            ],
+            [
+              "RS232/RS485 (4)",
+              "0 = RS232, 1 = RS485."
+            ],
+            [
+              "Baud (5)",
+              "Communication speed: 1200, 2400, 4800, 9600, 19200, 38400, 57600, 115200."
+            ],
+            [
+              "Max Idle (6)",
+              "Close receive buffer after this idle time (1\u201332000 ms)."
+            ],
+            [
+              "Response Timeout (7)",
+              "Maximum wait time for a response to start (1\u201360 s)."
+            ],
+            [
+              "Data Bits (8)",
+              "Number of data bits (7, 8, or 9)."
+            ],
+            [
+              "Stop Bits (9)",
+              "Number of stop bits (1 or 2)."
+            ],
+            [
+              "Parity (10)",
+              "0 = none, 1 = odd, 2 = even (if odd or even, set DataBits to 9)."
+            ],
+            [
+              "RS485 Tx On Delay (12)",
+              "Delay before transmission enable (1/16th bit times, 0\u201331)."
+            ],
+            [
+              "RS485 Tx Off Delay (13)",
+              "Delay before transmission disable (1/16th bit times, 0\u201331)."
+            ],
+            [
+              "RS485 Termination (14)",
+              "0 = not terminated, 1 = terminated."
+            ],
+            [
+              "Flow Control (15)",
+              "0 = no flow control, 1 = RTS/CTS flow control."
+            ]
+          ]
+        ],
+        "images": []
+      },
+      {
+        "title": "Configuration Notes",
+        "content": [],
+        "lists": [
+          [
+            "All devices on the Modbus RTU network must share the same baud rate, parity, and stop bit settings.",
+            "Termination resistors should be enabled only on the first and last device in the RS-485 daisy chain.",
+            "Use twisted-pair, shielded cable for RS-485 wiring to reduce electrical noise.",
+            "Ensure each Modbus slave device has a unique address to avoid communication conflicts.",
+            "After switching between RS-232 and RS-485 modes, power-cycle the controller to apply the changes.",
+            "Use short cable runs when possible to minimize signal degradation and reflection on the RS-485 bus."
+          ]
+        ],
+        "tables": [],
+        "images": []
+      }
+    ],
+    "content": [
+      "This section explains how to configure the RS-485 serial port for Modbus RTU Master or Slave operation on the Aquavx Pro controller. Proper configuration ensures reliable communication with connected devices."
+    ],
+    "lists": [],
+    "tables": [],
+    "images": []
+  },
+  {
+    "title": "Modbus Register Configuration (Master Mode: TCP or RTU)",
+    "id": "modbus-register-configuration-(master-mode:-tcp-or-rtu)",
+    "subsections": [],
+    "content": [
+      "When the Aquavx is acting as a Modbus Master, each Modbus register can be configured with following parameters in the Modbus Setup section of the menu:"
+    ],
+    "lists": [],
+    "tables": [
+      [
+        [
+          "Parameter",
+          "Description"
+        ],
+        [
+          "Name (1)",
+          "Descriptive name for the register (max 31 characters)."
+        ],
+        [
+          "Enable (2)",
+          "Enables or disables this register. 0 = Disabled, 1 = Enabled."
+        ],
+        [
+          "Link Type (3)",
+          "Physical Modbus link type. 0 = RTU, 1 = TCP."
+        ],
+        [
+          "SlaveID (4)",
+          "Address of the slave device to read from (valid range 1\u2013247 for RTU, 255 for broadcast)."
+        ],
+        [
+          "Function Code (6)",
+          "Modbus function to execute:\n\u2022 1 = Read Coil (0x)\n\u2022 2 = Read Discrete Input (1x)\n\u2022 3 = Read Holding Register (4x)\n\u2022 4 = Read Input Register (3x)\n\u2022 5 = Write Single Coil (0x)\n\u2022 6 = Write Single Holding Register (4x)\n\u2022 15 = Write Multiple Coils (0x)\n\u2022 16 = Write Multiple Holding \nRegisters (4x)"
+        ],
+        [
+          "Register Address (7)",
+          "Address of the register in the slave to read or write (1\u201365535)."
+        ],
+        [
+          "Register Type (8)",
+          "Defines the data format:\n\u2022 0 = reg16\n\u2022 1 = reg32\n\u2022 2 = bit16\n\u2022 3 = bit32\n\u2022 4 = packed16\n\u2022 5 = packed32\n\u2022 6 = float32"
+        ],
+        [
+          "Bit Weight (9)",
+          "Scale factor applied to the raw register value (floating-point)."
+        ],
+        [
+          "Offset (10)",
+          "Offset applied after scaling (floating-point)."
+        ],
+        [
+          "Signed Register (11)",
+          "Indicates whether the register value is signed. 0 = Unsigned, 1 = Signed."
+        ],
+        [
+          "Display Precision (12)",
+          "Number of decimal places to show in display (0\u20138)."
+        ],
+        [
+          "Byte Order (Endian) (13)",
+          "Byte order of the register data. 0 = Little Endian (LSB first), 1 = Big Endian (MSB first)."
+        ],
+        [
+          "Bit Number (14)",
+          "Extracts a single bit from a packed register (0\u201332). Use 0 to leave the value packed."
+        ],
+        [
+          "Packed Mask (15)",
+          "Bitmask applied to packed registers to ignore unwanted bits (0x0\u20130xFFFFFFFF)."
+        ]
+      ]
+    ],
+    "images": []
+  },
+  {
+    "title": "Alarm Configuration (Aquavx System)",
+    "id": "alarm-configuration-(aquavx-system)",
+    "subsections": [],
+    "content": [
+      "The following parameters define each alarm within the Aquavx System. Depending on whether the source channel is analog or digital, different fields apply."
+    ],
+    "lists": [],
+    "tables": [
+      [
+        [
+          "Parameter",
+          "Description"
+        ],
+        [
+          "Name (1)",
+          "Representative name for this alarm (max 31 characters)."
+        ],
+        [
+          "Enable (2)",
+          "Enables or disables this alarm. 1 = Enabled, 0 = Disabled."
+        ],
+        [
+          "Popup (3)",
+          "Enables alarm popups on display. 1 = Enabled, 0 = Disabled."
+        ],
+        [
+          "Type (4)",
+          "Defines the alarm type. 0 = Standard, 1 = Latched."
+        ],
+        [
+          "SourceChan (5)",
+          "The value of this channel is checked for the alarm condition."
+        ],
+        [
+          "DispPrecision (6)",
+          "Number of decimal places to display for analog values (0\u20138)."
+        ],
+        [
+          "AlarmDelay (7)",
+          "Source value must remain in alarm for this duration before being considered 'In Alarm' (0\u2013999,999 seconds)."
+        ],
+        [
+          "CallRoster (8)",
+          "Roster to call when alarm goes active. 0 = None, 1 = Standard, 2 = Priority."
+        ],
+        [
+          "AlarmState (14)",
+          "For Digital Channels: The state of the source register that triggers the alarm (0 or 1)."
+        ],
+        [
+          "LimitType (9)",
+          "For Analog Channels: 0 = Low limit, 1 = High limit."
+        ],
+        [
+          "Limit (10)",
+          "Threshold value checked against the source value based on LimitType (float)."
+        ],
+        [
+          "Hysteresis (11)",
+          "For Low Limit: Source must exceed (limit + hysteresis) to return to normal.\nFor High Limit: Source must fall below (limit - hysteresis) to return to normal."
+        ],
+        [
+          "LowFailSafe",
+          "Source value must be above this value to be considered valid (float)."
+        ],
+        [
+          "HighFailSafe",
+          "Source value must be below this value to be considered valid (float)."
+        ],
+        [
+          "InAlarmDestChan",
+          "Channel number to hold the alarm state."
+        ],
+        [
+          "InFailSafeDestChan",
+          "Channel number to hold the failsafe state."
+        ],
+        [
+          "LatchedValDestChan",
+          "Channel number to hold the latched value."
+        ]
+      ]
+    ],
+    "images": []
+  },
+  {
+    "title": "Duplex and Simplex Pump Control Setup",
+    "id": "duplex-and-simplex-pump-control-setup",
+    "subsections": [
+      {
+        "title": "Overview",
+        "content": [
+          "The Pump Control feature in your Aquavx Pro system manages how the system  automatically turns on and off pumps to control liquid levels in a tank or wet well. This guide explains how to review and change pump settings using the controller's built-in display and buttons."
+        ],
+        "lists": [],
+        "tables": [],
+        "images": []
+      },
+      {
+        "title": "What This System Does",
+        "content": [
+          "Automatically starts and stops pumps to keep the tank level within set limits.",
+          "Alternates between pumps to prevent wear and tear (if two pumps are installed).",
+          "Raises alarms for fault conditions like pump failure or high liquid levels."
+        ],
+        "lists": [],
+        "tables": [],
+        "images": []
+      },
+      {
+        "title": "Navigating the Menu",
+        "content": [
+          "Use the arrow keys to scroll, the Enter button to select, and the Back or Cancel button to go back.",
+          "To find Pump Control settings:",
+          "From the main screen, press the Menu button.",
+          "Scroll to Function Block Configs and press Enter.",
+          "Select Pump Control",
+          "Follow prompts to view or edit pump control parameters."
+        ],
+        "lists": [],
+        "tables": [],
+        "images": []
+      },
+      {
+        "title": "Settings",
+        "content": [
+          "Level Setpoints",
+          "Lead On: Level where the first pump turns on.",
+          "Lag On: Level where the second pump turns on (if needed).",
+          "All Off: Level where both pumps turn off.",
+          "High Alarm / Low Alarm: Trigger visual or audible alarms if levels go outside safe range.",
+          "Delays and Timers",
+          "Debounce: Prevents pump from reacting to quick fluctuations.",
+          "Start Delay: Wait time before turning pump on.",
+          "Restart Delay: Time before same pump can start again.",
+          "Max On Time: Limits how long a pump can stay on in one cycle."
+        ],
+        "lists": [],
+        "tables": [
+          [
+            [
+              "Setting",
+              "Description"
+            ],
+            [
+              "Enable",
+              "Turns the Pump Control system on or off."
+            ],
+            [
+              "Mode",
+              "Set to \"Drain\" (for wet wells) or \"Fill\" (for storage tanks)."
+            ],
+            [
+              "Number of Pumps",
+              "1 for single pump, 2 for duplex stations."
+            ],
+            [
+              "Alternation",
+              "Set to \"Auto\" to rotate pumps and balance usage."
+            ],
+            [
+              "Sensor Type",
+              "Choose \"Level Sensor\" for ultrasonic or pressure sensors, or \"Floats\" for mechanical switches."
+            ]
+          ]
+        ],
+        "images": []
+      },
+      {
+        "title": "How to Edit a Parameter",
+        "content": [
+          "Navigate to the setting using arrows.",
+          "Press Enter to select.",
+          "Use arrow keys to adjust the value.",
+          "Press Enter again to confirm.",
+          "For example, to change the Lead On Level:\n- Go to 'Lead On Setpt'\n- Press Enter, adjust level (e.g., 35.0)\n- Press Enter again to save"
+        ],
+        "lists": [],
+        "tables": [],
+        "images": []
+      },
+      {
+        "title": "Tips",
+        "content": [
+          "Watch the Pump Status screen to see current level and pump state.",
+          "Use Favorites keys (F1\u2013F4) to jump quickly to pages like Pump Status, Alarms, or Events.",
+          "If unsure about a setting, contact your system technician."
+        ],
+        "lists": [],
+        "tables": [],
+        "images": []
+      }
+    ],
+    "content": [],
+    "lists": [],
+    "tables": [],
+    "images": []
+  },
+  {
+    "title": "Pump Status and HOA",
+    "id": "pump-status-and-hoa",
+    "subsections": [],
+    "content": [
+      "Once you have set up pump control, you can monitor pump control activity as well as a virtual Hand/OFF/Auto interface (HOA) via the pump control status screen."
+    ],
+    "lists": [],
+    "tables": [],
+    "images": []
+  },
+  {
+    "title": "Peer-to-Peer Networking",
+    "id": "peer-to-peer-networking",
+    "subsections": [
+      {
+        "title": "Overview",
+        "content": [
+          "The Peer-to-Peer Networking (also called Push Messaging) feature allows one Aquavx Pro controller to share real-time input/output (I/O) data\u2014such as tank level, pressure, or pump status\u2014with one or more remote Aquavx Pro units. Unlike traditional wired Modbus links, this function communicates securely through the RemoteIQ Cloud using each unit\u2019s cellular data connection. As long as both devices have a reliable 4G LTE connection to the cloud, they can exchange data instantly, no matter where they are located geographically.",
+          "Sharing a tank-level signal from one site to control a booster or lift-station pump at another.",
+          "Sending status, alarms, or flow information to a remote monitoring site.",
+          "Creating distributed control networks without the need for dedicated private radio systems."
+        ],
+        "lists": [
+          [
+            "Typical applications include:"
+          ]
+        ],
+        "tables": [],
+        "images": []
+      },
+      {
+        "title": "Push / Peer-to-Peer Parameters",
+        "content": [],
+        "lists": [],
+        "tables": [
+          [
+            [
+              "Parameter",
+              "Description"
+            ],
+            [
+              "Descriptive PUSH Name (1)",
+              "A representative name for the peer-to-peer link (up to 31 characters)."
+            ],
+            [
+              "Mode (2)",
+              "Defines the role of the unit. 0 = Disabled, 1 = Send, 2 = Receive."
+            ],
+            [
+              "Src Chan Number (3)",
+              "When Mode = Send, this is the local channel whose data will be transmitted. When Mode = Receive, this is the destination channel where incoming data will be written."
+            ],
+            [
+              "Delta (5)",
+              "(Send Mode only) The minimum analog-value change required to trigger a new transmission (float)."
+            ],
+            [
+              "Debounce (6)",
+              "The change in value must remain continuous for this duration before sending (0\u20133600 s)."
+            ],
+            [
+              "Peer IMEI (7)",
+              "The 15-digit IMEI of the remote Aquavx Pro device. This value links the sender and receiver through MQTT subscriptions on the RemoteIQ Cloud."
+            ]
+          ]
+        ],
+        "images": []
+      },
+      {
+        "title": "Configuration Notes",
+        "content": [],
+        "lists": [
+          [
+            "Each 'Send' unit can transmit to one or more 'Receive' units as long as each receiver\u2019s Peer IMEI matches the sender\u2019s hardware IMEI.",
+            "For analog signals, use the Delta parameter to avoid unnecessary cellular data usage caused by minor fluctuations.",
+            "Ensure that both Modbus and Peer-to-Peer communications are configured independently\u2014they can operate simultaneously without interference.",
+            "The Debounce setting helps eliminate noise or rapidly oscillating values before a transmission is triggered.",
+            "A reliable cellular signal (RSSI > -95 dBm) is recommended for consistent updates.",
+            "Verify cloud connectivity through the Cell Status page before enabling Push links.",
+            "After editing Push parameters, save and reboot the controller to activate new links."
+          ]
+        ],
+        "tables": [],
+        "images": []
+      }
+    ],
+    "content": [],
+    "lists": [],
+    "tables": [],
+    "images": []
+  }
+]

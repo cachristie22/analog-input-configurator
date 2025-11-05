@@ -18,7 +18,8 @@ A modern, responsive online version of the Aquavx Pro user manual with search fu
 
 - `index.html` - Main HTML file with enhanced styling
 - `app.js` - JavaScript application logic with table/list rendering
-- `content_full.json` - Complete structured content with base64-encoded images (76KB)
+- `content_updated.json` - Complete structured content with image placeholders (much smaller without base64 images)
+- `IMAGE_GUIDE.md` - Instructions for adding your actual images
 
 ## Deployment Options
 
@@ -78,7 +79,7 @@ To test locally:
 The website includes all 14 sections from the Aquavx Pro manual:
 
 1. **Introduction** - Overview and general operation with store-and-forward buffer details
-2. **Installation** - Wiring diagrams for 24 VDC 4-20mA sensors
+2. **Installation** - Wiring diagrams for 24 VDC 4-20mA sensors (includes 1 image placeholder)
 3. **Assisted Configuration** - Setup wizard guide
 4. **Main Screen Navigation** - Interface overview with soft keys and side buttons
 5. **Channel Configuration** - Complete configuration parameter tables
@@ -94,9 +95,9 @@ The website includes all 14 sections from the Aquavx Pro manual:
 
 Each section includes:
 - Full text content
-- Configuration parameter tables (16 tables total)
+- Configuration parameter tables (14 tables total, cleaned to remove duplicate columns)
 - Bulleted instruction lists (68+ list items)
-- Relevant diagrams and screenshots where applicable
+- Image placeholders (1 total) - See IMAGE_GUIDE.md for details on adding actual images
 
 ## Customization
 
@@ -134,12 +135,13 @@ Adjust layout dimensions in the CSS variables:
 
 ## Notes
 
-- All content is loaded from `content_full.json`
-- Images are embedded as base64 data (no external image files needed)
+- All content is loaded from `content_updated.json`
+- Images use placeholder URLs - add actual images in an `images/` folder (see IMAGE_GUIDE.md)
 - No backend or database required
 - Works entirely in the browser
-- Total size: ~106KB (HTML + JS + JSON with images)
-- Fast loading and lightweight despite including all images
+- Total size: ~40KB (HTML + JS + JSON without embedded images)
+- Fast loading and lightweight
+- All tables cleaned to remove duplicate columns from original document
 
 ## Support
 

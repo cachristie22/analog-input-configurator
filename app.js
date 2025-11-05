@@ -5,7 +5,7 @@ let currentSectionIndex = 0;
 // Initialize the application
 async function init() {
     try {
-        const response = await fetch('content_full.json');
+        const response = await fetch('content_updated.json');
         sections = await response.json();
         renderNavigation();
         renderContent();
@@ -80,9 +80,7 @@ function renderContent() {
         // Add main section images
         if (section.images && section.images.length > 0) {
             section.images.forEach(image => {
-                if (image.type !== 'emf' && image.type !== 'wmf') {
-                    sectionContent += `<div class="image-container"><img src="${image.data}" class="content-image" alt="Diagram" /></div>`;
-                }
+                sectionContent += `<div class="image-container"><img src="${image.url}" class="content-image" alt="${escapeHtml(image.alt)}" /></div>`;
             });
         }
 
@@ -119,9 +117,7 @@ function renderContent() {
                 // Subsection images
                 if (subsection.images && subsection.images.length > 0) {
                     subsection.images.forEach(image => {
-                        if (image.type !== 'emf' && image.type !== 'wmf') {
-                            sectionContent += `<div class="image-container"><img src="${image.data}" class="content-image" alt="Diagram" /></div>`;
-                        }
+                        sectionContent += `<div class="image-container"><img src="${image.url}" class="content-image" alt="${escapeHtml(image.alt)}" /></div>`;
                     });
                 }
             });
