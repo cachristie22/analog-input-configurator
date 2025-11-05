@@ -77,7 +77,7 @@
     ]
   },
   {
-    "title": "Installation",
+    "title": "Installation and Wiring",
     "id": "installation",
     "subsections": [
       {
@@ -97,8 +97,8 @@
       }
     ],
     "content": [
-      "Aquavx Pro shipped mounted inside a NEMA 4X enclosure. Field wiring is normally accomplished by drilling access holes in the enclosure and running sensor, power, and communication wires through conduit. Safe drilling locations are marked on the outside of the enclosure",
-      "Use the following color-coded field wiring diagram"
+      "Aquavx Pro shipped mounted inside a NEMA 4X enclosure. Field wiring is normally accomplished by drilling access holes in the enclosure and running sensor, power, and communication wires through conduit. Safe drilling locations are marked on the outside of the enclosure. To access the removable terminal blocks for the field wiring, remove the four stainless steel screws that affix the faceplate to the enlosure.",
+      "Use the following color-coded wiring guide to land the wiring. IMPORTANT: Ensure AC Power is not connected to the unit until wiring is complete."
     ],
     "lists": [],
     "tables": [],
