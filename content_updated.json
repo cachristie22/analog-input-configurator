@@ -178,9 +178,7 @@
         "images": []
       }
     ],
-    "content": [
-      "Figure 1. Aquavx Pro Front Panel Interface"
-    ],
+    "content": [],
     "lists": [],
     "tables": [],
     "images": []
@@ -191,10 +189,7 @@
     "subsections": [],
     "content": [
       "Aquavx Pro channels can be configured by navigating to the channel configuration section on the screen. The following parameters can be configured for each channel. Each channel displays data from a source register, which in turn stores the raw data from physical analog and digital inputs and outputs, Modbus registers, internal device health data, and calculated values.",
-      "Common Channel Parameters",
-      "Analog Channel Parameters",
       "Analog channels are used for variable signals such as pressure, level, or temperature. They support decimal precision and engineering unit labels.",
-      "Digital Channel Parameters",
       "Digital channels are used for discrete (on/off) signals such as pump run status, float switch state, or alarm indicators.",
       "When configuring channels via the HMI, ensure each channel is properly labeled and mapped to its correct data register. For analog inputs, set the display precision and units. For digital inputs, define meaningful ON/OFF labels and confirm the correct bit number if using packed Modbus registers."
     ],
