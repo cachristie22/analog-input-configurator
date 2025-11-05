@@ -1123,7 +1123,13 @@
     ],
     "lists": [],
     "tables": [],
-    "images": []
+   "images": [
+  {
+    "id": "HOA",
+    "url": "https://youtu.be/G8FkgFZvr-s",
+    "alt": "HOA Screen"
+  }
+]
   },
   {
     "title": "Peer-to-Peer Networking",
