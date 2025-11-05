@@ -97,10 +97,8 @@
       }
     ],
     "content": [
-      "Aquavx Pro shipped mounted inside a NEMA 4X enclosure. The dimensions of the enclosure are shown below.",
-      "Figure 1: Mounting Holes",
-      "The connectors for Primary Power, Phone and I/O use quick disconnect plugs. The diagram below shows the location of these connections for the NEMA 4X enclosure.",
-      "Figure 2: Field Wiring Diagram"
+      "Aquavx Pro shipped mounted inside a NEMA 4X enclosure. Field wiring is normally accomplished by drilling access holes in the enclosure and running sensor, power, and communication wires through conduit. Safe drilling locations are marked on the outside of the enclosure",
+      "Use the following color-coded field wiring diagram"
     ],
     "lists": [],
     "tables": [],
