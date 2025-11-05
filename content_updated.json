@@ -69,7 +69,13 @@
     ],
     "lists": [],
     "tables": [],
-    "images": [images/aquavx_diagram_1.jpg]
+    "images": "images": [
+  {
+    "id": "img_2",
+    "url": "images/scada-water-systems-aquavx-pro-front.webp",
+    "alt": "New Diagram Description"
+  }
+]
   },
   {
     "title": "Installation",
