@@ -1,0 +1,1222 @@
+[
+  {
+    "title": "Introduction",
+    "id": "introduction",
+    "subsections": [
+      {
+        "title": "General Operation",
+        "content": [
+          "Aquavx Pro systems have a flexible set of analog and digital inputs and outputs, along with the ability to read and write to Modbus TCP and RTU registers.",
+          "Aquavx Pro reports information to the RemoteIQ hosted-service system based on the following:",
+          "Alarms and Event History can be viewed locally on the Aquavx Pro controller, allowing the operator an easy method of determining how the system has been operating over time.",
+          "Aquavx Pro supports use of a security passcode at the unit, preventing unwanted changes to the system. The factory set passcode is 1 1 1 1.",
+          "."
+        ],
+        "lists": [
+          [
+            "Time interval",
+            "Channels going into/out of alarm conditions",
+            "Delta reporting when a channel changes by a user definable amount",
+            "Daily statistics reported at the end of day"
+          ]
+        ],
+        "tables": [
+          [
+            [
+              "I/O",
+              "Digital Inputs",
+              "Analog Inputs",
+              "Outputs",
+              "Modbus Master Registers",
+              "Other"
+            ],
+            [
+              "Aquavx Pro",
+              "10",
+              "2",
+              "2 Digital, 1 Analog",
+              "16",
+              "2 Pulse Inputs"
+            ],
+            [
+              "Aquavx ProPlus",
+              "10",
+              "5",
+              "5 Digital, 2 Analog",
+              "32",
+              "2 Pulse Inputs"
+            ]
+          ]
+        ],
+        "images": []
+      },
+      {
+        "title": "Store and Forward Buffer",
+        "content": [
+          "Aquavx Pro has a large and forward buffer to save any records that should be sent to the internet hosted-service in the event that communication to the hosted-service has been interrupted for any reason. When communication is re-established, the buffer is sent all at once.",
+          "The buffer can be cleared through the Maintenance Menu \u2013 either one entry at a time or all entries at once."
+        ],
+        "lists": [],
+        "tables": [],
+        "images": []
+      }
+    ],
+    "content": [
+      "The Aquavx\u2122 Pro is a premium remote monitoring, control, and data-acquisition device powered by the RemoteIQ\u2122 Water cloud platform. It provides operators with real-time visibility and control of critical field assets such as pumps, tanks, and lift stations.",
+      "The Aquavx Pro delivers many of the capabilities typically found in PLC-based SCADA systems\u2014including automation logic, alarm management, and data logging\u2014but in a smaller, more cost-effective form factor. Its built-in 4G LTE connectivity to the RemoteIQ Cloud eliminates the need for third-party networking hardware, external modems, or software licensing.",
+      "Operators receive instant alarm notifications via voice, text, or email whenever power is lost, communication is interrupted, or a system limit is exceeded. Intuitive graphics and dashboards within RemoteIQ Water provide live insights into site performance, enabling quick decisions and proactive maintenance.",
+      "Unlike traditional SCADA installations, the Aquavx Pro requires no custom engineering, IT infrastructure, or recurring software maintenance. The unit includes an 18-hour onboard backup battery, with an option to extend runtime up to 72 hours. When AC power is lost, the controller automatically switches to battery operation and maintains output power for critical sensor loops, ensuring continuous monitoring and alarm capability."
+    ],
+    "lists": [],
+    "tables": [],
+    "images": []
+  },
+  {
+    "title": "Installation",
+    "id": "installation",
+    "subsections": [
+      {
+        "title": "Wiring a 24 VDC 4-20mA Sensor",
+        "content": [],
+        "lists": [],
+        "tables": [],
+        "images": []
+      }
+    ],
+    "content": [
+      "Aquavx Pro shipped mounted inside a NEMA 4X enclosure. The dimensions of the enclosure are shown below.",
+      "Figure 1: Mounting Holes",
+      "The connectors for Primary Power, Phone and I/O use quick disconnect plugs. The diagram below shows the location of these connections for the NEMA 4X enclosure.",
+      "Figure 2: Field Wiring Diagram"
+    ],
+    "lists": [],
+    "tables": [],
+    "images": [
+      {
+        "id": "img_0",
+        "data": "data:image/jpeg;base64,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",
+        "type": "jpeg"
+      }
+    ]
+  },
+  {
+    "title": "Assisted Configuration",
+    "id": "assisted-configuration",
+    "subsections": [],
+    "content": [
+      "For fastest setup, perform the field wiring then fill out the online configuration form and submit it to Cattron Support:",
+      "Link: Online Configuration Form",
+      "Once the form is submitted, a configuration file will be generated and uploaded to the device remotely, or provided by email to be loaded onto the device with a USB thumb drive.",
+      "For more information, contact your Cattron representative."
+    ],
+    "lists": [],
+    "tables": [],
+    "images": []
+  },
+  {
+    "title": "Aquavx Pro Main Screen Navigation",
+    "id": "aquavx-pro-main-screen-navigation",
+    "subsections": [
+      {
+        "title": "Overview",
+        "content": [
+          "The Aquavx Pro controller features an intuitive front panel interface for viewing system data, alarms, and configuration menus. The front panel consists of five soft keys below the LCD display and six side-mounted buttons for navigation",
+          "and control."
+        ],
+        "lists": [],
+        "tables": [],
+        "images": []
+      },
+      {
+        "title": "Soft Keys (Below Display)",
+        "content": [
+          "Each of the five soft keys has a dynamic function indicated by an icon on the LCD screen above it. These provide quick access to common operations."
+        ],
+        "lists": [
+          [
+            "Scroll Channels: Starts/Stops automatic scrolling through the list of data channels.",
+            "Manual Scroll: Press button to scroll through the channels one screen at a time.",
+            "Channel List: Displays the full list of all available channels and data registers for review.",
+            "View Alarms: Opens the active alarm list to view current system alerts.",
+            "Settings / Status / Config: Opens system configuration, device status, and setup menus."
+          ]
+        ],
+        "tables": [],
+        "images": []
+      },
+      {
+        "title": "Side Buttons (Right of Display)",
+        "content": [],
+        "lists": [
+          [
+            "F1\u2013F4 \u2013 Programmable Function Keys: Custom shortcuts to user-selected screens. Navigate to any screen and press and hold a function key to assign it.",
+            "\ud83d\udd15 \u2013 Alarm Pause/Resume: Silences active alarms temporarily. Press again to re-enable audible alerts.",
+            "Admin Login: Access admin mode by pressing this button and entering your PIN.",
+            "Power: Turns the controller on or off."
+          ]
+        ],
+        "tables": [],
+        "images": []
+      }
+    ],
+    "content": [
+      "Figure 1. Aquavx Pro Front Panel Interface"
+    ],
+    "lists": [],
+    "tables": [],
+    "images": []
+  },
+  {
+    "title": "Channel Configuration",
+    "id": "channel-configuration",
+    "subsections": [],
+    "content": [
+      "Aquavx Pro channels can be configured by navigating to the channel configuration section on the screen. The following parameters can be configured for each channel. Each channel displays data from a source register, which in turn stores the raw data from physical analog and digital inputs and outputs, Modbus registers, internal device health data, and calculated values.",
+      "Common Channel Parameters",
+      "Analog Channel Parameters",
+      "Analog channels are used for variable signals such as pressure, level, or temperature. They support decimal precision and engineering unit labels.",
+      "Digital Channel Parameters",
+      "Digital channels are used for discrete (on/off) signals such as pump run status, float switch state, or alarm indicators.",
+      "When configuring channels via the HMI, ensure each channel is properly labeled and mapped to its correct data register. For analog inputs, set the display precision and units. For digital inputs, define meaningful ON/OFF labels and confirm the correct bit number if using packed Modbus registers."
+    ],
+    "lists": [],
+    "tables": [
+      [
+        [
+          "Parameter",
+          "Description",
+          "Options / Range"
+        ],
+        [
+          "Name",
+          "Representative channel name (max 31 characters)",
+          "Text (up to 31 chars)"
+        ],
+        [
+          "Type",
+          "Channel type",
+          "1 = Digital, 2 = Analog"
+        ],
+        [
+          "Enable",
+          "Enable or disable this channel",
+          "1 = Enabled, 0 = Disabled"
+        ],
+        [
+          "Reports",
+          "Include this channel in data reporting",
+          "1 = Enabled, 0 = Disabled"
+        ],
+        [
+          "SourceDataReg",
+          "Source data register for channel data",
+          "Register reference"
+        ],
+        [
+          "Scroll List",
+          "Show channel in scroll list on HMI",
+          "1 = Yes, 0 = No"
+        ],
+        [
+          "Pump Page",
+          "Display this channel on a pump page",
+          "1 = Yes, 0 = No"
+        ],
+        [
+          "Delta",
+          "Delta testing threshold (used to detect significant change)",
+          "Float value"
+        ],
+        [
+          "Debounce",
+          "Time in seconds the value must remain changed before registering (prevents flicker)",
+          "0\u20133600 seconds"
+        ]
+      ],
+      [
+        [
+          "Parameter",
+          "Description",
+          "Options / Range"
+        ],
+        [
+          "DisplayPrecision",
+          "Number of decimal positions shown in the value",
+          "0\u20138"
+        ],
+        [
+          "EngineeringUnits",
+          "Engineering units label displayed with the value",
+          "Up to 7 characters (e.g., PSI, GPM, \u00b0F)"
+        ]
+      ],
+      [
+        [
+          "Parameter",
+          "Description",
+          "Options / Range"
+        ],
+        [
+          "BitNumber",
+          "If the source data register is a packed Modbus register, extract this bit number as the digital value",
+          "0\u201332 (0 = use full register value)"
+        ],
+        [
+          "ZeroLabel",
+          "Custom label for the digital '0' (off) state",
+          "Up to 13 characters (e.g., OFF, CLOSED, STOPPED)"
+        ],
+        [
+          "OneLabel",
+          "Custom label for the digital '1' (on) state",
+          "Up to 13 characters (e.g., ON, OPEN, RUNNING)"
+        ]
+      ]
+    ],
+    "images": []
+  },
+  {
+    "title": "Aquavx Pro \u2014 Channel List",
+    "id": "aquavx-pro---channel-list",
+    "subsections": [
+      {
+        "title": "System/Default Channels",
+        "content": [],
+        "lists": [],
+        "tables": [
+          [
+            [
+              "1. Power",
+              "43. AC Freq (Hz)"
+            ],
+            [
+              "2. Cell Fault",
+              "51. Analog Input 1"
+            ],
+            [
+              "3. Comm1 Fault",
+              "52. Analog Input 2"
+            ],
+            [
+              "4. Comm2 Fault",
+              "53. Analog Input 3"
+            ],
+            [
+              "5. BLE Fault",
+              "54. Analog Input 4"
+            ],
+            [
+              "6. Ethernet Fault",
+              "55. Analog Input 5"
+            ],
+            [
+              "7. Display Fault",
+              "56. AC-VoltA"
+            ],
+            [
+              "8. PCB Temperature",
+              "57. AC-VoltB"
+            ],
+            [
+              "21. Digital Input 1",
+              "58. AC-VoltC"
+            ],
+            [
+              "22. Digital Input 2",
+              "59. AC-CurrA"
+            ],
+            [
+              "23. Digital Input 3",
+              "60. AC-CurrB"
+            ],
+            [
+              "24. Digital Input 4",
+              "61. AC-CurrC"
+            ],
+            [
+              "25. Digital Input 5",
+              "65. Analog Output 1"
+            ],
+            [
+              "26. Digital Input 6",
+              "66. Analog Output 2"
+            ],
+            [
+              "27. Digital Input 7",
+              "71. Digital Output 1"
+            ],
+            [
+              "28. Digital Input 8",
+              "72. Digital Output 2"
+            ],
+            [
+              "29. Digital Input 9",
+              "73. Digital Output 3"
+            ],
+            [
+              "30. Digital Input 10",
+              "74. Digital Output 4"
+            ],
+            [
+              "41. Pulse Input 1",
+              "75. Digital Output 5"
+            ],
+            [
+              "42. Pulse Input 2",
+              "76. Digital Output 6"
+            ]
+          ]
+        ],
+        "images": []
+      },
+      {
+        "title": "User Channels",
+        "content": [],
+        "lists": [],
+        "tables": [
+          [
+            [
+              "9. User Chan 9",
+              "63. User Chan 63"
+            ],
+            [
+              "10. User Chan 10",
+              "64. User Chan 64"
+            ],
+            [
+              "11. User Chan 11",
+              "67. User Chan 67"
+            ],
+            [
+              "12. User Chan 12",
+              "68. User Chan 68"
+            ],
+            [
+              "13. User Chan 13",
+              "69. User Chan 69"
+            ],
+            [
+              "14. User Chan 14",
+              "70. User Chan 70"
+            ],
+            [
+              "15. User Chan 15",
+              "77. User Chan 77"
+            ],
+            [
+              "16. User Chan 16",
+              "78. User Chan 78"
+            ],
+            [
+              "17. User Chan 17",
+              "79. User Chan 79"
+            ],
+            [
+              "18. User Chan 18",
+              "80. User Chan 80"
+            ],
+            [
+              "19. User Chan 19",
+              "81. User Chan 81"
+            ],
+            [
+              "20. User Chan 20",
+              "82. User Chan 82"
+            ],
+            [
+              "31. User Chan 31",
+              "83. User Chan 83"
+            ],
+            [
+              "32. User Chan 32",
+              "84. User Chan 84"
+            ],
+            [
+              "33. User Chan 33",
+              "85. User Chan 85"
+            ],
+            [
+              "34. User Chan 34",
+              "86. User Chan 86"
+            ],
+            [
+              "35. User Chan 35",
+              "87. User Chan 87"
+            ],
+            [
+              "36. User Chan 36",
+              "88. User Chan 88"
+            ],
+            [
+              "37. User Chan 37",
+              "89. User Chan 89"
+            ],
+            [
+              "38. User Chan 38",
+              "90. User Chan 90"
+            ],
+            [
+              "39. User Chan 39",
+              "91. User Chan 91"
+            ],
+            [
+              "40. User Chan 40",
+              "92. User Chan 92"
+            ],
+            [
+              "44. User Chan 44",
+              "93. User Chan 93"
+            ],
+            [
+              "45. User Chan 45",
+              "94. User Chan 94"
+            ],
+            [
+              "46. User Chan 46",
+              "95. User Chan 95"
+            ],
+            [
+              "47. User Chan 47",
+              "96. User Chan 96"
+            ],
+            [
+              "48. User Chan 48",
+              "97. User Chan 97"
+            ],
+            [
+              "49. User Chan 49",
+              "98. User Chan 98"
+            ],
+            [
+              "50. User Chan 50",
+              "99. User Chan 99"
+            ],
+            [
+              "62. User Chan 62",
+              "100. User Chan 100"
+            ]
+          ]
+        ],
+        "images": []
+      }
+    ],
+    "content": [
+      "There are 100 channels available in the Aquavx Pro and Pro Plus, System Channels with default configurations and User Channels which can be customized to populate as needed with Modbus values or calculated values such as total flow, etc.",
+      "In addition, some User Channels are automatically configured to support duplex/simplex pump control and other functions when those functions are enabled."
+    ],
+    "lists": [],
+    "tables": [],
+    "images": []
+  },
+  {
+    "title": "Analog Input (ADC) Configuration",
+    "id": "analog-input-(adc)-configuration",
+    "subsections": [
+      {
+        "title": "ADC Analog Input Parameters",
+        "content": [],
+        "lists": [],
+        "tables": [
+          [
+            [
+              "Parameter",
+              "Description"
+            ],
+            [
+              "Name (1)",
+              "Representative ADC input name (up to 31 characters)."
+            ],
+            [
+              "Input Type (2)",
+              "Defines the input signal type: 0=None, 1=0\u201320mA, 2=4\u201320mA, 3=0\u20135V, 4=1\u20135V, 5=\u00b1600VAC, 6=\u00b15AAC."
+            ],
+            [
+              "Damping or K Factor (3)",
+              "Used to smooth noisy signals (range 0.0\u20131.0)."
+            ],
+            [
+              "Zero Scale Engr (4)",
+              "Engineering units corresponding to the zero-scale signal (float)."
+            ],
+            [
+              "Full Scale Engr (5)",
+              "Engineering units corresponding to the full-scale signal (float)."
+            ],
+            [
+              "Disp Precision (6)",
+              "Number of decimal places shown in displayed values (0\u20138)."
+            ],
+            [
+              "Raw Offset (11)",
+              "ADC offset (in counts) when input is grounded (float)."
+            ],
+            [
+              "Zero Count (12)",
+              "Expected ADC counts when the input signal is at the zero-scale value (float)."
+            ],
+            [
+              "Full Count (13)",
+              "Expected ADC counts when the input signal is at the full-scale value (float)."
+            ],
+            [
+              "Zero Raw Units (14)",
+              "Expected raw input value (mA or V) at the zero-scale point (float)."
+            ],
+            [
+              "Full Raw Units (15)",
+              "Expected raw input value (mA or V) at the full-scale point (float)."
+            ]
+          ]
+        ],
+        "images": []
+      },
+      {
+        "title": "Setup Tips",
+        "content": [],
+        "lists": [
+          [
+            "For most industrial transmitters, use Input Type = 2 (4\u201320mA).",
+            "Set Zero Scale Engr and Full Scale Engr to match your sensor\u2019s measurement range (e.g., 0.0 to 100.0).",
+            "Adjust Damping Factor if readings fluctuate rapidly \u2014 lower values produce faster response, higher values smooth noise.",
+            "Precision controls how many decimal digits are displayed on the HMI.",
+            "Use the Reset function on the HMI to restore calibration counts if sensor readings appear incorrect.",
+            "Verify Zero Count and Full Count match the expected values for your input type and range."
+          ]
+        ],
+        "tables": [],
+        "images": []
+      }
+    ],
+    "content": [
+      "Configure analog input (AIN) on the Aquavx Pro system by navigating the the ADC configuration menu:q"
+    ],
+    "lists": [],
+    "tables": [],
+    "images": []
+  },
+  {
+    "title": "Ethernet/Modbus TCP Configuration Guide",
+    "id": "ethernet-modbus-tcp-configuration-guide",
+    "subsections": [
+      {
+        "title": "Ethernet Interface Configuration",
+        "content": [],
+        "lists": [],
+        "tables": [
+          [
+            [
+              "Parameter",
+              "Description"
+            ],
+            [
+              "Host Name (1)",
+              "Representative host name of the device (up to 15 characters)."
+            ],
+            [
+              "Default IP Address (2)",
+              "Default IP address when not assigned by DHCP (127 characters)."
+            ],
+            [
+              "Subnet Mask (3)",
+              "Network subnet mask in standard format (e.g., 255.255.255.0)."
+            ],
+            [
+              "Gateway IP (4)",
+              "Gateway IP address (127 characters)."
+            ],
+            [
+              "DHCP Client Enable (5)",
+              "Allows IP assignment by DHCP server \u2014 0 = Disable, 1 = Enable."
+            ],
+            [
+              "NOTE",
+              "Before enabling or disabling DHCP, both Modbus TCP Client and Server must be disabled."
+            ]
+          ]
+        ],
+        "images": []
+      },
+      {
+        "title": "Modbus TCP Server (Slave)",
+        "content": [],
+        "lists": [],
+        "tables": [
+          [
+            [
+              "Parameter",
+              "Description"
+            ],
+            [
+              "Enable (20)",
+              "Enables or disables the TCP Server \u2014 0 = Disable, 1 = Enable."
+            ],
+            [
+              "Listener Port (21)",
+              "Port number that the TCP Server listens on (0\u201365535)."
+            ],
+            [
+              "Remote Client Poll Timeout (22)",
+              "Maximum time between successive polls from the remote Client (500\u201360000 ms)."
+            ]
+          ]
+        ],
+        "images": []
+      },
+      {
+        "title": "Modbus TCP Client (Master)",
+        "content": [],
+        "lists": [],
+        "tables": [
+          [
+            [
+              "Parameter",
+              "Description"
+            ],
+            [
+              "Enable (30)",
+              "Enables or disables the TCP Client \u2014 0 = Disable, 1 = Enable."
+            ],
+            [
+              "Remote Server Port (31)",
+              "Port number of the remote TCP Server (0\u201365535)."
+            ],
+            [
+              "Remote Server IP (32)",
+              "IP address of the remote TCP Server (127 characters)."
+            ],
+            [
+              "Remote Server Connect Timeout (33)",
+              "Maximum time to wait for a connection to the remote Server (500\u201360000 ms)."
+            ],
+            [
+              "Remote Server Response Timeout (34)",
+              "Maximum time to wait for a response from the remote Server (500\u201360000 ms)."
+            ]
+          ]
+        ],
+        "images": []
+      },
+      {
+        "title": "Setup Tips",
+        "content": [],
+        "lists": [
+          [
+            "Ensure only one device on the network shares the same IP address.",
+            "For most installations, use static IP addressing and disable DHCP.",
+            "When using Modbus TCP Server, confirm the listening port (typically 502) is not blocked by firewalls.",
+            "The TrivialFTP server is used for firmware or configuration file transfers; ensure the selected port does not conflict with Modbus ports.",
+            "Disable both Client and Server functions before changing DHCP or IP addressing parameters."
+          ]
+        ],
+        "tables": [],
+        "images": []
+      }
+    ],
+    "content": [
+      "This section describes how to configure Ethernet communication parameters and enable Modbus TCP Server (Slave) and Client (Master) functionality in the Aquavx Pro system.",
+      "Figure 1 \u2014 Example HMI Screen: Ethernet and Modbus TCP Configuration",
+      "(Insert image of Ethernet/Modbus configuration screen here)"
+    ],
+    "lists": [],
+    "tables": [],
+    "images": []
+  },
+  {
+    "title": "RS-485 Serial Port Configuration Guide",
+    "id": "rs-485-serial-port-configuration-guide",
+    "subsections": [
+      {
+        "title": "Serial Port Parameters",
+        "content": [],
+        "lists": [],
+        "tables": [
+          [
+            [
+              "Parameter",
+              "Description"
+            ],
+            [
+              "Name (1)",
+              "Representative port name."
+            ],
+            [
+              "Enable (2)",
+              "0 = disabled, 1 = enabled."
+            ],
+            [
+              "Port Mode (3)",
+              "3 = master, 4 = slave"
+            ],
+            [
+              "RS232/RS485 (4)",
+              "0 = RS232, 1 = RS485."
+            ],
+            [
+              "Baud (5)",
+              "Communication speed: 1200, 2400, 4800, 9600, 19200, 38400, 57600, 115200."
+            ],
+            [
+              "Max Idle (6)",
+              "Close receive buffer after this idle time (1\u201332000 ms)."
+            ],
+            [
+              "Response Timeout (7)",
+              "Maximum wait time for a response to start (1\u201360 s)."
+            ],
+            [
+              "Data Bits (8)",
+              "Number of data bits (7, 8, or 9)."
+            ],
+            [
+              "Stop Bits (9)",
+              "Number of stop bits (1 or 2)."
+            ],
+            [
+              "Parity (10)",
+              "0 = none, 1 = odd, 2 = even (if odd or even, set DataBits to 9)."
+            ],
+            [
+              "RS485 Tx On Delay (12)",
+              "Delay before transmission enable (1/16th bit times, 0\u201331)."
+            ],
+            [
+              "RS485 Tx Off Delay (13)",
+              "Delay before transmission disable (1/16th bit times, 0\u201331)."
+            ],
+            [
+              "RS485 Termination (14)",
+              "0 = not terminated, 1 = terminated."
+            ],
+            [
+              "Flow Control (15)",
+              "0 = no flow control, 1 = RTS/CTS flow control."
+            ]
+          ]
+        ],
+        "images": []
+      },
+      {
+        "title": "Configuration Notes",
+        "content": [],
+        "lists": [
+          [
+            "All devices on the Modbus RTU network must share the same baud rate, parity, and stop bit settings.",
+            "Termination resistors should be enabled only on the first and last device in the RS-485 daisy chain.",
+            "Use twisted-pair, shielded cable for RS-485 wiring to reduce electrical noise.",
+            "Ensure each Modbus slave device has a unique address to avoid communication conflicts.",
+            "After switching between RS-232 and RS-485 modes, power-cycle the controller to apply the changes.",
+            "Use short cable runs when possible to minimize signal degradation and reflection on the RS-485 bus."
+          ]
+        ],
+        "tables": [],
+        "images": []
+      }
+    ],
+    "content": [
+      "This section explains how to configure the RS-485 serial port for Modbus RTU Master or Slave operation on the Aquavx Pro controller. Proper configuration ensures reliable communication with connected devices."
+    ],
+    "lists": [],
+    "tables": [],
+    "images": []
+  },
+  {
+    "title": "Modbus Register Configuration (Master Mode: TCP or RTU)",
+    "id": "modbus-register-configuration-(master-mode:-tcp-or-rtu)",
+    "subsections": [],
+    "content": [
+      "When the Aquavx is acting as a Modbus Master, each Modbus register can be configured with following parameters in the Modbus Setup section of the menu:"
+    ],
+    "lists": [],
+    "tables": [
+      [
+        [
+          "Parameter",
+          "Description"
+        ],
+        [
+          "Name (1)",
+          "Descriptive name for the register (max 31 characters)."
+        ],
+        [
+          "Enable (2)",
+          "Enables or disables this register. 0 = Disabled, 1 = Enabled."
+        ],
+        [
+          "Link Type (3)",
+          "Physical Modbus link type. 0 = RTU, 1 = TCP."
+        ],
+        [
+          "SlaveID (4)",
+          "Address of the slave device to read from (valid range 1\u2013247 for RTU, 255 for broadcast)."
+        ],
+        [
+          "Function Code (6)",
+          "Modbus function to execute:\n\u2022 1 = Read Coil (0x)\n\u2022 2 = Read Discrete Input (1x)\n\u2022 3 = Read Holding Register (4x)\n\u2022 4 = Read Input Register (3x)\n\u2022 5 = Write Single Coil (0x)\n\u2022 6 = Write Single Holding Register (4x)\n\u2022 15 = Write Multiple Coils (0x)\n\u2022 16 = Write Multiple Holding \nRegisters (4x)"
+        ],
+        [
+          "Register Address (7)",
+          "Address of the register in the slave to read or write (1\u201365535)."
+        ],
+        [
+          "Register Type (8)",
+          "Defines the data format:\n\u2022 0 = reg16\n\u2022 1 = reg32\n\u2022 2 = bit16\n\u2022 3 = bit32\n\u2022 4 = packed16\n\u2022 5 = packed32\n\u2022 6 = float32"
+        ],
+        [
+          "Bit Weight (9)",
+          "Scale factor applied to the raw register value (floating-point)."
+        ],
+        [
+          "Offset (10)",
+          "Offset applied after scaling (floating-point)."
+        ],
+        [
+          "Signed Register (11)",
+          "Indicates whether the register value is signed. 0 = Unsigned, 1 = Signed."
+        ],
+        [
+          "Display Precision (12)",
+          "Number of decimal places to show in display (0\u20138)."
+        ],
+        [
+          "Byte Order (Endian) (13)",
+          "Byte order of the register data. 0 = Little Endian (LSB first), 1 = Big Endian (MSB first)."
+        ],
+        [
+          "Bit Number (14)",
+          "Extracts a single bit from a packed register (0\u201332). Use 0 to leave the value packed."
+        ],
+        [
+          "Packed Mask (15)",
+          "Bitmask applied to packed registers to ignore unwanted bits (0x0\u20130xFFFFFFFF)."
+        ]
+      ]
+    ],
+    "images": []
+  },
+  {
+    "title": "Alarm Configuration (Aquavx System)",
+    "id": "alarm-configuration-(aquavx-system)",
+    "subsections": [],
+    "content": [
+      "The following parameters define each alarm within the Aquavx System. Depending on whether the source channel is analog or digital, different fields apply."
+    ],
+    "lists": [],
+    "tables": [
+      [
+        [
+          "Parameter",
+          "Description",
+          "Description"
+        ],
+        [
+          "Name (1)",
+          "Name (1)",
+          "Representative name for this alarm (max 31 characters).",
+          "Representative name for this alarm (max 31 characters)."
+        ],
+        [
+          "Enable (2)",
+          "Enable (2)",
+          "Enables or disables this alarm. 1 = Enabled, 0 = Disabled.",
+          "Enables or disables this alarm. 1 = Enabled, 0 = Disabled."
+        ],
+        [
+          "Popup (3)",
+          "Popup (3)",
+          "Enables alarm popups on display. 1 = Enabled, 0 = Disabled.",
+          "Enables alarm popups on display. 1 = Enabled, 0 = Disabled."
+        ],
+        [
+          "Type (4)",
+          "Type (4)",
+          "Defines the alarm type. 0 = Standard, 1 = Latched.",
+          "Defines the alarm type. 0 = Standard, 1 = Latched."
+        ],
+        [
+          "SourceChan (5)",
+          "SourceChan (5)",
+          "The value of this channel is checked for the alarm condition.",
+          "The value of this channel is checked for the alarm condition."
+        ],
+        [
+          "DispPrecision (6)",
+          "DispPrecision (6)",
+          "Number of decimal places to display for analog values (0\u20138).",
+          "Number of decimal places to display for analog values (0\u20138)."
+        ],
+        [
+          "AlarmDelay (7)",
+          "AlarmDelay (7)",
+          "Source value must remain in alarm for this duration before being considered 'In Alarm' (0\u2013999,999 seconds).",
+          "Source value must remain in alarm for this duration before being considered 'In Alarm' (0\u2013999,999 seconds)."
+        ],
+        [
+          "CallRoster (8)",
+          "CallRoster (8)",
+          "Roster to call when alarm goes active. 0 = None, 1 = Standard, 2 = Priority.",
+          "Roster to call when alarm goes active. 0 = None, 1 = Standard, 2 = Priority."
+        ],
+        [
+          "AlarmState (14)",
+          "AlarmState (14)",
+          "For Digital Channels: The state of the source register that triggers the alarm (0 or 1).",
+          "For Digital Channels: The state of the source register that triggers the alarm (0 or 1)."
+        ],
+        [
+          "LimitType (9)",
+          "LimitType (9)",
+          "For Analog Channels: 0 = Low limit, 1 = High limit.",
+          "For Analog Channels: 0 = Low limit, 1 = High limit."
+        ],
+        [
+          "Limit (10)",
+          "Limit (10)",
+          "Threshold value checked against the source value based on LimitType (float).",
+          "Threshold value checked against the source value based on LimitType (float)."
+        ],
+        [
+          "Hysteresis (11)",
+          "Hysteresis (11)",
+          "For Low Limit: Source must exceed (limit + hysteresis) to return to normal.\nFor High Limit: Source must fall below (limit - hysteresis) to return to normal.",
+          "For Low Limit: Source must exceed (limit + hysteresis) to return to normal.\nFor High Limit: Source must fall below (limit - hysteresis) to return to normal."
+        ],
+        [
+          "LowFailSafe",
+          "LowFailSafe",
+          "Source value must be above this value to be considered valid (float).",
+          "Source value must be above this value to be considered valid (float)."
+        ],
+        [
+          "HighFailSafe",
+          "HighFailSafe",
+          "Source value must be below this value to be considered valid (float).",
+          "Source value must be below this value to be considered valid (float)."
+        ],
+        [
+          "InAlarmDestChan",
+          "InAlarmDestChan",
+          "Channel number to hold the alarm state.",
+          "Channel number to hold the alarm state."
+        ],
+        [
+          "InFailSafeDestChan",
+          "InFailSafeDestChan",
+          "Channel number to hold the failsafe state.",
+          "Channel number to hold the failsafe state."
+        ],
+        [
+          "LatchedValDestChan",
+          "LatchedValDestChan",
+          "Channel number to hold the latched value.",
+          "Channel number to hold the latched value."
+        ]
+      ]
+    ],
+    "images": []
+  },
+  {
+    "title": "Duplex and Simplex Pump Control Setup",
+    "id": "duplex-and-simplex-pump-control-setup",
+    "subsections": [
+      {
+        "title": "Overview",
+        "content": [
+          "The Pump Control feature in your Aquavx Pro system manages how the system  automatically turns on and off pumps to control liquid levels in a tank or wet well. This guide explains how to review and change pump settings using the controller's built-in display and buttons."
+        ],
+        "lists": [],
+        "tables": [],
+        "images": []
+      },
+      {
+        "title": "What This System Does",
+        "content": [
+          "Automatically starts and stops pumps to keep the tank level within set limits.",
+          "Alternates between pumps to prevent wear and tear (if two pumps are installed).",
+          "Raises alarms for fault conditions like pump failure or high liquid levels."
+        ],
+        "lists": [],
+        "tables": [],
+        "images": []
+      },
+      {
+        "title": "Navigating the Menu",
+        "content": [
+          "Use the arrow keys to scroll, the Enter button to select, and the Back or Cancel button to go back.",
+          "To find Pump Control settings:",
+          "From the main screen, press the Menu button.",
+          "Scroll to Function Block Configs and press Enter.",
+          "Select Pump Control",
+          "Follow prompts to view or edit pump control parameters."
+        ],
+        "lists": [],
+        "tables": [],
+        "images": []
+      },
+      {
+        "title": "Settings",
+        "content": [
+          "Level Setpoints",
+          "Lead On: Level where the first pump turns on.",
+          "Lag On: Level where the second pump turns on (if needed).",
+          "All Off: Level where both pumps turn off.",
+          "High Alarm / Low Alarm: Trigger visual or audible alarms if levels go outside safe range.",
+          "Delays and Timers",
+          "Debounce: Prevents pump from reacting to quick fluctuations.",
+          "Start Delay: Wait time before turning pump on.",
+          "Restart Delay: Time before same pump can start again.",
+          "Max On Time: Limits how long a pump can stay on in one cycle."
+        ],
+        "lists": [],
+        "tables": [
+          [
+            [
+              "Setting",
+              "Description"
+            ],
+            [
+              "Enable",
+              "Turns the Pump Control system on or off."
+            ],
+            [
+              "Mode",
+              "Set to \"Drain\" (for wet wells) or \"Fill\" (for storage tanks)."
+            ],
+            [
+              "Number of Pumps",
+              "1 for single pump, 2 for duplex stations."
+            ],
+            [
+              "Alternation",
+              "Set to \"Auto\" to rotate pumps and balance usage."
+            ],
+            [
+              "Sensor Type",
+              "Choose \"Level Sensor\" for ultrasonic or pressure sensors, or \"Floats\" for mechanical switches."
+            ]
+          ]
+        ],
+        "images": []
+      },
+      {
+        "title": "How to Edit a Parameter",
+        "content": [
+          "Navigate to the setting using arrows.",
+          "Press Enter to select.",
+          "Use arrow keys to adjust the value.",
+          "Press Enter again to confirm.",
+          "For example, to change the Lead On Level:\n- Go to 'Lead On Setpt'\n- Press Enter, adjust level (e.g., 35.0)\n- Press Enter again to save"
+        ],
+        "lists": [],
+        "tables": [],
+        "images": []
+      },
+      {
+        "title": "Tips",
+        "content": [
+          "Watch the Pump Status screen to see current level and pump state.",
+          "Use Favorites keys (F1\u2013F4) to jump quickly to pages like Pump Status, Alarms, or Events.",
+          "If unsure about a setting, contact your system technician."
+        ],
+        "lists": [],
+        "tables": [],
+        "images": []
+      }
+    ],
+    "content": [],
+    "lists": [],
+    "tables": [],
+    "images": []
+  },
+  {
+    "title": "Pump Status and HOA",
+    "id": "pump-status-and-hoa",
+    "subsections": [],
+    "content": [
+      "Once you have set up pump control, you can monitor pump control activity as well as a virtual Hand/OFF/Auto interface (HOA) via the pump control status screen."
+    ],
+    "lists": [],
+    "tables": [],
+    "images": []
+  },
+  {
+    "title": "Peer-to-Peer Networking",
+    "id": "peer-to-peer-networking",
+    "subsections": [
+      {
+        "title": "Overview",
+        "content": [
+          "The Peer-to-Peer Networking (also called Push Messaging) feature allows one Aquavx Pro controller to share real-time input/output (I/O) data\u2014such as tank level, pressure, or pump status\u2014with one or more remote Aquavx Pro units. Unlike traditional wired Modbus links, this function communicates securely through the RemoteIQ Cloud using each unit\u2019s cellular data connection. As long as both devices have a reliable 4G LTE connection to the cloud, they can exchange data instantly, no matter where they are located geographically.",
+          "Sharing a tank-level signal from one site to control a booster or lift-station pump at another.",
+          "Sending status, alarms, or flow information to a remote monitoring site.",
+          "Creating distributed control networks without the need for dedicated private radio systems."
+        ],
+        "lists": [
+          [
+            "Typical applications include:"
+          ]
+        ],
+        "tables": [],
+        "images": []
+      },
+      {
+        "title": "Push / Peer-to-Peer Parameters",
+        "content": [],
+        "lists": [],
+        "tables": [
+          [
+            [
+              "Parameter",
+              "Description"
+            ],
+            [
+              "Descriptive PUSH Name (1)",
+              "A representative name for the peer-to-peer link (up to 31 characters)."
+            ],
+            [
+              "Mode (2)",
+              "Defines the role of the unit. 0 = Disabled, 1 = Send, 2 = Receive."
+            ],
+            [
+              "Src Chan Number (3)",
+              "When Mode = Send, this is the local channel whose data will be transmitted. When Mode = Receive, this is the destination channel where incoming data will be written."
+            ],
+            [
+              "Delta (5)",
+              "(Send Mode only) The minimum analog-value change required to trigger a new transmission (float)."
+            ],
+            [
+              "Debounce (6)",
+              "The change in value must remain continuous for this duration before sending (0\u20133600 s)."
+            ],
+            [
+              "Peer IMEI (7)",
+              "The 15-digit IMEI of the remote Aquavx Pro device. This value links the sender and receiver through MQTT subscriptions on the RemoteIQ Cloud."
+            ]
+          ]
+        ],
+        "images": []
+      },
+      {
+        "title": "Configuration Notes",
+        "content": [],
+        "lists": [
+          [
+            "Each 'Send' unit can transmit to one or more 'Receive' units as long as each receiver\u2019s Peer IMEI matches the sender\u2019s hardware IMEI.",
+            "For analog signals, use the Delta parameter to avoid unnecessary cellular data usage caused by minor fluctuations.",
+            "Ensure that both Modbus and Peer-to-Peer communications are configured independently\u2014they can operate simultaneously without interference.",
+            "The Debounce setting helps eliminate noise or rapidly oscillating values before a transmission is triggered.",
+            "A reliable cellular signal (RSSI > -95 dBm) is recommended for consistent updates.",
+            "Verify cloud connectivity through the Cell Status page before enabling Push links.",
+            "After editing Push parameters, save and reboot the controller to activate new links."
+          ]
+        ],
+        "tables": [],
+        "images": []
+      }
+    ],
+    "content": [],
+    "lists": [],
+    "tables": [],
+    "images": []
+  }
+]

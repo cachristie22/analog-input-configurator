@@ -1,21 +1,24 @@
 # Aquavx Pro User Guide Website
 
-A modern, responsive online version of the Aquavx Pro user manual with search functionality and easy navigation.
+A modern, responsive online version of the Aquavx Pro user manual with search functionality, easy navigation, and complete content including illustrations, tables, and lists.
 
 ## Features
 
 - **Clean, Modern Design**: Professional interface with intuitive navigation
-- **Full-Text Search**: Search across all sections and subsections with highlighted results
+- **Full-Text Search**: Search across all sections, subsections, lists, and tables with highlighted results
+- **Complete Content**: All subsections, bulleted lists, configuration tables, and diagrams included
 - **Responsive Layout**: Works on desktop, tablet, and mobile devices
 - **Keyboard Navigation**: Use arrow keys to navigate between sections
 - **Sidebar Navigation**: Quick access to all sections and subsections
 - **Paginated Content**: Each major section on its own page for easy reading
+- **Rich Formatting**: Styled tables, lists, and embedded images
+- **10 Illustrations**: All diagrams and screenshots from the original manual
 
 ## Files Included
 
-- `index.html` - Main HTML file
-- `app.js` - JavaScript application logic
-- `content.json` - Structured content extracted from the user manual
+- `index.html` - Main HTML file with enhanced styling
+- `app.js` - JavaScript application logic with table/list rendering
+- `content_full.json` - Complete structured content with base64-encoded images (76KB)
 
 ## Deployment Options
 
@@ -65,10 +68,35 @@ To test locally:
 ## Usage
 
 - **Navigation**: Click sections in the sidebar or use Previous/Next buttons
-- **Search**: Type in the search bar to find content across all sections
+- **Search**: Type in the search bar to find content across all sections, lists, and tables
 - **Keyboard Shortcuts**: 
   - Left Arrow: Previous section
   - Right Arrow: Next section
+
+## Content Included
+
+The website includes all 14 sections from the Aquavx Pro manual:
+
+1. **Introduction** - Overview and general operation with store-and-forward buffer details
+2. **Installation** - Wiring diagrams for 24 VDC 4-20mA sensors
+3. **Assisted Configuration** - Setup wizard guide
+4. **Main Screen Navigation** - Interface overview with soft keys and side buttons
+5. **Channel Configuration** - Complete configuration parameter tables
+6. **Channel List** - System/default channels and user channel specifications
+7. **Analog Input (ADC) Configuration** - ADC parameters and setup tips
+8. **Ethernet/Modbus TCP Configuration** - Network interface, TCP server/client setup
+9. **RS-485 Serial Port Configuration** - Serial parameters and configuration notes
+10. **Modbus Register Configuration** - Master mode setup for TCP and RTU
+11. **Alarm Configuration** - Aquavx system alarm parameters
+12. **Duplex and Simplex Pump Control** - Complete pump control setup with settings tables
+13. **Pump Status and HOA** - Hand-Off-Auto control information
+14. **Peer-to-Peer Networking** - P2P overview, parameters, and configuration
+
+Each section includes:
+- Full text content
+- Configuration parameter tables (16 tables total)
+- Bulleted instruction lists (68+ list items)
+- Relevant diagrams and screenshots where applicable
 
 ## Customization
 
@@ -106,10 +134,12 @@ Adjust layout dimensions in the CSS variables:
 
 ## Notes
 
-- All content is loaded from `content.json`
+- All content is loaded from `content_full.json`
+- Images are embedded as base64 data (no external image files needed)
 - No backend or database required
 - Works entirely in the browser
-- Fast and lightweight (~35KB total)
+- Total size: ~106KB (HTML + JS + JSON with images)
+- Fast loading and lightweight despite including all images
 
 ## Support
 

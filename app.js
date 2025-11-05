@@ -5,7 +5,7 @@ let currentSectionIndex = 0;
 // Initialize the application
 async function init() {
     try {
-        const response = await fetch('content.json');
+        const response = await fetch('content_full.json');
         sections = await response.json();
         renderNavigation();
         renderContent();
@@ -59,13 +59,69 @@ function renderContent() {
             });
         }
 
+        // Add main section lists
+        if (section.lists && section.lists.length > 0) {
+            section.lists.forEach(list => {
+                sectionContent += '<div class="content-list"><ul>';
+                list.forEach(item => {
+                    sectionContent += `<li>${escapeHtml(item)}</li>`;
+                });
+                sectionContent += '</ul></div>';
+            });
+        }
+
+        // Add main section tables
+        if (section.tables && section.tables.length > 0) {
+            section.tables.forEach(table => {
+                sectionContent += renderTable(table);
+            });
+        }
+
+        // Add main section images
+        if (section.images && section.images.length > 0) {
+            section.images.forEach(image => {
+                if (image.type !== 'emf' && image.type !== 'wmf') {
+                    sectionContent += `<div class="image-container"><img src="${image.data}" class="content-image" alt="Diagram" /></div>`;
+                }
+            });
+        }
+
         // Add subsections
         if (section.subsections && section.subsections.length > 0) {
             section.subsections.forEach(subsection => {
                 sectionContent += `<h2>${escapeHtml(subsection.title)}</h2>`;
+                
+                // Subsection content
                 if (subsection.content && subsection.content.length > 0) {
                     subsection.content.forEach(paragraph => {
                         sectionContent += `<p>${escapeHtml(paragraph)}</p>`;
+                    });
+                }
+
+                // Subsection lists
+                if (subsection.lists && subsection.lists.length > 0) {
+                    subsection.lists.forEach(list => {
+                        sectionContent += '<div class="content-list"><ul>';
+                        list.forEach(item => {
+                            sectionContent += `<li>${escapeHtml(item)}</li>`;
+                        });
+                        sectionContent += '</ul></div>';
+                    });
+                }
+
+                // Subsection tables
+                if (subsection.tables && subsection.tables.length > 0) {
+                    subsection.tables.forEach(table => {
+                        sectionContent += renderTable(table);
+                    });
+                }
+
+                // Subsection images
+                if (subsection.images && subsection.images.length > 0) {
+                    subsection.images.forEach(image => {
+                        if (image.type !== 'emf' && image.type !== 'wmf') {
+                            sectionContent += `<div class="image-container"><img src="${image.data}" class="content-image" alt="Diagram" /></div>`;
+                        }
                     });
                 }
             });
@@ -88,6 +144,38 @@ function renderContent() {
     });
 
     mainContent.innerHTML = contentHTML;
+}
+
+// Render a table
+function renderTable(tableData) {
+    if (!tableData || tableData.length === 0) return '';
+    
+    let tableHTML = '<table class="content-table">';
+    
+    // First row as header
+    if (tableData.length > 0) {
+        tableHTML += '<thead><tr>';
+        tableData[0].forEach(cell => {
+            tableHTML += `<th>${escapeHtml(cell)}</th>`;
+        });
+        tableHTML += '</tr></thead>';
+    }
+    
+    // Rest as body
+    if (tableData.length > 1) {
+        tableHTML += '<tbody>';
+        for (let i = 1; i < tableData.length; i++) {
+            tableHTML += '<tr>';
+            tableData[i].forEach(cell => {
+                tableHTML += `<td>${escapeHtml(cell)}</td>`;
+            });
+            tableHTML += '</tr>';
+        }
+        tableHTML += '</tbody>';
+    }
+    
+    tableHTML += '</table>';
+    return tableHTML;
 }
 
 // Navigate to specific section
@@ -203,6 +291,42 @@ function performSearch(query) {
             }
         });
 
+        // Search in section lists
+        if (section.lists) {
+            section.lists.forEach(list => {
+                list.forEach(item => {
+                    if (item.toLowerCase().includes(query)) {
+                        const excerpt = item.length > 150 ? item.substring(0, 150) + '...' : item;
+                        results.push({
+                            sectionIndex,
+                            title: section.title,
+                            excerpt,
+                            matchType: 'list'
+                        });
+                    }
+                });
+            });
+        }
+
+        // Search in section tables
+        if (section.tables) {
+            section.tables.forEach(table => {
+                table.forEach(row => {
+                    row.forEach(cell => {
+                        if (cell.toLowerCase().includes(query)) {
+                            const excerpt = cell.length > 150 ? cell.substring(0, 150) + '...' : cell;
+                            results.push({
+                                sectionIndex,
+                                title: section.title,
+                                excerpt,
+                                matchType: 'table'
+                            });
+                        }
+                    });
+                });
+            });
+        }
+
         // Search in subsections
         section.subsections.forEach(subsection => {
             if (subsection.title.toLowerCase().includes(query)) {
@@ -230,6 +354,42 @@ function performSearch(query) {
                     });
                 }
             });
+
+            // Search in subsection lists
+            if (subsection.lists) {
+                subsection.lists.forEach(list => {
+                    list.forEach(item => {
+                        if (item.toLowerCase().includes(query)) {
+                            const excerpt = item.length > 150 ? item.substring(0, 150) + '...' : item;
+                            results.push({
+                                sectionIndex,
+                                title: `${section.title} - ${subsection.title}`,
+                                excerpt,
+                                matchType: 'list'
+                            });
+                        }
+                    });
+                });
+            }
+
+            // Search in subsection tables
+            if (subsection.tables) {
+                subsection.tables.forEach(table => {
+                    table.forEach(row => {
+                        row.forEach(cell => {
+                            if (cell.toLowerCase().includes(query)) {
+                                const excerpt = cell.length > 150 ? cell.substring(0, 150) + '...' : cell;
+                                results.push({
+                                    sectionIndex,
+                                    title: `${section.title} - ${subsection.title}`,
+                                    excerpt,
+                                    matchType: 'table'
+                                });
+                            }
+                        });
+                    });
+                });
+            }
         });
     });
 
