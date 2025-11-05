@@ -118,7 +118,7 @@
     "subsections": [],
     "content": [
       "For fastest setup, perform the field wiring then fill out the online configuration form and submit it to Cattron Support:",
-      "Link: Online Configuration Form",
+      "<a href='https://cachristie22.github.io/analog-input-configurator/AquavxProConfigForm_v2.html' target='_blank'>Online Configuration Form</a>",
       "Once the form is submitted, a configuration file will be generated and uploaded to the device remotely, or provided by email to be loaded onto the device with a USB thumb drive.",
       "For more information, contact your Cattron representative."
     ],
