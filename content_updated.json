@@ -82,10 +82,18 @@
     "subsections": [
       {
         "title": "Wiring a 24 VDC 4-20mA Sensor",
-        "content": [],
+        "content": [
+          "24VDC 4-20mA sensors must be powered externally from the Aquavx."
+        ],
         "lists": [],
         "tables": [],
-        "images": []
+    "images": [
+      {
+        "id": "img_2",
+        "url": "images/24VDC420wiring.png",
+        "alt": "24VDC 4-20mA sensor wiring"
+      }
+    ]
       }
     ],
     "content": [
