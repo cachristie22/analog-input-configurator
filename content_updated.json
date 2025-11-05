@@ -138,7 +138,13 @@
         ],
         "lists": [],
         "tables": [],
-        "images": []
+        "images": [
+          {
+            "id": "img_5",
+            "url": "images/AquavxMainScreen.png",
+            "alt": "Main Screen Navigation"
+          }
+        ]
       },
       {
         "title": "Soft Keys (Below Display)",
