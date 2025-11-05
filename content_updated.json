@@ -53,7 +53,7 @@
         "title": "Store and Forward Buffer",
         "content": [
           "Aquavx Pro has a large and forward buffer to save any records that should be sent to the internet hosted-service in the event that communication to the hosted-service has been interrupted for any reason. When communication is re-established, the buffer is sent all at once.",
-          "The buffer can be cleared through the Maintenance Menu \u2013 either one entry at a time or all entries at once."
+          "The buffer can be cleared through the Maintenance Menu – either one entry at a time or all entries at once."
         ],
         "lists": [],
         "tables": [],
@@ -61,8 +61,8 @@
       }
     ],
     "content": [
-      "The Aquavx\u2122 Pro is a premium remote monitoring, control, and data-acquisition device powered by the RemoteIQ\u2122 Water cloud platform. It provides operators with real-time visibility and control of critical field assets such as pumps, tanks, and lift stations.",
-      "The Aquavx Pro delivers many of the capabilities typically found in PLC-based SCADA systems\u2014including automation logic, alarm management, and data logging\u2014but in a smaller, more cost-effective form factor. Its built-in 4G LTE connectivity to the RemoteIQ Cloud eliminates the need for third-party networking hardware, external modems, or software licensing.",
+      "The Aquavx™ Pro is a premium remote monitoring, control, and data-acquisition device powered by the RemoteIQ™ Water cloud platform. It provides operators with real-time visibility and control of critical field assets such as pumps, tanks, and lift stations.",
+      "The Aquavx Pro delivers many of the capabilities typically found in PLC-based SCADA systems—including automation logic, alarm management, and data logging—but in a smaller, more cost-effective form factor. Its built-in 4G LTE connectivity to the RemoteIQ Cloud eliminates the need for third-party networking hardware, external modems, or software licensing.",
       "Operators receive instant alarm notifications via voice, text, or email whenever power is lost, communication is interrupted, or a system limit is exceeded. Intuitive graphics and dashboards within RemoteIQ Water provide live insights into site performance, enabling quick decisions and proactive maintenance.",
       "Unlike traditional SCADA installations, the Aquavx Pro requires no custom engineering, IT infrastructure, or recurring software maintenance. The unit includes an 18-hour onboard backup battery, with an option to extend runtime up to 72 hours. When AC power is lost, the controller automatically switches to battery operation and maintains output power for critical sensor loops, ensuring continuous monitoring and alarm capability."
     ],
@@ -87,13 +87,13 @@
         ],
         "lists": [],
         "tables": [],
-    "images": [
-      {
-        "id": "img_2",
-        "url": "images/24VDC420wiring.png",
-        "alt": "24VDC 4-20mA sensor wiring"
-      }
-    ]
+        "images": [
+          {
+            "id": "img_3",
+            "url": "images/24VDC420wiring.png",
+            "alt": "24VDC 4-20mA sensor wiring"
+          }
+        ]
       }
     ],
     "content": [
@@ -133,8 +133,7 @@
       {
         "title": "Overview",
         "content": [
-          "The Aquavx Pro controller features an intuitive front panel interface for viewing system data, alarms, and configuration menus. The front panel consists of five soft keys below the LCD display and six side-mounted buttons for navigation",
-          "and control."
+          "The Aquavx Pro controller features an intuitive front panel interface for viewing system data, alarms, and configuration menus. The front panel consists of five soft keys below the LCD display and six side-mounted buttons for navigation and control."
         ],
         "lists": [],
         "tables": [],
@@ -162,8 +161,8 @@
         "content": [],
         "lists": [
           [
-            "F1\u2013F4 \u2013 Programmable Function Keys: Custom shortcuts to user-selected screens. Navigate to any screen and press and hold a function key to assign it.",
-            "\ud83d\udd15 \u2013 Alarm Pause/Resume: Silences active alarms temporarily. Press again to re-enable audible alerts.",
+            "F1–F4 – Programmable Function Keys: Custom shortcuts to user-selected screens. Navigate to any screen and press and hold a function key to assign it.",
+            "🔕 – Alarm Pause/Resume: Silences active alarms temporarily. Press again to re-enable audible alerts.",
             "Admin Login: Access admin mode by pressing this button and entering your PIN.",
             "Power: Turns the controller on or off."
           ]
@@ -243,7 +242,7 @@
         [
           "Debounce",
           "Time in seconds the value must remain changed before registering (prevents flicker)",
-          "0\u20133600 seconds"
+          "0–3600 seconds"
         ]
       ],
       [
@@ -255,12 +254,12 @@
         [
           "DisplayPrecision",
           "Number of decimal positions shown in the value",
-          "0\u20138"
+          "0–8"
         ],
         [
           "EngineeringUnits",
           "Engineering units label displayed with the value",
-          "Up to 7 characters (e.g., PSI, GPM, \u00b0F)"
+          "Up to 7 characters (e.g., PSI, GPM, °F)"
         ]
       ],
       [
@@ -272,7 +271,7 @@
         [
           "BitNumber",
           "If the source data register is a packed Modbus register, extract this bit number as the digital value",
-          "0\u201332 (0 = use full register value)"
+          "0–32 (0 = use full register value)"
         ],
         [
           "ZeroLabel",
@@ -289,7 +288,7 @@
     "images": []
   },
   {
-    "title": "Aquavx Pro \u2014 Channel List",
+    "title": "Aquavx Pro — Channel List",
     "id": "aquavx-pro---channel-list",
     "subsections": [
       {
@@ -549,11 +548,11 @@
             ],
             [
               "Input Type (2)",
-              "Defines the input signal type: 0=None, 1=0\u201320mA, 2=4\u201320mA, 3=0\u20135V, 4=1\u20135V, 5=\u00b1600VAC, 6=\u00b15AAC."
+              "Defines the input signal type: 0=None, 1=0–20mA, 2=4–20mA, 3=0–5V, 4=1–5V, 5=±600VAC, 6=±5AAC."
             ],
             [
               "Damping or K Factor (3)",
-              "Used to smooth noisy signals (range 0.0\u20131.0)."
+              "Used to smooth noisy signals (range 0.0–1.0)."
             ],
             [
               "Zero Scale Engr (4)",
@@ -565,7 +564,7 @@
             ],
             [
               "Disp Precision (6)",
-              "Number of decimal places shown in displayed values (0\u20138)."
+              "Number of decimal places shown in displayed values (0–8)."
             ],
             [
               "Raw Offset (11)",
@@ -596,9 +595,9 @@
         "content": [],
         "lists": [
           [
-            "For most industrial transmitters, use Input Type = 2 (4\u201320mA).",
-            "Set Zero Scale Engr and Full Scale Engr to match your sensor\u2019s measurement range (e.g., 0.0 to 100.0).",
-            "Adjust Damping Factor if readings fluctuate rapidly \u2014 lower values produce faster response, higher values smooth noise.",
+            "For most industrial transmitters, use Input Type = 2 (4–20mA).",
+            "Set Zero Scale Engr and Full Scale Engr to match your sensor's measurement range (e.g., 0.0 to 100.0).",
+            "Adjust Damping Factor if readings fluctuate rapidly — lower values produce faster response, higher values smooth noise.",
             "Precision controls how many decimal digits are displayed on the HMI.",
             "Use the Reset function on the HMI to restore calibration counts if sensor readings appear incorrect.",
             "Verify Zero Count and Full Count match the expected values for your input type and range."
@@ -647,7 +646,7 @@
             ],
             [
               "DHCP Client Enable (5)",
-              "Allows IP assignment by DHCP server \u2014 0 = Disable, 1 = Enable."
+              "Allows IP assignment by DHCP server — 0 = Disable, 1 = Enable."
             ],
             [
               "NOTE",
@@ -669,15 +668,15 @@
             ],
             [
               "Enable (20)",
-              "Enables or disables the TCP Server \u2014 0 = Disable, 1 = Enable."
+              "Enables or disables the TCP Server — 0 = Disable, 1 = Enable."
             ],
             [
               "Listener Port (21)",
-              "Port number that the TCP Server listens on (0\u201365535)."
+              "Port number that the TCP Server listens on (0–65535)."
             ],
             [
               "Remote Client Poll Timeout (22)",
-              "Maximum time between successive polls from the remote Client (500\u201360000 ms)."
+              "Maximum time between successive polls from the remote Client (500–60000 ms)."
             ]
           ]
         ],
@@ -695,11 +694,11 @@
             ],
             [
               "Enable (30)",
-              "Enables or disables the TCP Client \u2014 0 = Disable, 1 = Enable."
+              "Enables or disables the TCP Client — 0 = Disable, 1 = Enable."
             ],
             [
               "Remote Server Port (31)",
-              "Port number of the remote TCP Server (0\u201365535)."
+              "Port number of the remote TCP Server (0–65535)."
             ],
             [
               "Remote Server IP (32)",
@@ -707,11 +706,11 @@
             ],
             [
               "Remote Server Connect Timeout (33)",
-              "Maximum time to wait for a connection to the remote Server (500\u201360000 ms)."
+              "Maximum time to wait for a connection to the remote Server (500–60000 ms)."
             ],
             [
               "Remote Server Response Timeout (34)",
-              "Maximum time to wait for a response from the remote Server (500\u201360000 ms)."
+              "Maximum time to wait for a response from the remote Server (500–60000 ms)."
             ]
           ]
         ],
@@ -735,7 +734,7 @@
     ],
     "content": [
       "This section describes how to configure Ethernet communication parameters and enable Modbus TCP Server (Slave) and Client (Master) functionality in the Aquavx Pro system.",
-      "Figure 1 \u2014 Example HMI Screen: Ethernet and Modbus TCP Configuration",
+      "Figure 1 — Example HMI Screen: Ethernet and Modbus TCP Configuration",
       "(Insert image of Ethernet/Modbus configuration screen here)"
     ],
     "lists": [],
@@ -778,11 +777,11 @@
             ],
             [
               "Max Idle (6)",
-              "Close receive buffer after this idle time (1\u201332000 ms)."
+              "Close receive buffer after this idle time (1–32000 ms)."
             ],
             [
               "Response Timeout (7)",
-              "Maximum wait time for a response to start (1\u201360 s)."
+              "Maximum wait time for a response to start (1–60 s)."
             ],
             [
               "Data Bits (8)",
@@ -798,11 +797,11 @@
             ],
             [
               "RS485 Tx On Delay (12)",
-              "Delay before transmission enable (1/16th bit times, 0\u201331)."
+              "Delay before transmission enable (1/16th bit times, 0–31)."
             ],
             [
               "RS485 Tx Off Delay (13)",
-              "Delay before transmission disable (1/16th bit times, 0\u201331)."
+              "Delay before transmission disable (1/16th bit times, 0–31)."
             ],
             [
               "RS485 Termination (14)",
@@ -868,19 +867,19 @@
         ],
         [
           "SlaveID (4)",
-          "Address of the slave device to read from (valid range 1\u2013247 for RTU, 255 for broadcast)."
+          "Address of the slave device to read from (valid range 1–247 for RTU, 255 for broadcast)."
         ],
         [
           "Function Code (6)",
-          "Modbus function to execute:\n\u2022 1 = Read Coil (0x)\n\u2022 2 = Read Discrete Input (1x)\n\u2022 3 = Read Holding Register (4x)\n\u2022 4 = Read Input Register (3x)\n\u2022 5 = Write Single Coil (0x)\n\u2022 6 = Write Single Holding Register (4x)\n\u2022 15 = Write Multiple Coils (0x)\n\u2022 16 = Write Multiple Holding \nRegisters (4x)"
+          "Modbus function to execute:\n• 1 = Read Coil (0x)\n• 2 = Read Discrete Input (1x)\n• 3 = Read Holding Register (4x)\n• 4 = Read Input Register (3x)\n• 5 = Write Single Coil (0x)\n• 6 = Write Single Holding Register (4x)\n• 15 = Write Multiple Coils (0x)\n• 16 = Write Multiple Holding \nRegisters (4x)"
         ],
         [
           "Register Address (7)",
-          "Address of the register in the slave to read or write (1\u201365535)."
+          "Address of the register in the slave to read or write (1–65535)."
         ],
         [
           "Register Type (8)",
-          "Defines the data format:\n\u2022 0 = reg16\n\u2022 1 = reg32\n\u2022 2 = bit16\n\u2022 3 = bit32\n\u2022 4 = packed16\n\u2022 5 = packed32\n\u2022 6 = float32"
+          "Defines the data format:\n• 0 = reg16\n• 1 = reg32\n• 2 = bit16\n• 3 = bit32\n• 4 = packed16\n• 5 = packed32\n• 6 = float32"
         ],
         [
           "Bit Weight (9)",
@@ -896,7 +895,7 @@
         ],
         [
           "Display Precision (12)",
-          "Number of decimal places to show in display (0\u20138)."
+          "Number of decimal places to show in display (0–8)."
         ],
         [
           "Byte Order (Endian) (13)",
@@ -904,11 +903,11 @@
         ],
         [
           "Bit Number (14)",
-          "Extracts a single bit from a packed register (0\u201332). Use 0 to leave the value packed."
+          "Extracts a single bit from a packed register (0–32). Use 0 to leave the value packed."
         ],
         [
           "Packed Mask (15)",
-          "Bitmask applied to packed registers to ignore unwanted bits (0x0\u20130xFFFFFFFF)."
+          "Bitmask applied to packed registers to ignore unwanted bits (0x0–0xFFFFFFFF)."
         ]
       ]
     ],
@@ -950,11 +949,11 @@
         ],
         [
           "DispPrecision (6)",
-          "Number of decimal places to display for analog values (0\u20138)."
+          "Number of decimal places to display for analog values (0–8)."
         ],
         [
           "AlarmDelay (7)",
-          "Source value must remain in alarm for this duration before being considered 'In Alarm' (0\u2013999,999 seconds)."
+          "Source value must remain in alarm for this duration before being considered 'In Alarm' (0–999,999 seconds)."
         ],
         [
           "CallRoster (8)",
@@ -1100,7 +1099,7 @@
         "title": "Tips",
         "content": [
           "Watch the Pump Status screen to see current level and pump state.",
-          "Use Favorites keys (F1\u2013F4) to jump quickly to pages like Pump Status, Alarms, or Events.",
+          "Use Favorites keys (F1–F4) to jump quickly to pages like Pump Status, Alarms, or Events.",
           "If unsure about a setting, contact your system technician."
         ],
         "lists": [],
@@ -1131,7 +1130,7 @@
       {
         "title": "Overview",
         "content": [
-          "The Peer-to-Peer Networking (also called Push Messaging) feature allows one Aquavx Pro controller to share real-time input/output (I/O) data\u2014such as tank level, pressure, or pump status\u2014with one or more remote Aquavx Pro units. Unlike traditional wired Modbus links, this function communicates securely through the RemoteIQ Cloud using each unit\u2019s cellular data connection. As long as both devices have a reliable 4G LTE connection to the cloud, they can exchange data instantly, no matter where they are located geographically.",
+          "The Peer-to-Peer Networking (also called Push Messaging) feature allows one Aquavx Pro controller to share real-time input/output (I/O) data—such as tank level, pressure, or pump status—with one or more remote Aquavx Pro units. Unlike traditional wired Modbus links, this function communicates securely through the RemoteIQ Cloud using each unit's cellular data connection. As long as both devices have a reliable 4G LTE connection to the cloud, they can exchange data instantly, no matter where they are located geographically.",
           "Sharing a tank-level signal from one site to control a booster or lift-station pump at another.",
           "Sending status, alarms, or flow information to a remote monitoring site.",
           "Creating distributed control networks without the need for dedicated private radio systems."
@@ -1172,7 +1171,7 @@
             ],
             [
               "Debounce (6)",
-              "The change in value must remain continuous for this duration before sending (0\u20133600 s)."
+              "The change in value must remain continuous for this duration before sending (0–3600 s)."
             ],
             [
               "Peer IMEI (7)",
@@ -1187,9 +1186,9 @@
         "content": [],
         "lists": [
           [
-            "Each 'Send' unit can transmit to one or more 'Receive' units as long as each receiver\u2019s Peer IMEI matches the sender\u2019s hardware IMEI.",
+            "Each 'Send' unit can transmit to one or more 'Receive' units as long as each receiver's Peer IMEI matches the sender's hardware IMEI.",
             "For analog signals, use the Delta parameter to avoid unnecessary cellular data usage caused by minor fluctuations.",
-            "Ensure that both Modbus and Peer-to-Peer communications are configured independently\u2014they can operate simultaneously without interference.",
+            "Ensure that both Modbus and Peer-to-Peer communications are configured independently—they can operate simultaneously without interference.",
             "The Debounce setting helps eliminate noise or rapidly oscillating values before a transmission is triggered.",
             "A reliable cellular signal (RSSI > -95 dBm) is recommended for consistent updates.",
             "Verify cloud connectivity through the Cell Status page before enabling Push links.",
