@@ -55,7 +55,7 @@ function renderContent() {
         // Add main section content
         if (section.content && section.content.length > 0) {
             section.content.forEach(paragraph => {
-                sectionContent += `<p>${renderContent(paragraph)}</p>`;
+                sectionContent += `<p>${renderText(paragraph)}</p>`;
             });
         }
 
@@ -92,7 +92,7 @@ function renderContent() {
                 // Subsection content
                 if (subsection.content && subsection.content.length > 0) {
                     subsection.content.forEach(paragraph => {
-                        sectionContent += `<p>${renderContent(paragraph)}</p>`;
+                        sectionContent += `<p>${renderText(paragraph)}</p>`;
                     });
                 }
 
@@ -429,7 +429,7 @@ function escapeHtml(text) {
     return div.innerHTML;
 }
 
-function renderContent(text) {
+function renderText(text) {
     // Check if text contains HTML link tags
     if (text.includes('<a ') && text.includes('</a>')) {
         // Allow the link through but escape everything else
