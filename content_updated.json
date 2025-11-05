@@ -68,7 +68,13 @@
     ],
     "lists": [],
     "tables": [],
-    "images": []
+    "images": [
+      {
+        "id": "img_2",
+        "url": "images/Aquavxpro.png",
+        "alt": "Aquavx Pro"
+      }
+    ]
   },
   {
     "title": "Installation",
