@@ -1,0 +1,2187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aquavx Pro Dictionary Reference Guide</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #2c5f9e;
+            --primary-dark: #1a3a5f;
+            --accent-color: #4a9eff;
+            --light-bg: #f8f9fa;
+            --border-color: #dee2e6;
+            --text-primary: #212529;
+            --text-secondary: #6c757d;
+            --highlight-bg: #fff3cd;
+            --highlight-border: #ffc107;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: var(--text-primary);
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            max-height: calc(100vh - 40px);
+        }
+
+        .header {
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary-color) 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+            flex-shrink: 0;
+        }
+
+        .header h1 {
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 1.1em;
+            opacity: 0.95;
+        }
+
+        .controls {
+            padding: 25px 30px;
+            background: var(--light-bg);
+            border-bottom: 2px solid var(--border-color);
+            flex-shrink: 0;
+        }
+
+        .control-row {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 20px;
+        }
+
+        label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--primary-dark);
+            font-size: 0.95em;
+        }
+
+        select, input[type="text"] {
+            width: 100%;
+            padding: 12px 15px;
+            font-size: 1em;
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            background: white;
+            transition: all 0.3s ease;
+        }
+
+        select:focus, input[type="text"]:focus {
+            outline: none;
+            border-color: var(--accent-color);
+            box-shadow: 0 0 0 3px rgba(74, 158, 255, 0.1);
+        }
+
+        select {
+            cursor: pointer;
+        }
+
+        .content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 30px;
+        }
+
+        .content::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        .content::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        .content::-webkit-scrollbar-thumb {
+            background: #888;
+            border-radius: 5px;
+        }
+
+        .dictionary-view {
+            display: none;
+        }
+
+        .dictionary-view.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .dictionary-title {
+            font-size: 2em;
+            color: var(--primary-dark);
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid var(--primary-color);
+        }
+
+        .dictionary-description {
+            background: #e8f4f8;
+            padding: 15px 20px;
+            border-left: 4px solid #17a2b8;
+            border-radius: 6px;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .dictionary-notes {
+            background: var(--highlight-bg);
+            border: 2px solid var(--highlight-border);
+            border-radius: 8px;
+            padding: 15px 20px;
+            margin-bottom: 20px;
+        }
+
+        .parameter {
+            background: var(--light-bg);
+            padding: 18px 22px;
+            margin-bottom: 12px;
+            border-radius: 8px;
+            border-left: 4px solid var(--primary-color);
+            transition: all 0.2s ease;
+        }
+
+        .parameter:hover {
+            background: #e9ecef;
+            transform: translateX(5px);
+        }
+
+        .parameter.highlight {
+            background: var(--highlight-bg);
+            border-left-color: var(--highlight-border);
+        }
+
+        .parameter.hidden {
+            display: none;
+        }
+
+        .param-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .param-name {
+            font-weight: 600;
+            color: var(--primary-dark);
+            font-size: 1.05em;
+        }
+
+        .param-id {
+            background: var(--primary-color);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: 600;
+        }
+
+        .param-value {
+            color: var(--text-primary);
+            line-height: 1.7;
+            white-space: pre-wrap;
+            font-size: 0.95em;
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 80px 20px;
+            color: var(--text-secondary);
+        }
+
+        .no-results h2 {
+            margin-bottom: 10px;
+        }
+
+        @media (max-width: 768px) {
+            .control-row {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🔧 Aquavx Pro Dictionary Reference Guide</h1>
+            <p>Complete Configuration Parameter Reference</p>
+        </div>
+
+        <div class="controls">
+            <div class="control-row">
+                <div>
+                    <label for="dictionarySelect">📖 Select Dictionary</label>
+                    <select id="dictionarySelect">
+                        <option value="">-- Choose a Dictionary --</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="searchInput">🔍 Search Parameters</label>
+                    <input type="text" id="searchInput" placeholder="Search by parameter name, ID, or description...">
+                </div>
+            </div>
+        </div>
+
+        <div class="content" id="content">
+            <div class="no-results">
+                <h2>Select a Dictionary</h2>
+                <p>Choose a dictionary from the dropdown menu above</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+const dictionariesData = {
+    "1": {
+        "title": "Site Dictionary (1)",
+        "description": "",
+        "notes": [],
+        "parameters": [
+            {
+                "name": "Name",
+                "id": 1,
+                "value": "site name (31 chars)"
+            },
+            {
+                "name": "DST",
+                "id": 2,
+                "value": "daylight savings offset (0-2 hrs)"
+            },
+            {
+                "name": "Timezone",
+                "id": 3,
+                "value": "0-26\\n0  GMT                 0:00\\n1  Atlantic            -4:00\\n2  Eastern             -5:00\\n3  Central             -6:00\\n4  Mountain            -7:00\\n5  Pacific             -8:00\\n6  Alaska              -9:00\\n7  Hawaii              -10:00\\n8  MidwayIslands       -11:00\\n9  NewZealandStd       12:00\\n10  SolomonStd          11:00\\n11  AustraliaEastern    10:00\\n12  AustraliaCentral    9:30\\n13  JapanStd            9:00\\n14  ChinaTaiwan         8:00\\n15  VietnamStd          7:00\\n16  BangladeshStd       6:00\\n17  IndiaStd            5:30\\n18  PakistanLahore      5:00\\n19  NearEast            4:00\\n20  MiddleEast          3:30\\n21  AfricanEastern      3:00\\n22  EgyptStd            2:00\\n23  EuropeanCentral     1:00\\n24  AfricanCentral      -1:00\\n25  ArgentinaStd        -3:00\\n26  CanadaNewfndland    -3:30"
+            },
+            {
+                "name": "MODBUS PollMode",
+                "id": 7,
+                "value": "0=single register poll, 1=multi-register poll"
+            },
+            {
+                "name": "MODBUS PollRate",
+                "id": 8,
+                "value": "poll rate (0-3600 secs, 0=500 msec)"
+            },
+            {
+                "name": "MODBUS Slave ID",
+                "id": 9,
+                "value": "MODBUS Slave ID (1-247/255)"
+            },
+            {
+                "name": "GetTimeMethod",
+                "id": 11,
+                "value": "0=Internet, 1=CELL, 2=GPS, 3=BLE, 4=None"
+            },
+            {
+                "name": "MaxDataAge",
+                "id": 13,
+                "value": "the maximum interval before runtime data is considered static (1-32000 secs)"
+            },
+            {
+                "name": "BLEChanScanRate",
+                "id": 14,
+                "value": "scan rate of BLE channel data (0-3600 secs)"
+            },
+            {
+                "name": "MaxTimeToLive",
+                "id": 15,
+                "value": "the maximum delta between time now and timestamp in request from Trihedral (1-86400 secs)"
+            },
+            {
+                "name": "Sat Epoch Jsec",
+                "id": 17,
+                "value": "epoch time boundary jsec as defined by Iridium"
+            },
+            {
+                "name": "SMS Call Delay",
+                "id": 21,
+                "value": "next SMS call delay (1-3600 secs)"
+            },
+            {
+                "name": "Alarm Resend Delay",
+                "id": 22,
+                "value": "SMS alarm resend delay (0-1440 mins)"
+            },
+            {
+                "name": "LED Brightness",
+                "id": 51,
+                "value": "set LED brightness (0-100%)"
+            },
+            {
+                "name": "Display Brightness",
+                "id": 52,
+                "value": "set display brightness (0-100%)"
+            },
+            {
+                "name": "Display Off Timeout",
+                "id": 53,
+                "value": "turn off display after this time of inactivity (0-1440 mins)"
+            },
+            {
+                "name": "PIN Access Code",
+                "id": 54,
+                "value": "Required PIN to change configuration or to manually control outputs (0-9999)"
+            },
+            {
+                "name": "Favorites Page 1",
+                "id": 55,
+                "value": "Press and hold F1 key on desired screen, see Display Pages"
+            },
+            {
+                "name": "Favorites Page 2",
+                "id": 56,
+                "value": "Press and hold F2 key on desired screen, see Display Pages"
+            },
+            {
+                "name": "Favorites Page 3",
+                "id": 57,
+                "value": "Press and hold F3 key on desired screen, see Display Pages"
+            },
+            {
+                "name": "Favorites Page 4",
+                "id": 58,
+                "value": "Press and hold F4 key on desired screen, see Display Pages"
+            },
+            {
+                "name": "Home Page",
+                "id": 59,
+                "value": "Startup Display on desired screen, see Display Pages"
+            }
+        ]
+    },
+    "2": {
+        "title": "Options Dictionary (2)",
+        "description": "",
+        "notes": [],
+        "parameters": [
+            {
+                "name": "Block Alarm Dialog",
+                "id": 1,
+                "value": "Enable to block all alarm dialog popups"
+            },
+            {
+                "name": "LEDsOff",
+                "id": 3,
+                "value": "Enable to turn off all LEDs except the GRN System LED"
+            },
+            {
+                "name": "ShortESN",
+                "id": 17,
+                "value": "Enable to shorten ESN to last 7 chars of ESN"
+            },
+            {
+                "name": "PersistentCELL",
+                "id": 28,
+                "value": "Enable to suspend CELL session instead of tearing down after transfer"
+            },
+            {
+                "name": "MQTTOverCell",
+                "id": 29,
+                "value": "Enable MQTT transport over Cell"
+            },
+            {
+                "name": "Disable Auto Backup",
+                "id": 30,
+                "value": "Disable automatic backing up of config prior to code updates"
+            },
+            {
+                "name": "MQTTOverEthernet",
+                "id": 31,
+                "value": "Enable MQTT transport over Ethernet"
+            }
+        ]
+    },
+    "3": {
+        "title": "CELL Dictionary (3)",
+        "description": "",
+        "notes": [],
+        "parameters": [
+            {
+                "name": "ESN",
+                "id": 1,
+                "value": "ESN string, if configured it will override the IMEI as the ID (31 chars)"
+            },
+            {
+                "name": "AcknowledgeType",
+                "id": 2,
+                "value": "0=none (send-and-forget), 1=auto (ack is always expected), 2=on-demand (notify server that ack is expected)"
+            },
+            {
+                "name": "PINGRate",
+                "id": 4,
+                "value": "send PING to server at this rate (0-1440 mins, 0=disable)"
+            },
+            {
+                "name": "HostServerProtocol",
+                "id": 6,
+                "value": "0=UDP, 1=TCP, 2=SSL"
+            },
+            {
+                "name": "ModemFWProfile",
+                "id": 5,
+                "value": "0=none, 1=ATT, 2=Verizon, 3=Global, 4=Australia"
+            },
+            {
+                "name": "ServerType",
+                "id": 21,
+                "value": "0=primary, 1=secondary, 2=redundant"
+            },
+            {
+                "name": "PrimaryServerPort#",
+                "id": 7,
+                "value": "port number on primary host server (0-65535)"
+            },
+            {
+                "name": "PrimaryServerIP",
+                "id": 8,
+                "value": "IP address of primary host server (127 chars)"
+            },
+            {
+                "name": "SecondaryServerPort#",
+                "id": 9,
+                "value": "port number on secondary host server (0-65535)"
+            },
+            {
+                "name": "SecondaryServerIP",
+                "id": 10,
+                "value": "IP address of secondary host server (127 chars)"
+            },
+            {
+                "name": "SIM APN",
+                "id": 12,
+                "value": "access point name (63 chars)"
+            },
+            {
+                "name": "SIM Username",
+                "id": 13,
+                "value": "user name (63 chars)"
+            },
+            {
+                "name": "SIM Password",
+                "id": 14,
+                "value": "password (63 chars)"
+            },
+            {
+                "name": "LocalPort#",
+                "id": 17,
+                "value": "port number of this device (0-65535)"
+            },
+            {
+                "name": "MaxDailySMS",
+                "id": 18,
+                "value": "max daily allowed SMS transmissions (0-25)"
+            },
+            {
+                "name": "SMS911Phone#",
+                "id": 19,
+                "value": "phone number to send SMS 911 messages (15 chars)"
+            }
+        ]
+    },
+    "4": {
+        "title": "FTP Dictionary (4)",
+        "description": "",
+        "notes": [],
+        "parameters": [
+            {
+                "name": "ReportType",
+                "id": 1,
+                "value": "Get/Put FTP Report Type\\n0=none\\n1=get Appl bin\\n2=get Boot bin\\n3=get SSL certs\\n4=get BLE bin\\n5=get Config\\n6=put Event Log\\n7=put Config\\n8=put Data (not avail)\\n9=start FOTA"
+            },
+            {
+                "name": "PutPath",
+                "id": 2,
+                "value": "path on FTP to server to write file (63 chars)"
+            },
+            {
+                "name": "GetPath",
+                "id": 3,
+                "value": "path on FTP to server to read file (63 chars)"
+            },
+            {
+                "name": "GetFileName",
+                "id": 4,
+                "value": "name of file on FTP server to read (63 chars)"
+            },
+            {
+                "name": "ReportRate",
+                "id": 5,
+                "value": "rate to write report to FTP server (0-1440 mins, 0=disable)"
+            },
+            {
+                "name": "FTPServerPort#",
+                "id": 6,
+                "value": "port number of FTP server (0-65535)"
+            },
+            {
+                "name": "FTPServerIPAddress",
+                "id": 7,
+                "value": "IP address of FTP server (127 chars)"
+            },
+            {
+                "name": "FTPServerUserName",
+                "id": 8,
+                "value": "FTP server login username (63 chars)"
+            },
+            {
+                "name": "FTPServerPassword",
+                "id": 9,
+                "value": "FTP server login password (63 chars)"
+            },
+            {
+                "name": "Mode",
+                "id": 10,
+                "value": "0=active, 1=passive"
+            },
+            {
+                "name": "ChunkSize",
+                "id": 11,
+                "value": "chunk size to request from modem during FTP transfer (256-2048 bytes)"
+            }
+        ]
+    },
+    "6": {
+        "title": "SerialPort Dictionary (6)",
+        "description": "There are 3 serial ports:",
+        "notes": [],
+        "parameters": [
+            {
+                "name": "Name",
+                "id": 1,
+                "value": "representative port name"
+            },
+            {
+                "name": "Enable",
+                "id": 2,
+                "value": "0=disabled, 1=enabled"
+            },
+            {
+                "name": "PortMode",
+                "id": 3,
+                "value": "0=none, 1=debug, 2=cell, 3=master, 4=slave, 5=satellite, 6=bluetooth"
+            },
+            {
+                "name": "Interface",
+                "id": 4,
+                "value": "0=RS232, 1=RS485"
+            },
+            {
+                "name": "Baud",
+                "id": 5,
+                "value": "1200, 2400, 4800, 9600, 19200, 38400, 57600, 115200"
+            },
+            {
+                "name": "MaxIdle",
+                "id": 6,
+                "value": "close receive buffer after this idle time (1-32000 msecs)"
+            },
+            {
+                "name": "ResponseTimeout",
+                "id": 7,
+                "value": "max wait for response to start (1-60 secs)"
+            },
+            {
+                "name": "DataBits",
+                "id": 8,
+                "value": "number of data bits (7, 8, 9)"
+            },
+            {
+                "name": "StopBits",
+                "id": 9,
+                "value": "number of stop bits (1, 2)"
+            },
+            {
+                "name": "Parity",
+                "id": 10,
+                "value": "0=none, 1=odd, 2=even (if parity is odd or even, set DataBits to 9)"
+            },
+            {
+                "name": "RS485TxOnDelay",
+                "id": 12,
+                "value": "delay after driver enabled till first Tx (0-31 msecs)"
+            },
+            {
+                "name": "RS485TxOffDelay",
+                "id": 13,
+                "value": "delay after last Tx till driver disabled (0-31 msecs)"
+            },
+            {
+                "name": "RS485Termination",
+                "id": 14,
+                "value": "0=not terminated, 1=terminated"
+            },
+            {
+                "name": "FlowControl",
+                "id": 15,
+                "value": "0=no flow control, 1=rts/cts flow control"
+            }
+        ]
+    },
+    "52": {
+        "title": "NORDIC Dictionary (52)",
+        "description": "",
+        "notes": [],
+        "parameters": [
+            {
+                "name": "Device Name",
+                "id": 1,
+                "value": "device name advertised over BLE - if left default \"MessengerBLE\",\\na unique identifier will be generated in the format AQ_########\\nPasskey (6 digits) (2): passkey required to interact with the device over BLE"
+            },
+            {
+                "name": "Transmit Power",
+                "id": 3,
+                "value": "transmit power for advertising, scanning, and connecting.\\nSupported values: -40dBm, -20dBm, -16dBm, -12dBm, -8dBm, -4dBm, 0dBm, +3dBm and +4dBm."
+            }
+        ]
+    },
+    "7": {
+        "title": "Report Dictionary (7)",
+        "description": "",
+        "notes": [],
+        "parameters": [
+            {
+                "name": "EndOfDayOffset",
+                "id": 1,
+                "value": "offset from midnite for end of day report (0-1440 mins)"
+            },
+            {
+                "name": "EndOfDayRate",
+                "id": 2,
+                "value": "end of day report rate (0-1440 mins)"
+            },
+            {
+                "name": "StdReportRate",
+                "id": 3,
+                "value": "standard report rate (0-1440 mins)"
+            },
+            {
+                "name": "ProtocolDelimiterChar",
+                "id": 8,
+                "value": "protocol message delimiter char"
+            },
+            {
+                "name": "ProtocolStartChar",
+                "id": 9,
+                "value": "protocol message start char"
+            },
+            {
+                "name": "PushMaintInterval",
+                "id": 20,
+                "value": "max interval between successive PUSH messages (1-1440 mins)"
+            },
+            {
+                "name": "PushBeaconInterval",
+                "id": 21,
+                "value": "interval at which beacon PUSH messages are sent (0-3600 secs)"
+            }
+        ]
+    },
+    "9": {
+        "title": "CHAN Dictionary (9)",
+        "description": "",
+        "notes": [],
+        "parameters": [
+            {
+                "name": "Name",
+                "id": 1,
+                "value": "representative Channel name (31 chars)"
+            },
+            {
+                "name": "Type",
+                "id": 3,
+                "value": "1=digital, 2=analog"
+            },
+            {
+                "name": "Enable",
+                "id": 2,
+                "value": "1=enabled, 0=disabled"
+            },
+            {
+                "name": "Reports",
+                "id": 4,
+                "value": "1=enabled, 0=disabled"
+            },
+            {
+                "name": "SourceDataReg",
+                "id": 5,
+                "value": "this data reg is the source of this channel data"
+            },
+            {
+                "name": "Scroll List",
+                "id": 6,
+                "value": "add channel to the scroll list"
+            },
+            {
+                "name": "Pump Page",
+                "id": 9,
+                "value": "add channel to a pump page"
+            },
+            {
+                "name": "Delta",
+                "id": 7,
+                "value": "used for delta testing (float)"
+            },
+            {
+                "name": "Debounce",
+                "id": 8,
+                "value": "change in value must be continuous for this duration (0-3600 secs)\\nAnalogSpecific:"
+            },
+            {
+                "name": "DisplayPrecision",
+                "id": 20,
+                "value": "decimal positions to show in value (0-8)"
+            },
+            {
+                "name": "EngineeringUnits",
+                "id": 21,
+                "value": "engineering units of value (7 char)\\nDigitalSpecific:"
+            },
+            {
+                "name": "BitNumber",
+                "id": 30,
+                "value": "if source data register is type MODBUS REGTYPE_PACKEDxx, extract this bit number as the digital value (0-32, 0=leave as is)"
+            },
+            {
+                "name": "ZeroLabel",
+                "id": 31,
+                "value": "label for digital '0' state (13 chars)"
+            },
+            {
+                "name": "OneLabel",
+                "id": 32,
+                "value": "label for digital '1' state (13 chars)"
+            }
+        ]
+    },
+    "22": {
+        "title": "Ethernet Dictionary (22)",
+        "description": "",
+        "notes": [],
+        "parameters": [
+            {
+                "name": "Host Name",
+                "id": 1,
+                "value": "representative Host Name of this device (15 chars)"
+            },
+            {
+                "name": "Default IP Address",
+                "id": 2,
+                "value": "IP address of this Unit when DHCP fails (127 chars)"
+            },
+            {
+                "name": "Subnet Mask",
+                "id": 3,
+                "value": "Subnet mask (xxx.xxx.xxx.xxx) (127 chars)"
+            },
+            {
+                "name": "Gateway IP",
+                "id": 4,
+                "value": "Gateway IP address (127 chars)"
+            },
+            {
+                "name": "DNS Server IP",
+                "id": 5,
+                "value": "DNS Server IP address (127 chars)"
+            },
+            {
+                "name": "DHCP Enable",
+                "id": 6,
+                "value": "1=enable DHCP Process to complete, 0=force DHCP to use configured defaults (change requires a reboot)\\nModbus TCP Server (Slave):"
+            },
+            {
+                "name": "Enable",
+                "id": 20,
+                "value": "enable TCP Server, 0=disable, 1=enable"
+            },
+            {
+                "name": "Listener Port",
+                "id": 21,
+                "value": "port number TCP server is listening on (0-65535)"
+            },
+            {
+                "name": "Remote Client Poll Timeout",
+                "id": 22,
+                "value": "max time between succesive polls from remote Client (500-90000 msecs)\\nModbus TCP Client (Master):"
+            },
+            {
+                "name": "Enable",
+                "id": 30,
+                "value": "enable TCP Client, 0=disable, 1=enable"
+            },
+            {
+                "name": "Remote Server Port",
+                "id": 31,
+                "value": "port number of remote TCP server (0-65535)"
+            },
+            {
+                "name": "Remote Server IP",
+                "id": 32,
+                "value": "IP address of remote TCP server (127 chars)"
+            },
+            {
+                "name": "Remote Server Connect Timeout",
+                "id": 33,
+                "value": "max time to wait for connection to remote Server (500-60000 msecs)"
+            },
+            {
+                "name": "Remote Server Response Timeout",
+                "id": 34,
+                "value": "max time to wait on response from remote Server (500-60000 msecs)"
+            },
+            {
+                "name": "Test IP 1",
+                "id": 50,
+                "value": "IP Address 1 to test (host name or dotted decimal format)"
+            },
+            {
+                "name": "Test IP 2",
+                "id": 51,
+                "value": "IP Address 2 to test (host name or dotted decimal format)"
+            },
+            {
+                "name": "Test IP 3",
+                "id": 52,
+                "value": "IP Address 3 to test (host name or dotted decimal format)"
+            },
+            {
+                "name": "Test IP 4",
+                "id": 53,
+                "value": "IP Address 4 to test (host name or dotted decimal format)"
+            }
+        ]
+    },
+    "11": {
+        "title": "ADC Dictionary (11)",
+        "description": "",
+        "notes": [],
+        "parameters": [
+            {
+                "name": "Name",
+                "id": 1,
+                "value": "representative ADC input name (31 chars)"
+            },
+            {
+                "name": "InputType",
+                "id": 2,
+                "value": "0=none, 1=0-20mA, 2=4-20mA, 3=0-5v, 4=1-5v, 5=+/-600ACV, 6=+/-5AAC"
+            },
+            {
+                "name": "DampingFactor",
+                "id": 3,
+                "value": "used to smooth noisy signals (0.0-1.0, float)"
+            },
+            {
+                "name": "ZeroScaleEngr",
+                "id": 4,
+                "value": "engineering units zero scale (float)"
+            },
+            {
+                "name": "FullScaleEngr",
+                "id": 5,
+                "value": "engineering units full scale (float)"
+            },
+            {
+                "name": "DispPrecision",
+                "id": 6,
+                "value": "number of decimal places to show in values (0-8)"
+            },
+            {
+                "name": "Raw Offset",
+                "id": 11,
+                "value": "ADC offset (in counts) when input is grounded (float)"
+            },
+            {
+                "name": "Zero Count",
+                "id": 12,
+                "value": "expected ADC counts when input is driven to zero scale value (float)"
+            },
+            {
+                "name": "Full Count",
+                "id": 13,
+                "value": "expected ADC counts when input is driven to full scale value (float)"
+            },
+            {
+                "name": "Zero Raw Units",
+                "id": 14,
+                "value": "expected ADC value (based on input type - V/mA) when input is driven to zero scale value (float)"
+            },
+            {
+                "name": "Full Raw Units",
+                "id": 15,
+                "value": "expected ADC value (based on input type - V/mA) when input is driven to full scale value (float)"
+            }
+        ]
+    },
+    "12": {
+        "title": "AC Group Dictionary (12)",
+        "description": "",
+        "notes": [],
+        "parameters": [
+            {
+                "name": "Mains Frequency",
+                "id": 1,
+                "value": "line frequency being measured (0=60hz, 1=50hz)"
+            },
+            {
+                "name": "Voltage Ratio",
+                "id": 2,
+                "value": "Use this to trim the AC Voltage reading (0.500-1.500)"
+            },
+            {
+                "name": "Current Ratio",
+                "id": 3,
+                "value": "Use this to trim the AC Current reading (0.500-1.500)"
+            },
+            {
+                "name": "CT Ratio",
+                "id": 4,
+                "value": "Ratio of Primary windings to Secondary windings in current transformer (e.g. 100A:5A = 20)"
+            },
+            {
+                "name": "Voltage Source",
+                "id": 5,
+                "value": "source of AC voltage, 0=disabled,1=2w-1Ph,2=3w-1Ph,3=3w-3Ph,4=4w-3Ph,5=3w-delta"
+            },
+            {
+                "name": "Current Enable",
+                "id": 6,
+                "value": "if enabled, current source is set to voltage source"
+            }
+        ]
+    },
+    "17": {
+        "title": "DIN Dictionary (17)",
+        "description": "",
+        "notes": [],
+        "parameters": [
+            {
+                "name": "Name",
+                "id": 1,
+                "value": "representative DIN name (31 chars)"
+            }
+        ]
+    },
+    "13": {
+        "title": "DOUT Dictionary (13)",
+        "description": "",
+        "notes": [],
+        "parameters": [
+            {
+                "name": "Name",
+                "id": 1,
+                "value": "representative DOUT name (31 chars)"
+            }
+        ]
+    },
+    "26": {
+        "title": "AOUT Dictionary (26)",
+        "description": "",
+        "notes": [],
+        "parameters": [
+            {
+                "name": "Name",
+                "id": 1,
+                "value": "Representative AOUT name (31 chars)"
+            },
+            {
+                "name": "Range",
+                "id": 2,
+                "value": "desired output range - 0=none, 1=0-20mA, 2=4-20mA, 3=0-5v, 4=1-5v, 5=0-10v"
+            },
+            {
+                "name": "Offset",
+                "id": 3,
+                "value": "Offset from expected output. If mode=current, offset is in mA, else offset is in V"
+            },
+            {
+                "name": "BitWeight",
+                "id": 4,
+                "value": "Bitweight is computed from the number of bits required to achieve maximum output (e.g 4095/33 = 124.1 bits/mA)"
+            }
+        ]
+    },
+    "24": {
+        "title": "Pulse Inputs Dictionary (24)",
+        "description": "",
+        "notes": [],
+        "parameters": [
+            {
+                "name": "Name",
+                "id": 1,
+                "value": "representative Pulse Input name (31 chars)"
+            },
+            {
+                "name": "BitWeight",
+                "id": 2,
+                "value": "weight per pulse (0-9999999)"
+            }
+        ]
+    },
+    "28": {
+        "title": "Push Dictionary (28)",
+        "description": "",
+        "notes": [],
+        "parameters": [
+            {
+                "name": "Mode",
+                "id": 2,
+                "value": "0=disable, 1=send, 2=receive, 3=send beacon"
+            },
+            {
+                "name": "SrcChanNumber",
+                "id": 3,
+                "value": "for mode=send, this is the channel number of the local data source\\nfor mode=receive, this is the channel number of the remote data source"
+            },
+            {
+                "name": "Delta",
+                "id": 5,
+                "value": "for mode=send, a change in analog value by this amount causes a send (float)"
+            },
+            {
+                "name": "Debounce",
+                "id": 6,
+                "value": "change in value must be continuous for this duration (0-3600 secs)"
+            },
+            {
+                "name": "Peer IMEI",
+                "id": 7,
+                "value": "for mode=receive, set Remote Peer IMEI used to setup MQTT subscriptions to receive PUSH (Max 15 chars)"
+            }
+        ]
+    },
+    "25": {
+        "title": "Control Sequence Dictionary (25)",
+        "description": "",
+        "notes": [],
+        "parameters": [
+            {
+                "name": "Name",
+                "id": 1,
+                "value": "representative sequence name (31 chars)"
+            },
+            {
+                "name": "Enable",
+                "id": 2,
+                "value": "0=disable, 1=enable"
+            },
+            {
+                "name": "TriggerRegister",
+                "id": 3,
+                "value": "source data register used to trigger control sequence"
+            },
+            {
+                "name": "SlaveID",
+                "id": 4,
+                "value": "address of slave device to write to (1-247/255)"
+            },
+            {
+                "name": "FunctionCode",
+                "id": 5,
+                "value": "5=write coil(0x), 6=write hold(4x), 15=write multiple coil(0x), 16=write multiple hold(4x)"
+            },
+            {
+                "name": "RegisterType",
+                "id": 6,
+                "value": "0=reg16, 1=reg32, 2=bit16, 3=bit32, 4=packed16, 5=packed32, 6=float32"
+            },
+            {
+                "name": "StartRegister",
+                "id": 7,
+                "value": "starting register number (1-65535)"
+            },
+            {
+                "name": "NumberRegisters",
+                "id": 8,
+                "value": "number of registers to write (1-4)"
+            },
+            {
+                "name": "LinkType",
+                "id": 9,
+                "value": "physical link type, 0=RTU, 1=TCP"
+            },
+            {
+                "name": "Register1Data",
+                "id": 10,
+                "value": "register 1 data to write (hex: 0x0-0xFFFF)"
+            },
+            {
+                "name": "Register2Data",
+                "id": 11,
+                "value": "register 2 data to write (hex: 0x0-0xFFFF)"
+            },
+            {
+                "name": "Register3Data",
+                "id": 12,
+                "value": "register 3 data to write (hex: 0x0-0xFFFF)"
+            },
+            {
+                "name": "Register4Data",
+                "id": 13,
+                "value": "register 4 data to write (hex: 0x0-0xFFFF)"
+            }
+        ]
+    },
+    "21": {
+        "title": "OPERATOR Dictionary (21)",
+        "description": "",
+        "notes": [
+            "NOTE: If SMS Callouts are needed, setup an expression, an alarm function block, and a roster.",
+            "NOTE: The following parameters are common to all Operators..."
+        ],
+        "parameters": [
+            {
+                "name": "Name",
+                "id": 1,
+                "value": "representative Operator Name (31 chars)"
+            },
+            {
+                "name": "MaxOnSiteTime",
+                "id": 21,
+                "value": "if this duration exceeded between operator checkins, operator state goes overdue"
+            },
+            {
+                "name": "MaxResetTime",
+                "id": 22,
+                "value": "after overdue, if this duration exceeded, operator state goes 'Man Down'"
+            },
+            {
+                "name": "OperDownInputReg",
+                "id": 23,
+                "value": "digital input driven by FOB RF transmitter carried by operator while onsite"
+            },
+            {
+                "name": "OperOnSiteInputReg",
+                "id": 24,
+                "value": "digital input driven by selector switch set by operator when he goes onsite"
+            },
+            {
+                "name": "ResetButtonInputReg",
+                "id": 25,
+                "value": "digital input driven by pushbutton switch pressed by operator to reset onsite timers"
+            },
+            {
+                "name": "OperOverDueOutputReg",
+                "id": 26,
+                "value": "digital output activated when onsite timer exceeds max onsite time"
+            },
+            {
+                "name": "OperDownOutputReg",
+                "id": 27,
+                "value": "digital output activated when reset timer exceeds the max reset time"
+            }
+        ]
+    },
+    "29": {
+        "title": "ROSTER Dictionary (29)",
+        "description": "There are 2 rosters, Standard(1) and Priority(2)\\nEach Roster contains a list of phone numbers (1-8) that will receive alarm text messages.",
+        "notes": [],
+        "parameters": []
+    },
+    "31": {
+        "title": "Max/Min Function Block Dictionary (31)",
+        "description": "The values computed by this function block are:",
+        "notes": [],
+        "parameters": [
+            {
+                "name": "Name",
+                "id": 1,
+                "value": "representative name for this Max/Min Function Block (31 chars)"
+            },
+            {
+                "name": "Enable",
+                "id": 2,
+                "value": "1 enables, 0 disables"
+            },
+            {
+                "name": "SourceReg",
+                "id": 3,
+                "value": "the value from this data reg is checked for max/min values"
+            },
+            {
+                "name": "DispPrecision",
+                "id": 4,
+                "value": "number of decimal places to show in values (0-8)"
+            },
+            {
+                "name": "MaxDestChan",
+                "id": 20,
+                "value": "channel number to hold the daily max value"
+            },
+            {
+                "name": "MinDestChan",
+                "id": 21,
+                "value": "channel number to hold the daily min value"
+            }
+        ]
+    },
+    "32": {
+        "title": "Totalizer Function Block Dictionary (32)",
+        "description": "The values computed by this function block are:",
+        "notes": [],
+        "parameters": [
+            {
+                "name": "Name",
+                "id": 1,
+                "value": "representative name for this Totalizer (31 chars)"
+            },
+            {
+                "name": "Enable",
+                "id": 2,
+                "value": "1 enables, 0 disables"
+            },
+            {
+                "name": "SourceReg",
+                "id": 3,
+                "value": "the value of this data reg is used in totalizing"
+            },
+            {
+                "name": "DispPrecision",
+                "id": 4,
+                "value": "number of decimal places to show in values (0-8)"
+            },
+            {
+                "name": "FlowConversion",
+                "id": 5,
+                "value": "factor used to convert a flow rate to a flow volume per unit time (float)"
+            },
+            {
+                "name": "MinimumFlowRate",
+                "id": 6,
+                "value": "minimum flow rate used in totalizing (float)"
+            },
+            {
+                "name": "FlowRateDestChan",
+                "id": 20,
+                "value": "channel number to hold the flow rate value"
+            },
+            {
+                "name": "TotalFlowDestChan",
+                "id": 21,
+                "value": "channel number to hold the daily total flow value"
+            }
+        ]
+    },
+    "33": {
+        "title": "PumpRun Function Block Dictionary (33)",
+        "description": "The values computed by this function block are:",
+        "notes": [],
+        "parameters": [
+            {
+                "name": "Name",
+                "id": 1,
+                "value": "representative name for this Pump Run (31 chars)"
+            },
+            {
+                "name": "Enable",
+                "id": 2,
+                "value": "1 enables, 0 disables"
+            },
+            {
+                "name": "SourceReg",
+                "id": 3,
+                "value": "the value of this data reg is used to determine pump status"
+            },
+            {
+                "name": "RunState",
+                "id": 4,
+                "value": "the source input state when the pump is running (0-1)"
+            },
+            {
+                "name": "PumpRunDestChan",
+                "id": 20,
+                "value": "channel number to hold the pump running state"
+            },
+            {
+                "name": "DailyStartsDestChan",
+                "id": 21,
+                "value": "channel number to hold the daily pump starts value"
+            },
+            {
+                "name": "DailyRuntimeDestChan",
+                "id": 22,
+                "value": "channel number to hold the daily pump runtime value"
+            },
+            {
+                "name": "LastCycleDestChan",
+                "id": 23,
+                "value": "channel number to hold the last pump cycle time value"
+            }
+        ]
+    },
+    "34": {
+        "title": "Alarm Function Block Dictionary (34)",
+        "description": "The values computed by this function block are:",
+        "notes": [],
+        "parameters": [
+            {
+                "name": "Name",
+                "id": 1,
+                "value": "representative name for this Alarm (31 chars)"
+            },
+            {
+                "name": "Enable",
+                "id": 2,
+                "value": "1 enables, 0 disables"
+            },
+            {
+                "name": "Popup",
+                "id": 3,
+                "value": "1 enables alarm popups on display, 0 disables"
+            },
+            {
+                "name": "Type",
+                "id": 4,
+                "value": "0=standard, 1=latched"
+            },
+            {
+                "name": "SourceChan",
+                "id": 5,
+                "value": "the value of this channel is checked for alarm condition"
+            },
+            {
+                "name": "DispPrecision",
+                "id": 6,
+                "value": "number of decimal places to show in analog values (0-8)"
+            },
+            {
+                "name": "AlarmDelay",
+                "id": 7,
+                "value": "source value must be in alarm for this duration to be considered 'InAlarm' (0-999999 secs)"
+            },
+            {
+                "name": "CallRoster",
+                "id": 8,
+                "value": "roster called when this alarm goes active (0=none, 1=standard, 2=priority)\\nForDigitalChans:"
+            },
+            {
+                "name": "AlarmState",
+                "id": 14,
+                "value": "the state of the source reg when 'In Alarm' (0-1)\\nForAnalogChans:"
+            },
+            {
+                "name": "LimitType",
+                "id": 9,
+                "value": "0=low limit, 1=high limit"
+            },
+            {
+                "name": "Limit",
+                "id": 10,
+                "value": "based on 'LimitType', the source value is checked against this limit (float)"
+            },
+            {
+                "name": "Hysteresis",
+                "id": 11,
+                "value": "if LimitType=low, source value must go above the (limit + hysteresis) to return to normal (float)\\nif LimitType=high, source value must go below the (limit - hysteresis) to return to normal (float)"
+            },
+            {
+                "name": "LowFailSafe",
+                "id": 12,
+                "value": "the source value must be above this value to be considered valid (float)"
+            },
+            {
+                "name": "HighFailSafe",
+                "id": 13,
+                "value": "the source value must be below this value to be considered valid (float)"
+            },
+            {
+                "name": "InAlarmDestChan",
+                "id": 20,
+                "value": "channel number to hold the alarm state"
+            },
+            {
+                "name": "InFailSafeDestChan",
+                "id": 21,
+                "value": "channel number to hold the failsafe state"
+            },
+            {
+                "name": "LatchedValDestChan",
+                "id": 22,
+                "value": "channel number to hold the latched value"
+            }
+        ]
+    },
+    "35": {
+        "title": "Rate Of Change Function Block Dictionary (35)",
+        "description": "The values computed by this function block are:",
+        "notes": [],
+        "parameters": [
+            {
+                "name": "Name",
+                "id": 1,
+                "value": "representative name for this Rate of Change (31 chars)"
+            },
+            {
+                "name": "Enable",
+                "id": 2,
+                "value": "1 enables, 0 disables"
+            },
+            {
+                "name": "SourceChan",
+                "id": 3,
+                "value": "the value of this channel is checked for a rate of change alarm"
+            },
+            {
+                "name": "DispPrecision",
+                "id": 4,
+                "value": "number of decimal places to show in values (0-8)"
+            },
+            {
+                "name": "Interval",
+                "id": 5,
+                "value": "interval of time over which to check for roc alarms (0-60)"
+            },
+            {
+                "name": "UnitTime",
+                "id": 6,
+                "value": "interval units of time - (0=none, 1=secs, 2=mins, 3=hrs)"
+            },
+            {
+                "name": "PositiveLimit",
+                "id": 7,
+                "value": "positive rate of change limit (float)"
+            },
+            {
+                "name": "NegativeLimit",
+                "id": 8,
+                "value": "negative rate of change limit (float)"
+            },
+            {
+                "name": "PosAlmDestChan",
+                "id": 20,
+                "value": "channel number to hold the positive alarm state"
+            },
+            {
+                "name": "NegAlmDestChan",
+                "id": 21,
+                "value": "channel number to hold the negative alarm state"
+            }
+        ]
+    },
+    "36": {
+        "title": "Digital Output Function Block Dictionary (36)",
+        "description": "The values computed by this function block are:",
+        "notes": [],
+        "parameters": [
+            {
+                "name": "Name",
+                "id": 1,
+                "value": "representative name for this Digital Output (31 chars)"
+            },
+            {
+                "name": "Enable",
+                "id": 2,
+                "value": "1 enables, 0 disables"
+            },
+            {
+                "name": "SourceReg",
+                "id": 3,
+                "value": "the value of this data reg will determine the output state"
+            },
+            {
+                "name": "SrcActiveState",
+                "id": 5,
+                "value": "the 'active' state of the source reg (0-1)"
+            },
+            {
+                "name": "OutputDataReg",
+                "id": 4,
+                "value": "the output state is written to this data reg"
+            },
+            {
+                "name": "OutputState SrcActive",
+                "id": 7,
+                "value": "output state when source is 'active' (0=de-activate, 1=activate, 2=no action, 3=undefined)"
+            },
+            {
+                "name": "OutputState SrcNotActive",
+                "id": 6,
+                "value": "output state when source is 'not active' (0=de-activate, 1=activate, 2=no action, 3=undefined)"
+            },
+            {
+                "name": "OutputStateDuration",
+                "id": 8,
+                "value": "max duration to hold the 'active' output state (0-999999 secs)"
+            },
+            {
+                "name": "OutputStateDestChan",
+                "id": 20,
+                "value": "channel number receiving the output state"
+            }
+        ]
+    },
+    "37": {
+        "title": "Analog Output Function Block Dictionary (37)",
+        "description": "The values computed by this function block are:",
+        "notes": [],
+        "parameters": [
+            {
+                "name": "Name",
+                "id": 1,
+                "value": "representative name for this Output (31 chars)"
+            },
+            {
+                "name": "Enable",
+                "id": 2,
+                "value": "1 enables, 0 disables"
+            },
+            {
+                "name": "SourceReg",
+                "id": 3,
+                "value": "the value of this data reg determines the output value"
+            },
+            {
+                "name": "DestinationReg",
+                "id": 4,
+                "value": "the output value is written to this data reg"
+            },
+            {
+                "name": "DispPrecision",
+                "id": 5,
+                "value": "number of decimal places to show in values (0-8)"
+            },
+            {
+                "name": "AnalogZeroScale",
+                "id": 6,
+                "value": "used in scaling the source analog value to an output value (float)"
+            },
+            {
+                "name": "AnalogFullScale",
+                "id": 7,
+                "value": "used in scaling the source analog value to an output value (float)"
+            },
+            {
+                "name": "OutputValueDestChan",
+                "id": 20,
+                "value": "channel number to hold the output value"
+            }
+        ]
+    },
+    "40": {
+        "title": "Timed Event Function Block Dictionary (40)",
+        "description": "The values computed by this function block are:",
+        "notes": [],
+        "parameters": [
+            {
+                "name": "Name",
+                "id": 1,
+                "value": "representative name for this Timed Event (31 chars)"
+            },
+            {
+                "name": "Enable",
+                "id": 2,
+                "value": "1 enables, 0 disables"
+            },
+            {
+                "name": "AutoStartOffset",
+                "id": 3,
+                "value": "offset from midnight today to start the timed event (mins), then runs @ Interval"
+            },
+            {
+                "name": "ManualStartReg",
+                "id": 4,
+                "value": "this data reg is used to start the timed event and to keep it running (must be of type Digital)"
+            },
+            {
+                "name": "RepeatInterval",
+                "id": 5,
+                "value": "defines the repeat interval of the timed event (mins)"
+            },
+            {
+                "name": "RunDuration",
+                "id": 6,
+                "value": "defines the run duration of the timed event (secs) - cannot be greater than Repeat Interval"
+            }
+        ]
+    },
+    "41": {
+        "title": "Averages Function Block Dictionary (41)",
+        "description": "The values computed by this function block are:",
+        "notes": [],
+        "parameters": [
+            {
+                "name": "Name",
+                "id": 1,
+                "value": "representative name for this Averaging Function Block (31 chars)"
+            },
+            {
+                "name": "Enable",
+                "id": 2,
+                "value": "1 enables, 0 disables"
+            },
+            {
+                "name": "SourceReg",
+                "id": 3,
+                "value": "the value from this data reg is used in the computed average"
+            },
+            {
+                "name": "DispPrecision",
+                "id": 4,
+                "value": "number of decimal places to show in values (0-8)"
+            },
+            {
+                "name": "SamplingInterval",
+                "id": 5,
+                "value": "interval at which source register samples are taken (1-86400 secs)"
+            },
+            {
+                "name": "AveragingInterval",
+                "id": 6,
+                "value": "interval at which the average value is computed (1-1440 mins)"
+            },
+            {
+                "name": "LowThreshold",
+                "id": 7,
+                "value": "discard samples below this threshold (float)"
+            },
+            {
+                "name": "HighThreshold",
+                "id": 8,
+                "value": "discard samples above this threshold (float)"
+            }
+        ]
+    },
+    "39": {
+        "title": "Pump Control Dictionary (39)",
+        "description": "The values computed by this function block are:",
+        "notes": [
+            "NOTES:"
+        ],
+        "parameters": [
+            {
+                "name": "Enable",
+                "id": 1,
+                "value": "0=disabled, 1=enabled"
+            },
+            {
+                "name": "Mode",
+                "id": 2,
+                "value": "0=drain, 1=fill"
+            },
+            {
+                "name": "Alternation",
+                "id": 4,
+                "value": "0=automatic, 1=manual"
+            },
+            {
+                "name": "Number Pumps",
+                "id": 3,
+                "value": "1=simplex, 2=duplex"
+            },
+            {
+                "name": "Manual Lead",
+                "id": 5,
+                "value": "sets lead pump if alternation is not automatic (0=Pump1, 1=Pump2)"
+            },
+            {
+                "name": "Level Hysteresis",
+                "id": 6,
+                "value": "sets hysteresis for level setpoints (0-25% of setpoint)"
+            },
+            {
+                "name": "Sensor Type",
+                "id": 7,
+                "value": "how is level measured - 0=floats, 1=sensor\\nInput/Output Source Registers"
+            },
+            {
+                "name": "Level Sensor",
+                "id": 8,
+                "value": "tank level sensor input"
+            },
+            {
+                "name": "Pump1 Run",
+                "id": 9,
+                "value": "Pump1 run function block"
+            },
+            {
+                "name": "Pump1 Fault",
+                "id": 10,
+                "value": "Pump1 general fault input"
+            },
+            {
+                "name": "Pump2 Run",
+                "id": 12,
+                "value": "Pump2 run function block"
+            },
+            {
+                "name": "Pump2 Fault",
+                "id": 13,
+                "value": "Pump2 general fault input"
+            },
+            {
+                "name": "Phase Fault",
+                "id": 15,
+                "value": "pump phase fault input"
+            },
+            {
+                "name": "Low Alm Float",
+                "id": 16,
+                "value": "low alarm float input"
+            },
+            {
+                "name": "High Alm Float",
+                "id": 17,
+                "value": "high alarm float input"
+            },
+            {
+                "name": "Lead Pump Float",
+                "id": 18,
+                "value": "lead pump float input"
+            },
+            {
+                "name": "Lag Pump Float",
+                "id": 19,
+                "value": "lag pump float input"
+            },
+            {
+                "name": "Pumps Off Float",
+                "id": 20,
+                "value": "pumps off float input"
+            },
+            {
+                "name": "Push To Test",
+                "id": 21,
+                "value": "push to test input"
+            },
+            {
+                "name": "Push To Silence",
+                "id": 22,
+                "value": "push to silence input"
+            },
+            {
+                "name": "Audible Alm Output",
+                "id": 23,
+                "value": "audible alarm output"
+            },
+            {
+                "name": "Visual Alm Output",
+                "id": 24,
+                "value": "visual alarm output"
+            },
+            {
+                "name": "High Alm Setpoint",
+                "id": 29,
+                "value": "at this level in fill application, both pumps off...in drain application, both pumps on (level sensor only)"
+            },
+            {
+                "name": "Lead On Setpoint",
+                "id": 25,
+                "value": "level at which the lead pump is started (level sensor only)"
+            },
+            {
+                "name": "Lag On Setpoint",
+                "id": 26,
+                "value": "level at which the lag pump is started (level sensor only)"
+            },
+            {
+                "name": "All Off Setpoint",
+                "id": 27,
+                "value": "level at which all pumps are turned off (level sensor only)"
+            },
+            {
+                "name": "Low Alm Setpoint",
+                "id": 28,
+                "value": "at this level in fill application, both pumps on...in drain application, both pumps off (level sensor only)"
+            },
+            {
+                "name": "Debounce",
+                "id": 30,
+                "value": "this debounce is for all float inputs and level setpoints (secs)"
+            },
+            {
+                "name": "Start Delay",
+                "id": 31,
+                "value": "delay pump start by this much (secs)"
+            },
+            {
+                "name": "Restart Delay",
+                "id": 32,
+                "value": "delay before pump can be restarted (secs)"
+            },
+            {
+                "name": "Dual Start Delay",
+                "id": 33,
+                "value": "on dual start, delay lead pump by StartDelay, delay lag pump by this much (secs)"
+            },
+            {
+                "name": "Fault Alarm Delay",
+                "id": 34,
+                "value": "on fault detection, delay fault alarm trip by this delay (secs)"
+            },
+            {
+                "name": "Pump1 Max OnTime",
+                "id": 35,
+                "value": "max runtime for any ON cycle (mins)"
+            },
+            {
+                "name": "Pump2 Max OnTime",
+                "id": 36,
+                "value": "max runtime for any ON cycle (mins)\\nDestination Channels"
+            },
+            {
+                "name": "Level Sensor",
+                "id": 37,
+                "value": "level sensor alarm chan, used for alarm function block"
+            },
+            {
+                "name": "Pump1 Fault",
+                "id": 38,
+                "value": "pump1 fault alarm chan, used for alarm function block"
+            },
+            {
+                "name": "Pump2 Fault",
+                "id": 39,
+                "value": "pump2 fault alarm chan, used for alarm function block"
+            },
+            {
+                "name": "Phase Fault",
+                "id": 40,
+                "value": "phase fault alarm chan, used for alarm function block"
+            },
+            {
+                "name": "Low Alm Float",
+                "id": 41,
+                "value": "low alarm float alarm chan, used for alarm function block"
+            },
+            {
+                "name": "High Alm Float",
+                "id": 42,
+                "value": "high alarm float alarm chan, used for alarm function block"
+            },
+            {
+                "name": "Pump1 Start",
+                "id": 43,
+                "value": "digital output channel for pump1 start, used to preset channel"
+            },
+            {
+                "name": "Pump2 Start",
+                "id": 44,
+                "value": "digital output channel for pump2 start, used to preset channel"
+            },
+            {
+                "name": "Lead Float",
+                "id": 45,
+                "value": "lead pump float chan, used to preset channel"
+            },
+            {
+                "name": "Lag Float",
+                "id": 46,
+                "value": "lag pump float chan, used to preset channel"
+            },
+            {
+                "name": "Off Float",
+                "id": 47,
+                "value": "off pump float chan, used to preset channel"
+            }
+        ]
+    },
+    "18": {
+        "title": "MODBUS Master Dictionary (18)",
+        "description": "",
+        "notes": [],
+        "parameters": [
+            {
+                "name": "Name",
+                "id": 1,
+                "value": "representative register name (31 chars)"
+            },
+            {
+                "name": "Enable",
+                "id": 2,
+                "value": "0=disabled, 1=enabled"
+            },
+            {
+                "name": "Link Type",
+                "id": 3,
+                "value": "physical link type, 0=RTU, 1=TCP"
+            },
+            {
+                "name": "SlaveID",
+                "id": 4,
+                "value": "address of slave device to read from (1-247/255)"
+            },
+            {
+                "name": "FunctionCode",
+                "id": 6,
+                "value": "1=read coil(0x), 2=read status(1x), 3=read hold(4x), 4=read input(3x),\n5=write coil(0x), 6=write hold(4x), 15=write multiple coil(0x), 16=write multiple hold(4x)"
+            },
+            {
+                "name": "RegisterAddress",
+                "id": 7,
+                "value": "address of register in slave to read (1-65535)"
+            },
+            {
+                "name": "RegisterType",
+                "id": 8,
+                "value": "0=reg16, 1=reg32, 2=bit16, 3=bit32, 4=packed16, 5=packed32, 6=float32"
+            },
+            {
+                "name": "BitWeight",
+                "id": 9,
+                "value": "scale factor (float)"
+            },
+            {
+                "name": "Offset",
+                "id": 10,
+                "value": "scale offset (float)"
+            },
+            {
+                "name": "SignedRegister",
+                "id": 11,
+                "value": "0=register not signed, 1=register is signed"
+            },
+            {
+                "name": "DisplayPrecision",
+                "id": 12,
+                "value": "decimal places to show in value (0-8)"
+            },
+            {
+                "name": "ByteOrder(Endian)",
+                "id": 13,
+                "value": "0=LSB first (little), 1=MSB first (big)"
+            },
+            {
+                "name": "BitNumber",
+                "id": 14,
+                "value": "for extracting single bit from packed register (0-32, 0=leave packed)"
+            },
+            {
+                "name": "PackedMask",
+                "id": 15,
+                "value": "used to mask unwanted bits in packed register (0x0-0xFFFFFFFF)"
+            }
+        ]
+    },
+    "19": {
+        "title": "MODBUS Slave Dictionary (19)",
+        "description": "",
+        "notes": [],
+        "parameters": [
+            {
+                "name": "Name",
+                "id": 1,
+                "value": "representative register name (31 chars)"
+            },
+            {
+                "name": "Enable",
+                "id": 2,
+                "value": "0=disabled, 1=enabled"
+            },
+            {
+                "name": "Link Type",
+                "id": 3,
+                "value": "physical link type, 0=RTU, 1=TCP"
+            },
+            {
+                "name": "SourceChannel",
+                "id": 5,
+                "value": "use value from this Channel for Slave data"
+            },
+            {
+                "name": "FunctionCode",
+                "id": 6,
+                "value": "1=read coil(0x), 3=read hold(4x), 5=write coil(0x), 6=write hold(4x), 15=write multiple coil(0x), 16=write multiple hold(4x)"
+            },
+            {
+                "name": "RegisterType",
+                "id": 8,
+                "value": "0=reg16, 1=reg32, 6=float32"
+            },
+            {
+                "name": "BitWeight",
+                "id": 9,
+                "value": "scale factor (float)"
+            },
+            {
+                "name": "Offset",
+                "id": 10,
+                "value": "scale offset (float)"
+            },
+            {
+                "name": "SignedRegister",
+                "id": 11,
+                "value": "0=register not signed, 1=register is signed"
+            },
+            {
+                "name": "DisplayPrecision",
+                "id": 12,
+                "value": "decimal positions to show in value (0-8)"
+            },
+            {
+                "name": "ByteOrder(Endian)",
+                "id": 13,
+                "value": "0=LSB first (little), 1=MSB first (big)"
+            }
+        ]
+    }
+};
+
+        const dictionarySelect = document.getElementById('dictionarySelect');
+        const searchInput = document.getElementById('searchInput');
+        const content = document.getElementById('content');
+        let currentDictionary = null;
+
+        // Populate dropdown
+        const sortedKeys = Object.keys(dictionariesData).sort((a, b) => parseInt(a) - parseInt(b));
+        sortedKeys.forEach(key => {
+            const dict = dictionariesData[key];
+            const option = document.createElement('option');
+            option.value = key;
+            option.textContent = dict.title;
+            dictionarySelect.appendChild(option);
+        });
+
+        // Display dictionary
+        function displayDictionary(key) {
+            const dict = dictionariesData[key];
+            if (!dict) return;
+
+            currentDictionary = key;
+            searchInput.value = '';
+
+            let html = `<div class="dictionary-view active">
+                <div class="dictionary-title">${dict.title}</div>`;
+
+            if (dict.description) {
+                html += `<div class="dictionary-description">${dict.description.replace(/\n/g, '<br>')}</div>`;
+            }
+
+            if (dict.notes && dict.notes.length > 0) {
+                html += `<div class="dictionary-notes"><strong>Notes:</strong><ul>`;
+                dict.notes.forEach(note => {
+                    if (note.trim()) html += `<li>${note}</li>`;
+                });
+                html += `</ul></div>`;
+            }
+
+            if (dict.parameters && dict.parameters.length > 0) {
+                dict.parameters.forEach(param => {
+                    const searchData = `${param.name} ${param.id} ${param.value}`.toLowerCase();
+                    html += `<div class="parameter" data-search="${searchData}">
+                        <div class="param-header">
+                            <div class="param-name">${param.name}</div>
+                            <div class="param-id">ID: ${param.id}</div>
+                        </div>
+                        <div class="param-value">${param.value.replace(/\n/g, '<br>')}</div>
+                    </div>`;
+                });
+            }
+
+            html += `</div>`;
+            content.innerHTML = html;
+        }
+
+        // Search functionality - searches across ALL dictionaries
+        function performSearch(query) {
+            if (!query) {
+                // If no query and a dictionary is selected, just show that dictionary
+                if (currentDictionary) {
+                    displayDictionary(currentDictionary);
+                }
+                return;
+            }
+
+            const searchLower = query.toLowerCase();
+            let resultsHtml = `<div class="dictionary-view active">
+                <div class="dictionary-title">Search Results for "${query}"</div>`;
+            
+            let totalMatches = 0;
+
+            // Search through all dictionaries
+            const sortedKeys = Object.keys(dictionariesData).sort((a, b) => parseInt(a) - parseInt(b));
+            sortedKeys.forEach(key => {
+                const dict = dictionariesData[key];
+                let dictMatches = [];
+
+                if (dict.parameters && dict.parameters.length > 0) {
+                    dict.parameters.forEach(param => {
+                        const searchData = `${param.name} ${param.id} ${param.value}`.toLowerCase();
+                        if (searchData.includes(searchLower)) {
+                            dictMatches.push(param);
+                        }
+                    });
+                }
+
+                // If this dictionary has matches, add a section for it
+                if (dictMatches.length > 0) {
+                    totalMatches += dictMatches.length;
+                    resultsHtml += `<div style="margin-top: 30px; padding: 15px; background: #f8f9fa; border-radius: 8px;">
+                        <h3 style="color: var(--primary-color); margin-bottom: 15px; cursor: pointer;" 
+                            onclick="dictionarySelect.value='${key}'; dictionarySelect.dispatchEvent(new Event('change'));">
+                            📁 ${dict.title} (${dictMatches.length} matches)
+                        </h3>`;
+                    
+                    dictMatches.forEach(param => {
+                        const searchData = `${param.name} ${param.id} ${param.value}`.toLowerCase();
+                        resultsHtml += `<div class="parameter highlight" data-search="${searchData}">
+                            <div class="param-header">
+                                <div class="param-name">${param.name}</div>
+                                <div class="param-id">ID: ${param.id}</div>
+                            </div>
+                            <div class="param-value">${param.value.replace(/\\n/g, '<br>')}</div>
+                        </div>`;
+                    });
+                    
+                    resultsHtml += `</div>`;
+                }
+            });
+
+            if (totalMatches === 0) {
+                resultsHtml += `<div class="no-results">
+                    <h2>No matches found</h2>
+                    <p>Try different search terms</p>
+                </div>`;
+            } else {
+                resultsHtml = resultsHtml.replace('Search Results for', `Search Results (${totalMatches} matches) for`);
+            }
+
+            resultsHtml += `</div>`;
+            content.innerHTML = resultsHtml;
+            currentDictionary = null; // Clear current dictionary when searching
+        }
+
+        // Event listeners
+        dictionarySelect.addEventListener('change', (e) => {
+            searchInput.value = ''; // Clear search when selecting a dictionary
+            if (e.target.value) {
+                displayDictionary(e.target.value);
+            } else {
+                currentDictionary = null;
+                content.innerHTML = '<div class="no-results"><h2>Select a Dictionary</h2><p>Choose a dictionary from the dropdown menu above</p></div>';
+            }
+        });
+
+        searchInput.addEventListener('input', (e) => {
+            performSearch(e.target.value);
+        });
+    </script>
+</body>
+</html>
