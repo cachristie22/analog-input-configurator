@@ -4,15 +4,103 @@
   <meta charset="UTF-8">
   <title>Aquavx Pro/Pro Plus Configuration Form</title>
   <style>
-    body { font-family: Arial, sans-serif; padding: 20px; }
-    h1 { margin-bottom: 16px; }
-    .controls { margin-bottom: 16px; }
-    .controls > * { margin-right: 8px; }
-    table { border-collapse: collapse; width: 100%; }
-    td, th { border: 1px solid #ccc; padding: 8px; vertical-align: top; }
-    input[type="text"], select { width: 100%; box-sizing: border-box; background-color: #f0f0f0; border: 1px solid #aaa; padding: 4px; }
-    .section-header-cell { font-weight: bold; background-color: #e8e8e8; }
-    .example-row td { color: #007acc; font-style: italic; }
+    /* CSS Reset and normalization */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    
+    body { 
+      font-family: Arial, sans-serif; 
+      padding: 20px;
+      line-height: 1.4;
+    }
+    
+    h1 { 
+      margin-bottom: 16px;
+      font-size: 24px;
+      font-weight: bold;
+    }
+    
+    .controls { 
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    
+    button {
+      background-color: #007acc;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      padding: 8px 16px;
+      font-size: 14px;
+      font-family: Arial, sans-serif;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+    
+    button:hover {
+      background-color: #005a9e;
+    }
+    
+    button:active {
+      background-color: #004578;
+    }
+    
+    label {
+      font-size: 14px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+    }
+    
+    input[type="file"] {
+      font-size: 14px;
+      font-family: Arial, sans-serif;
+    }
+    
+    table { 
+      border-collapse: collapse; 
+      width: 100%;
+      font-size: 13px;
+    }
+    
+    td, th { 
+      border: 1px solid #ccc; 
+      padding: 8px; 
+      vertical-align: top;
+    }
+    
+    input[type="text"], select { 
+      width: 100%; 
+      box-sizing: border-box; 
+      background-color: #f0f0f0; 
+      border: 1px solid #aaa; 
+      padding: 4px;
+      font-size: 13px;
+      font-family: Arial, sans-serif;
+      border-radius: 2px;
+    }
+    
+    select {
+      cursor: pointer;
+    }
+    
+    input[type="text"]:focus, select:focus {
+      outline: 2px solid #007acc;
+      outline-offset: 0;
+    }
+    
+    .section-header-cell { 
+      font-weight: bold; 
+      background-color: #e8e8e8;
+    }
+    
+    .example-row td { 
+      color: #007acc; 
+      font-style: italic;
+    }
   </style>
 </head>
 <body>
@@ -107,7 +195,7 @@
 <tr><td></td><td>Receive Channel 2:</td><td><input type="text" data-address="85_2" /></td><td><input type="text" data-address="85_3" /></td><td colspan="3"><input type="text" data-address="85_4" /></td><td></td><td></td><td></td><td></td><td></td></tr>
 <tr><td></td><td>Receive Channel 3:</td><td><input type="text" data-address="86_2" /></td><td><input type="text" data-address="86_3" /></td><td colspan="3"><input type="text" data-address="86_4" /></td><td></td><td></td><td></td><td></td><td></td></tr>
   </table>
-  v. 0.5 518
+  v. 0.6 518
   <script>
     function exportData() {
       const inputs = document.querySelectorAll('table input[data-address], table select[data-address]');
